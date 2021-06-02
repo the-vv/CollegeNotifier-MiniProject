@@ -2,7 +2,7 @@
 
 require 'connection.php';
 
-$TableName = 'students';
+$TableName = 'events';
 
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -10,12 +10,12 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
         class_id INT(6) UNSIGNED,
-        parent_id INT(6) UNSIGNED,
-        roll_no VARCHAR(5) NOT NULL,
-        student_name VARCHAR(50) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        phone VARCHAR(10),
-        student_password VARCHAR(200),
+        from_level INT(1) UNSIGNED NOT NULL,
+        to_level INT(1) UNSIGNED NOT NULL,
+        content VARCHAR(10000),
+        sendtime INT(15) NOT NULL,
+        fromid INT(6) NOT NULL,
+        attatchement VARCHAR(500),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
         FOREIGN KEY (batch_id) REFERENCES batches(id),
@@ -26,44 +26,44 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $student_password)
+function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $from = '', $to = '', $content = '', $time = '', $fromid = '', $attatchement = '')
 {
     global $TableName, $connection;
     $query = "INSERT INTO $TableName (
-            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
+            dpt_id, college_id, batch_id, class_id, from_level, to_level, content, sendtime, fromid, attatchement
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_no, $name, $email, $phone, $student_password)) {
-            echo "Error Creating student values Error: " . $safeQuery->error;
+        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id,  $from, $to, $content, $time, $fromid, $attatchement)) {
+            echo "Error Creating event values Error: " . $safeQuery->error;
             return false;
         }
         if (!$safeQuery->execute()) {
-            echo "Error Creating class Error: " . $safeQuery->error;
+            echo "Error Creating event Error: " . $safeQuery->error;
             return false;
         }
         $safeQuery->close();
     } else {
-        echo "Error Creating student Error: " . mysqli_error($connection);
+        echo "Error Creating event Error: " . mysqli_error($connection);
         return false;
     }
     return true;
 }
 
-function get_student($id)
+function get_event($id)
 {
     global $TableName, $connection;
     $query = "SELECT * from $TableName WHERE id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
-            echo "Error getting student values Error: " . $safeQuery->error;
+            echo "Error getting event values Error: " . $safeQuery->error;
             return false;
         }
         if (!$safeQuery->execute()) {
-            echo "Error getting student Error: " . $safeQuery->error;
+            echo "Error getting event Error: " . $safeQuery->error;
             return false;
         }
         $res = $safeQuery->get_result();
@@ -75,4 +75,5 @@ function get_student($id)
     }
     return false;
 }
+
 

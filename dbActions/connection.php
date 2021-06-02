@@ -1,10 +1,10 @@
 <?php
 
 // Global Database Variables
-$databaseName = 'collegeapp';
 $host = 'localhost';
 $username = 'root';
 $password = '';
+$databaseName = 'collegeapp';
 
 // Connection
 $connection = mysqli_connect($host, $username, $password);
