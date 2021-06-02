@@ -13,7 +13,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         tutor_id INT(6) UNSIGNED,
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
-        FOREIGN KEY (batch_id) REFERENCES batches(id)
+        FOREIGN KEY (batch_id) REFERENCES batches(id),
     )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $TableName " . mysqli_error($connection);

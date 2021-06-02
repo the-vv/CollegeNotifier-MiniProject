@@ -2,7 +2,7 @@
 
 require 'connection.php';
 
-$TableName = 'messages';
+$TableName = 'admins';
 
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -10,11 +10,11 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
         class_id INT(6) UNSIGNED,
-        from_level INT(1) UNSIGNED NOT NULL,
-        to_level INT(1) UNSIGNED NOT NULL,
-        content VARCHAR(10000),
-        sendtime INT(15) NOT NULL,
-        fromid INT(6) NOT NULL,
+        admin_level INT(1) UNSIGNED,
+        admin_name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        phone VARCHAR(10),
+        admin_password VARCHAR(200),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
         FOREIGN KEY (batch_id) REFERENCES batches(id),
@@ -25,44 +25,44 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_message($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $from = '', $to = '', $content = '', $time = '', $fromid = '')
+function create_admin($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $admin_level = '', $name = '', $email = '', $phone = '', $admin_password)
 {
     global $TableName, $connection;
     $query = "INSERT INTO $TableName (
-            dpt_id, college_id, batch_id, class_id, from_level, to_level, content, sendtime, fromid
+            dpt_id, college_id, batch_id, class_id, admin_level, admin_name, email, phone, admin_password
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssssssss', $dpt_id, $college_id, $batch_id, $class_id,  $from, $to, $content, $time, $fromid)) {
-            echo "Error Creating message values Error: " . $safeQuery->error;
+        if (!$safeQuery->bind_param('sssssssss', $dpt_id, $college_id, $batch_id, $class_id, $admin_level, $name, $email, $phone, $admin_password)) {
+            echo "Error Creating Admin values Error: " . $safeQuery->error;
             return false;
         }
         if (!$safeQuery->execute()) {
-            echo "Error Creating message Error: " . $safeQuery->error;
+            echo "Error Creating class Error: " . $safeQuery->error;
             return false;
         }
         $safeQuery->close();
     } else {
-        echo "Error Creating message Error: " . mysqli_error($connection);
+        echo "Error Creating Admin Error: " . mysqli_error($connection);
         return false;
     }
     return true;
 }
 
-function get_message($id)
+function get_admin($id)
 {
     global $TableName, $connection;
     $query = "SELECT * from $TableName WHERE id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
-            echo "Error getting message values Error: " . $safeQuery->error;
+            echo "Error getting Admin values Error: " . $safeQuery->error;
             return false;
         }
         if (!$safeQuery->execute()) {
-            echo "Error getting message Error: " . $safeQuery->error;
+            echo "Error getting Admin Error: " . $safeQuery->error;
             return false;
         }
         $res = $safeQuery->get_result();
