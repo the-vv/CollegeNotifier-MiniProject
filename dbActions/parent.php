@@ -6,9 +6,9 @@ $TableName = 'parents';
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
     phone VARCHAR(15),
-    password VARCHAR(200) NOT NULL
+    password VARCHAR(255) NOT NULL
 )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $TableName" . mysqli_error($connection);

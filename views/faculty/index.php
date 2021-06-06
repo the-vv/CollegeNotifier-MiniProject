@@ -1,10 +1,10 @@
 <?php
 
-if (!isset($_COOKIE['adminUser'])) {
-    header('Location:admin/login');
+if (!isset($_COOKIE['facultyUser'])) {
+    header('Location:faculty/login');
     // echo "<script type='text/javascript'>location.href = 'admin/login';</script>";
 }
 else {
-    require 'colleges.php';
+    echo "logged in";
 }
 ?>

@@ -69,7 +69,3 @@ function get_classes($id)
     }
     return false;
 }
-
-
-create_class(2, 3, 1, 'A', 2);
-var_dump(get_classes(1));

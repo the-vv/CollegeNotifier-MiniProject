@@ -10,9 +10,9 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         college_id INT(6) UNSIGNED,
         staff_type VARCHAR(20),
         staff_name VARCHAR(50) NOT NULL,
-        email VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
         phone VARCHAR(10),
-        staff_password VARCHAR(200),
+        staff_password VARCHAR(255),
         CHECK (staff_type IN ('teaching', 'non-teaching')),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id)
