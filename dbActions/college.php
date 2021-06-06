@@ -1,6 +1,6 @@
 <?php
 
-require 'connection.php';
+require_once 'connection.php';
 // TODO: add referemce to owner_id
 $college_table = 'college';
 $create_query = "CREATE TABLE IF NOT EXISTS $college_table (

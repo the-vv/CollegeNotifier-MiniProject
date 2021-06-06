@@ -1,7 +1,7 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $colleges = get_colleges($user['id']);
 ?>

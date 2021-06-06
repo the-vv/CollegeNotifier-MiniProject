@@ -1,6 +1,6 @@
 <?php
 
-require 'connection.php';
+require_once 'connection.php';
 
 $TableName = 'classes';
 // TODO: add Reference to tutor id

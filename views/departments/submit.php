@@ -3,15 +3,21 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+$cid = 0;
+if (isset($query_params['cid'])) {
+    $cid = $query_params['cid'];
+}
+else {
+    $error_mes = 'College Id is invalid please try again.';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    die();
+}
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 if (isset($_POST['create'])) {
-    global $user;
-    $oid = $user['id'];
     $name = $_POST['name'];
-    $address = $_POST['address'];
-    $website = $_POST['website'];
-    $phone = $_POST['phone'];
-    $res = create_college($name, $address, $website, $phone, $oid);
+    $category = $_POST['category'];
+    $res = create_dpt($cid, $name, $category);
     if (isset($res['success'])) {
         echo "
         <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
@@ -24,10 +30,10 @@ if (isset($_POST['create'])) {
                     <div class='alert alert-success d-flex align-items-center' role='alert'>
                         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#check-circle-fill'/></svg>
                     <div>
-                        College $name created successfully
+                        Department $name created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../college?id=$oid'>Go to college</a></span>
+                <span>Go to <a href='../department?cid=$cid'>Go to Department</a></span>
             </div>
         </div>
         ";

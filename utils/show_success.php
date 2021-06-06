@@ -1,5 +1,5 @@
 <?php
-$success_to_show = $success_mess ? $success_mess :'Action has been completed successfully';
+$success_to_show = $success_mess ? $success_mess : 'Action has been completed successfully';
 echo "
 <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
 <symbol id='check-circle-fill' fill='currentColor' viewBox='0 0 16 16'>

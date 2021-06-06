@@ -5,6 +5,6 @@ if (!isset($_COOKIE['adminUser'])) {
     // echo "<script type='text/javascript'>location.href = 'admin/login';</script>";
 }
 else {
-    require 'colleges.php';
+    require_once 'colleges.php';
 }
 ?>

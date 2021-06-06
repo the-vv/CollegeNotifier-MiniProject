@@ -1,6 +1,6 @@
 <?php
 
-require 'connection.php';
+require_once 'connection.php';
 
 $department_table_name = 'departments';
 $create_query = "CREATE TABLE IF NOT EXISTS $department_table_name (

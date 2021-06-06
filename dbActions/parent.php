@@ -1,6 +1,6 @@
 <?php
 
-require 'connection.php';
+require_once 'connection.php';
 
 $TableName = 'parents';
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
