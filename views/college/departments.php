@@ -1,12 +1,13 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
-$colleges = get_colleges($user['id']);
+$departments = get_colleges($user['id']);
 ?>
 
-<div class="container shadow rounded border" id="colleges" style="min-height: 80vh">
+
+<div class="container shadow rounded border" id="departments" style="min-height: 80vh">
     <div class="row mt-4 text-center">
         <h2>
             Welcome, <?php echo $user['admin_name'] ?>
@@ -18,21 +19,21 @@ $colleges = get_colleges($user['id']);
     <hr>
     <div class="row mb-5">
         <div class="h4 text-center my-4">
-            Colleges managed by you
+            departments managed by you
         </div>
         <ul class="list-group px-5">
-            <?php foreach ($colleges as $college) {
+            <?php foreach ($departments as $dept) {
                 echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <div class='h6 d-block text-truncate'>{$college['college_name']}</div>
-                    <a href='college?id={$college['id']}' class='btn btn-success px-md-5 strong'>
+                    <div class='h6 d-block text-truncate'>{$dept['college_name']}</div>
+                    <a href='college?id={$dept['id']}' class='btn btn-success px-md-5 strong'>
                         Go
                     </a>
                 </li>
                 ";
             } ?>
             <li class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
-                <span class="h5">Create a college now:</span>
+                <span class="h5">Create a Department now:</span>
                 <a href="college/create" class="btn btn-info px-md-5 strong">
                     Create
                 </a>

@@ -2,6 +2,15 @@
 
 $request = $_SERVER['REQUEST_URI'];
 
+$parts = parse_url($request);
+$query_params = null;
+if(isset($parts['query'])) {
+    parse_str($parts['query'], $query_params);
+}
+
+$request = explode('?', $request)[0];
+ // Use $query_params for query params
+
 require __DIR__ . './public/header.php';
 
 switch ($request) {
@@ -22,6 +31,15 @@ switch ($request) {
         break;
     case '/admin/submit':
         require __DIR__ . '/views/admin/submit.php';
+    break;       
+    case '/college':
+        require __DIR__ . '/views/college/index.php';
+        break;
+    case '/college/create':
+        require __DIR__ . '/views/college/create.html';
+        break;
+    case '/college/submit':
+        require __DIR__ . '/views/college/submit.php';
     break;    
     case '/faculty':
         require __DIR__ . '/views/faculty/index.php';
