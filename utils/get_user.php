@@ -1,6 +1,6 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
 function get_current_logged_user()
 {
     if (isset($_COOKIE['adminUser'])) {

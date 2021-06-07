@@ -49,6 +49,15 @@ switch ($request) {
         break;
     case '/department/submit':
         require_once __DIR__ . '/views/departments/submit.php';
+    break;                 
+    case '/batch':
+        require_once __DIR__ . '/views/batch/index.php';
+        break;
+    case '/batch/create':
+        require_once __DIR__ . '/views/batch/create.php';
+        break;
+    case '/batch/submit':
+        require_once __DIR__ . '/views/batch/submit.php';
     break;    
     case '/faculty':
         require_once __DIR__ . '/views/faculty/index.php';

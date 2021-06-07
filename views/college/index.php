@@ -8,13 +8,13 @@ if(isset($query_params['id'])) {
     // print_r($college);
     if(count($college) < 1) {
         $error_mess = 'College Id is invalid, Please try again';
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     } else {
         require_once 'departments.php';
     }
 }
 else{
     $error_mess = 'College Id not provided';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
 }
 ?>

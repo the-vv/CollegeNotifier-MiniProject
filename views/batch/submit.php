@@ -6,18 +6,29 @@ $user = get_current_logged_user();
 $cid = 0;
 if (isset($query_params['cid'])) {
     $cid = $query_params['cid'];
-}
-else {
+} else {
     $error_mes = 'College Id is invalid please try again.';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    die();
+}
+$did = 0;
+if (isset($query_params['did'])) {
+    $did = $query_params['did'];
+} else {
+    $error_mes = 'Department Id is invalid please try again.';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
 if (isset($_POST['create'])) {
-    $name = $_POST['name'];
-    $category = $_POST['category'];
-    $res = create_dpt($cid, $name, $category);
+    $smonth = $_POST['smonth'];
+    $emonth = $_POST['emonth'];
+    $syear = explode('-', $smonth)[0];
+    $smonth = explode('-', $smonth)[1];
+    $eyear = explode('-', $emonth)[0];
+    $emonth = explode('-', $emonth)[1];
+    $res = create_batch($did, $cid, $syear, $smonth, $eyear, $emonth);
     if (isset($res['success'])) {
         echo "
         <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
@@ -30,15 +41,14 @@ if (isset($_POST['create'])) {
                     <div class='alert alert-success d-flex align-items-center' role='alert'>
                         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#check-circle-fill'/></svg>
                     <div>
-                        Department $name created successfully
+                        Batch created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../college?id=$cid'>Go to Departments</a></span>
+                <span>Go to <a href='../department?id=$did&cid=$cid'>Go to Departments</a></span>
             </div>
         </div>
         ";
-    }
-    elseif(isset($res['error'])) {
+    } elseif (isset($res['error'])) {
         echo "
         <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
         <symbol id='exclamation-triangle-fill' fill='currentColor' viewBox='0 0 16 16'>
