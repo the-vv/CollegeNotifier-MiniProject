@@ -17,11 +17,11 @@ if (isset($query_params['id'])) {
         die();
     }
     $department = get_dpt($query_params['did'])[0];
-    // print_r($department);
+    print_r($department);
     $college = get_college($query_params['cid'])[0];
-    // print_r($college);
+    print_r($college);
     $batch = get_batch($query_params['id'])[0];
-    // print_r($batch);
+    print_r($batch);
     if($batch['dpt_id'] != $department['id']) {
         $error_mess = 'Department Id mismatch';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';

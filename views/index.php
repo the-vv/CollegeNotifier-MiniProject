@@ -13,7 +13,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Student</h5>
                                 <p class="card-text">Login as a student, then join a college and room to acces and manage nofitications</p>
-                                <a href="#" class="btn btn-primary">Log in/ Sign up</a>
+                                <a href="#" class="btn btn-primary">Explore</a>
                             </div>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Parent/ Guardian</h5>
                                 <p class="card-text">Login as a parent and monitor your associated children's status</p>
-                                <a href="#" class="btn btn-primary">Log in/ Sign up</a>
+                                <a href="#" class="btn btn-primary">Explore</a>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Faculty/ Teacher</h5>
                                 <p class="card-text">Login as a teaching or a non-teaching staff in college and manage your rooms</p>
-                                <a href="#" class="btn btn-primary">Log in/ Sign up</a>
+                                <a href="#" class="btn btn-primary">Explore</a>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">College Authority</h5>
                                 <p class="card-text">Login as an Admin College Authority and manage the college and its rooms</p>
-                                <a href="admin" class="btn btn-primary">Log in/ Sign up</a>
+                                <a href="admin" class="btn btn-primary">Explore</a>
                             </div>
                         </div>
                     </div>

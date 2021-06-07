@@ -1,1 +1,1 @@
-The page looking for is not found
+The page you are looking for is not found
