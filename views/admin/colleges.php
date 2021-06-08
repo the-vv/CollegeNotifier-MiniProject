@@ -15,14 +15,21 @@ $colleges = get_colleges($user['id']);
             <?php echo $user['email'] ?>
         </h6>
     </div>
-    <hr>
+    <div class="d-flex justify-content-center border pt-2 rounded">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Colleges</a></li>
+            </ol>
+        </nav>
+    </div>
     <div class="row mb-5">
-        <div class="h4 text-center my-4">
+        <div class="h4 text-center mb-4 mt-3">
             Colleges managed by you
         </div>
         <ul class="list-group px-5">
             <?php foreach ($colleges as $college) {
-                echo "
+    echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
                     <div class='h6 d-block text-truncate'>{$college['college_name']}</div>
                     <a href='college?id={$college['id']}' class='btn btn-success px-md-5 strong'>
@@ -30,7 +37,7 @@ $colleges = get_colleges($user['id']);
                     </a>
                 </li>
                 ";
-            } ?>
+}?>
             <li class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
                 <span class="h5">Create a college now:</span>
                 <a href="college/create" class="btn btn-info px-md-5 strong">

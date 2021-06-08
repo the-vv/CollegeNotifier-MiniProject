@@ -4,11 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $department = get_dpt($query_params['did'])[0];
 $college = get_college($query_params['cid'])[0];
-$batch = get_batch($query_params['id'])[0];
+$batch = get_batch($query_params['bid'])[0];
 $classes = get_classes($department['id'], $college['id'], $batch['id']);
 ?>
 

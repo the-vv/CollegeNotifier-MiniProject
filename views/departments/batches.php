@@ -22,9 +22,18 @@ $batches = get_batches($college['id'], $department['id']);
             <?php echo $user['email'] ?>
         </h6>
     </div>
-    <hr>
+    <div class="d-flex justify-content-center border pt-2 rounded">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="college?id=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="#">Batches</a></li>
+            </ol>
+        </nav>
+    </div>
     <div class="row mb-5">
-        <div class="h4 text-center my-4">
+        <div class="h4 text-center mb-4 mt-3">
             Batches managed by you
         </div>
         <ul class="list-group px-5">

@@ -27,7 +27,7 @@ if (isset($_POST['create'])) {
                         College $name created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../college?id=$oid'>Go to college</a></span>
+                <span>Go to <a href='../admin'>Go to college</a></span>
             </div>
         </div>
         ";

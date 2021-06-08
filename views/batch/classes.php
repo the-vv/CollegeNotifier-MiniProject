@@ -21,9 +21,19 @@ $classes = get_classes($department['id'], $college['id'], $batch['id']);
             <?php echo $user['email'] ?>
         </h6>
     </div>
-    <hr>
+    <div class="d-flex justify-content-center border pt-2 rounded">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="college?id=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="department?id=<?php echo$query_params['did'] ?>&cid=<?php echo$query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a></li>
+                <li class="breadcrumb-item"><a href="#">Classes</a></li>
+            </ol>
+        </nav>
+    </div>
     <div class="row mb-5">
-        <div class="h4 text-center my-4">
+        <div class="h4 text-center mb-4 mt-3">
             Classes managed by you
         </div>
         <ul class="list-group px-5">
@@ -31,7 +41,7 @@ $classes = get_classes($department['id'], $college['id'], $batch['id']);
                 echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
                     <div class='h6 d-block text-truncate'>Class: {$class['division']} division</div>
-                    <a href='class?id={$class['id']}' class='btn btn-success px-md-5 strong'>
+                    <a href='class?id={$class['id']}&bid={$query_params['cid']}&cid={$query_params['cid']}&did={$query_params['id']}' class='btn btn-success px-md-5 strong'>
                         Go
                     </a>
                 </li>

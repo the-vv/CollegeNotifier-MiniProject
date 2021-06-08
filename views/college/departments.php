@@ -1,10 +1,11 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $departments = get_dpts($query_params['id']);
-
+$college = get_college($query_params['id'])[0];
 ?>
 
 
@@ -17,9 +18,17 @@ $departments = get_dpts($query_params['id']);
             <?php echo $user['email'] ?>
         </h6>
     </div>
-    <hr>
+    <div class="d-flex justify-content-center border pt-2 rounded">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="#">Departments</a></li>
+            </ol>
+        </nav>
+    </div>
     <div class="row mb-5">
-        <div class="h4 text-center my-4">
+        <div class="h4 text-center mb-4 mt-3">
             Departments managed by you
         </div>
         <ul class="list-group px-5">
