@@ -2,9 +2,9 @@
 
 require_once 'connection.php';
 
-$TableName = 'students';
+$student_table_name = 'students';
 
-$create_query = "CREATE TABLE IF NOT EXISTS $TableName (
+$create_query = "CREATE TABLE IF NOT EXISTS $student_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         dpt_id INT(6) UNSIGNED,
         college_id INT(6) UNSIGNED,
@@ -22,14 +22,14 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         FOREIGN KEY (class_id) REFERENCES classes(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
-    echo "Error creating Table $TableName " . mysqli_error($connection);
+    echo "Error creating Table $student_table_name " . mysqli_error($connection);
     die();
 }
 
 function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $student_password)
 {
-    global $TableName, $connection;
-    $query = "INSERT INTO $TableName (
+    global $student_table_name, $connection;
+    $query = "INSERT INTO $student_table_name (
             dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
         )
         VALUES (
@@ -54,8 +54,8 @@ function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_i
 
 function get_student($id)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE id = ?";
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
@@ -79,8 +79,8 @@ function get_student($id)
 
 function get_students_from_class($cid)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE class_id = ?";
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE class_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $cid)) {
@@ -104,8 +104,8 @@ function get_students_from_class($cid)
 
 function get_students_from_batch($bid)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE batch_id = ?";
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE batch_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $bid)) {
@@ -128,8 +128,8 @@ function get_students_from_batch($bid)
 
 function get_students_from_college($cid)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE college_id = ?";
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE college_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $cid)) {
@@ -152,8 +152,8 @@ function get_students_from_college($cid)
 
 function get_students_from_dpt($did)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE class_id = ?";
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE class_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $did)) {
@@ -173,5 +173,6 @@ function get_students_from_dpt($did)
     }
     return array("error" => true, "message" => "Unknown error has occurred");
 }
+
 
 

@@ -15,7 +15,7 @@ if (isset($query_params['did'])) {
             <form class="mt-4" action="submit?cid=<?php echo $cid ?>&did=<?php echo $did ?>" method="POST">
                 <div class="form-group mx-auto col-md-6 mt-3">
                     <label for="name">Enter Starting Month</label>
-                    <input type="month" class="form-control" name="smonth" id="name"
+                    <input type="month" class="form-control" name="smonth" id="name" required
                         aria-describedby="nameHelp" placeholder="Starting month">
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>

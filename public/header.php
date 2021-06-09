@@ -1,3 +1,8 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
+$user = get_current_logged_user();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +10,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Notifier</title> 
-    <link rel="stylesheet" href="public/styles/style.css">
+    <title>College Notifier</title>
+    <link rel="stylesheet" href="/public/styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -22,17 +28,19 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin</a>
+                        <a class="nav-link <?php if($request == '/'){ echo 'active'; } ?>" aria-current="page"
+                            href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
-                <span class="navbar-text">
-                    Logged in user
+                <span class="navbar-text text-white">
+                    <?php
+                        if(isset($user['email'])){
+                            echo $user['email'] ;
+                        }
+                     ?>
                 </span>
             </div>
         </div>

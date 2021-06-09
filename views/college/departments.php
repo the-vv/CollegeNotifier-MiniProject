@@ -18,7 +18,7 @@ $college = get_college($query_params['id'])[0];
             <?php echo $user['email'] ?>
         </h6>
     </div>
-    <div class="d-flex justify-content-center border pt-2 rounded">
+    <div class="d-flex justify-content-center border pt-2 rounded col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -28,26 +28,60 @@ $college = get_college($query_params['id'])[0];
         </nav>
     </div>
     <div class="row mb-5">
-        <div class="h4 text-center mb-4 mt-3">
-            Departments managed by you
-        </div>
-        <ul class="list-group px-5">
-            <?php foreach ($departments as $dept) {
-                echo "
+        <div class="col-md-8">
+            <div class="h4 text-center mb-4 mt-3">
+                <?php echo $college['college_name'] ?> Dashboard
+            </div>
+            <div class="row p-1 align-items-end">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h6 class="p-0 m-0">Events/ Announcements in College level</h6>
+                    <span>
+                        <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <ul class="list-group">
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <div class='h6 d-block text-truncate'>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
-                    <a href='department?id={$dept['id']}&cid={$query_params['id']}' class='btn btn-success px-md-5 strong'>
-                        Go
+                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
+                        Here is the event content
+                        <small class="small text-muted">
+                            | Content description
+                        </small>
                     </a>
                 </li>
-                ";
-            } ?>
-            <li class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
-                <span class="h5">Create a Department now:</span>
-                <a href="department/create?cid=<?php echo $query_params['id'] ?>" class="btn btn-info px-md-5 strong">
-                    Create
-                </a>
-            </li>
-        </ul>
+                <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
+                        Here is the event content
+                        <small class="small text-muted">
+                            | Content description
+                        </small>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="h4 text-center mb-4 mt-3">
+                Departments managed by you
+            </div>
+            <ul class="list-group">
+                <?php foreach ($departments as $dept) {
+                    echo "
+                    <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
+                    <div class='h6 d-block text-truncate'>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
+                        </a>
+                    </li>
+                    ";
+                } ?>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
+                    <span class="h5">Create one:</span>
+                    <a href="department/create?cid=<?php echo $query_params['id'] ?>" class="btn btn-info strong">
+                        Create
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

@@ -33,23 +33,56 @@ $batches = get_batches($college['id'], $department['id']);
         </nav>
     </div>
     <div class="row mb-5">
-        <div class="h4 text-center mb-4 mt-3">
+        <div class="col-md-8">
+            <div class="h4 text-center mb-4 mt-3">
+                <?php echo $college['college_name'] ?> Dashboard
+            </div>
+            <div class="row p-1 align-items-end">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h6 class="p-0 m-0">Events/ Announcements in College level</h6>
+                    <span>
+                        <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <ul class="list-group">
+                <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
+                        Here is the event content
+                        <small class="small text-muted">
+                            | Content description
+                        </small>
+                    </a>
+                </li>
+                <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
+                        Here is the event content
+                        <small class="small text-muted">
+                            | Content description
+                        </small>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="h4 text-center mb-4 mt-3">
             Batches managed by you
         </div>
-        <ul class="list-group px-5">
+        <ul class="list-group">
             <?php foreach ($batches as $batch) {
                 echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
+                <a href='batch?id={$batch['id']}&cid={$query_params['cid']}&did={$query_params['id']}' style='text-decoration:none' class='strong'>
                     <div class='h6 d-block text-truncate'>{$batch['start_year']} - {$batch['end_year']} Batch</div>
-                    <a href='batch?id={$batch['id']}&cid={$query_params['cid']}&did={$query_params['id']}' class='btn btn-success px-md-5 strong'>
-                        Go
                     </a>
                 </li>
                 ";
             } ?>
-            <li class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
-                <span class="h5">Create a Batch now:</span>
-                <a href="batch/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['id'] ?>" class="btn btn-info px-md-5 strong">
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
+                <span class="h5">Create one:</span>
+                <a href="batch/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['id'] ?>" class="btn btn-info strong">
                     Create
                 </a>
             </li>
