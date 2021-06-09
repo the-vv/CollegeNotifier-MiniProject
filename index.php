@@ -4,12 +4,12 @@ $request = $_SERVER['REQUEST_URI'];
 
 $parts = parse_url($request);
 $query_params = null;
-if(isset($parts['query'])) {
+if (isset($parts['query'])) {
     parse_str($parts['query'], $query_params);
 }
 
 $request = explode('?', $request)[0];
- // Use $query_params for query params
+// Use $query_params for query params
 
 require_once __DIR__ . './public/header.php';
 
@@ -31,7 +31,7 @@ switch ($request) {
         break;
     case '/admin/submit':
         require_once __DIR__ . '/views/admin/submit.php';
-    break;       
+        break;
     case '/college':
         require_once __DIR__ . '/views/college/index.php';
         break;
@@ -40,7 +40,7 @@ switch ($request) {
         break;
     case '/college/submit':
         require_once __DIR__ . '/views/college/submit.php';
-    break;           
+        break;
     case '/department':
         require_once __DIR__ . '/views/departments/index.php';
         break;
@@ -49,7 +49,7 @@ switch ($request) {
         break;
     case '/department/submit':
         require_once __DIR__ . '/views/departments/submit.php';
-    break;                 
+        break;
     case '/batch':
         require_once __DIR__ . '/views/batch/index.php';
         break;
@@ -58,7 +58,7 @@ switch ($request) {
         break;
     case '/batch/submit':
         require_once __DIR__ . '/views/batch/submit.php';
-    break;                  
+        break;
     case '/class':
         require_once __DIR__ . '/views/classes/index.php';
         break;
@@ -67,7 +67,7 @@ switch ($request) {
         break;
     case '/class/submit':
         require_once __DIR__ . '/views/classes/submit.php';
-    break;    
+        break;
     case '/faculty':
         require_once __DIR__ . '/views/faculty/index.php';
         break;
@@ -79,7 +79,7 @@ switch ($request) {
         break;
     case '/faculty/submit':
         require_once __DIR__ . '/views/faculty/submit.php';
-    break;
+        break;
     case '/logout':
         require_once __DIR__ . '/utils/logout.php';
         break;

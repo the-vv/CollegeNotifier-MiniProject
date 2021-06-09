@@ -15,12 +15,16 @@ $user = get_current_logged_user();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
-            <a class="navbar-brand" href="#">College Notifier</a>
+            <a class="navbar-brand" href="/">College Notifier</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,8 +32,9 @@ $user = get_current_logged_user();
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?php if($request == '/'){ echo 'active'; } ?>" aria-current="page"
-                            href="/">Home</a>
+                        <a class="nav-link <?php if ($request == '/') {
+    echo 'active';
+}?>" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -37,10 +42,10 @@ $user = get_current_logged_user();
                 </ul>
                 <span class="navbar-text text-white">
                     <?php
-                        if(isset($user['email'])){
-                            echo $user['email'] ;
-                        }
-                     ?>
+if (isset($user['email'])) {
+    echo $user['email'];
+}
+?>
                 </span>
             </div>
         </div>

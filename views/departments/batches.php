@@ -74,8 +74,8 @@ $batches = get_batches($college['id'], $department['id']);
             <?php foreach ($batches as $batch) {
                 echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a href='batch?id={$batch['id']}&cid={$query_params['cid']}&did={$query_params['id']}' style='text-decoration:none' class='strong'>
-                    <div class='h6 d-block text-truncate'>{$batch['start_year']} - {$batch['end_year']} Batch</div>
+                    <a href='batch?id={$batch['id']}&cid={$query_params['cid']}&did={$query_params['id']}' style='text-decoration:none' class='strong'>
+                        <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
                     </a>
                 </li>
                 ";

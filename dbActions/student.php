@@ -76,7 +76,6 @@ function get_student($id)
     return array("error" => true, "message" => "Unknown error has occurred");
 }
 
-
 function get_students_from_class($cid)
 {
     global $student_table_name, $connection;
@@ -100,7 +99,6 @@ function get_students_from_class($cid)
     }
     return array("error" => true, "message" => "Unknown error has occurred");
 }
-
 
 function get_students_from_batch($bid)
 {
@@ -174,5 +172,30 @@ function get_students_from_dpt($did)
     return array("error" => true, "message" => "Unknown error has occurred");
 }
 
-
-
+function create_multiple_students($students, $dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $student_password = '123')
+{
+    global $student_table_name, $connection;
+    $query = "INSERT INTO $student_table_name (
+            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
+        )
+        VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?
+        )";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        foreach ($students as $row) {
+            if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $row['roll'], $row['name'], $row['email'], $row['phone'], $student_password)) {
+                echo "Error Creating student values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error Creating class Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+        }
+        $safeQuery->close();
+    } else {
+        echo "Error Creating student Error: " . mysqli_error($connection);
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("success" => true, "message" => "Student created Successfully");
+}

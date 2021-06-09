@@ -27,7 +27,7 @@ $college = get_college($query_params['id'])[0];
             </ol>
         </nav>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5" style="max-height: 90vh">
         <div class="col-md-8">
             <div class="h4 text-center mb-4 mt-3">
                 <?php echo $college['college_name'] ?> Dashboard
@@ -67,14 +67,14 @@ $college = get_college($query_params['id'])[0];
             </div>
             <ul class="list-group">
                 <?php foreach ($departments as $dept) {
-                    echo "
+    echo "
                     <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
-                    <div class='h6 d-block text-truncate'>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
+                        <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
+                            <div class='h6 d-block text-truncate'><i class='fas fa-building me-1'></i>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
                         </a>
                     </li>
                     ";
-                } ?>
+}?>
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
                     <span class="h5">Create one:</span>
                     <a href="department/create?cid=<?php echo $query_params['id'] ?>" class="btn btn-info strong">
@@ -82,6 +82,11 @@ $college = get_college($query_params['id'])[0];
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
         </div>
     </div>
 </div>

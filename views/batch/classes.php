@@ -40,7 +40,7 @@ $classes = get_classes($department['id'], $college['id'], $batch['id']);
             <?php foreach ($classes as $class) {
                 echo "
                 <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <div class='h6 d-block text-truncate'>Class: {$class['division']} division</div>
+                    <div class='h6 d-block text-truncate'><i class='fas fa-chalkboard-teacher me-1'></i> Class: {$class['division']} division</div>
                     <a href='class?id={$class['id']}&bid={$query_params['id']}&cid={$query_params['cid']}&did={$query_params['did']}' class='btn btn-success px-md-5 strong'>
                         Go
                     </a>
