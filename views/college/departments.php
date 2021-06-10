@@ -92,7 +92,7 @@ $students = get_students_from_college($query_params['id']);
             </div>
             <div class="row my-3">
                 <div class="col-12 text-center mb-3">
-                    <span class="h4">Total of NAN Students Added</span>
+                    <span class="h4">Total of <?php echo count($students); ?> Students Added</span>
                 </div>
                 <div class="col-6 text-center">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>

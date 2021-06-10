@@ -199,5 +199,5 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
         echo "Error Creating student Error: " . mysqli_error($connection);
         return array("error" => true, "message" => mysqli_error($connection));
     }
-    return array("success" => true, "message" => "Student created Successfully");
+    return array("success" => true, "message" => "Students created Successfully");
 }
