@@ -1,8 +1,5 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-
-
 $request = $_SERVER['REQUEST_URI'];
 
 $parts = parse_url($request);

@@ -2,10 +2,12 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $departments = get_dpts($query_params['id']);
 $college = get_college($query_params['id'])[0];
+$students = get_students_from_college($query_params['id']);
 ?>
 
 
@@ -62,31 +64,43 @@ $college = get_college($query_params['id'])[0];
             </ul>
         </div>
         <div class="col-md-4">
-            <div class="h4 text-center mb-4 mt-3">
-                Departments managed by you
+            <div class="row">
+                <div class="col-12">
+                    <div class="h4 text-center mb-4 mt-3">
+                        Departments managed by you
+                    </div>
+                    <ul class="list-group">
+                        <?php foreach ($departments as $dept) {
+                        echo "
+                            <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
+                                    <div class='h6 d-block text-truncate'><i class='fas fa-building me-1'></i>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
+                                </a>
+                            </li>
+                            ";
+                        }?>
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
+                            <span class="h5">Create one:</span>
+                            <a href="department/create?cid=<?php echo $query_params['id'] ?>"
+                                class="btn btn-info strong">
+                                Create
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul class="list-group">
-                <?php foreach ($departments as $dept) {
-    echo "
-                    <li class='list-group-item d-flex justify-content-between align-items-center'>
-                        <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
-                            <div class='h6 d-block text-truncate'><i class='fas fa-building me-1'></i>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
-                        </a>
-                    </li>
-                    ";
-}?>
-                <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
-                    <span class="h5">Create one:</span>
-                    <a href="department/create?cid=<?php echo $query_params['id'] ?>" class="btn btn-info strong">
-                        Create
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
+            <div class="row my-3">
+                <div class="col-12 text-center mb-3">
+                    <span class="h4">Total of NAN Students Added</span>
+                </div>
+                <div class="col-6 text-center">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                </div>
+                <div class="col-6 text-center">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -172,23 +172,25 @@ function get_students_from_dpt($did)
     return array("error" => true, "message" => "Unknown error has occurred");
 }
 
-function create_multiple_students($students, $dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $student_password = '123')
+function create_multiple_students($students, $dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $phone = 0, $roll = 0, $parent_id = '', $student_password = '123')
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
             dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         foreach ($students as $row) {
-            if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $row['roll'], $row['name'], $row['email'], $row['phone'], $student_password)) {
+            $roll_number = isset($row['roll']) ? $row['roll'] : $roll;
+            $phone_number = isset($row['phone']) ? $row['roll'] : $phone;
+            if (!$safeQuery->bind_param('iiiiiissss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_number, $row['name'], $row['email'], $phone_number, $student_password)) {
                 echo "Error Creating student values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
             if (!$safeQuery->execute()) {
-                echo "Error Creating class Error: " . $safeQuery->error;
+                echo "Error Creating Stundnt Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
         }

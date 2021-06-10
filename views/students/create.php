@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modelSingle">
-    Launch static backdrop modal
+<button type="button" class="btn btn-outline-primary rounded rounded-pill w-100" data-bs-toggle="modal" data-bs-target="#modelSingle">
+    Create/Add
 </button>
 
 <!-- Modal -->
@@ -14,17 +14,17 @@
             </div>
             <div class="modal-body">
                 <div class="col-12">
-                    <p class="h6">Create single student:</p>
+                    <p class="h6 text-start">Create single student:</p>
                     <form class="row gx-1 align-items-end" action="students/submit" method="POST">
-                        <div class="form-group col-12 col-md-5">
+                        <div class="form-group col-12 col-md-5 text-start">
                             <label for="name">Email Id*</label>
-                            <input type="text" class="form-control" name="name" id="name" required
+                            <input type="text" class="form-control" name="email" id="name" required
                                 aria-describedby="nameHelp" placeholder="Create Email">
                             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                         </div>
-                        <div class="form-group col-8 col-md-5">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="text" class="form-control" name="category" id="exampleInputcategory1"
+                        <div class="form-group col-8 col-md-5 text-start">
+                            <label for="exampleInputEmail1">Full Name</label>
+                            <input type="text" class="form-control" name="name" id="exampleInputcategory1"
                                 aria-describedby="categoryHelp" placeholder="Create Password">
                             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                         </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                <button type="button" class="btn btn-primary" data-bs-target="#modelMultiple" data-bs-toggle="modal"
+                <button type="button" class="btn btn-secondary" data-bs-target="#modelMultiple" data-bs-toggle="modal"
                     data-bs-dismiss="modal">Create Multiple</button>
             </div>
         </div>
@@ -53,13 +53,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>
-                    &nbsp;</p>
-                <div id="div1" style="width: '100%';" align="center">
-                </div>
-                <br />
-                <br />
-                <input type="button" value="Click To Read Your Cell (1,1) Value" onclick="ReadData(1,1);" />
+                <form action="students/submit?cid=<?php echo $query_params['id'] ?>" method="post"
+                    enctype="multipart/form-data" id="fileForm">
+                    <div class="mb-3 text-start">
+                        <label for="formFile" class="form-label">Select Excel files with student details</label>
+                        <input class="form-control" type="file" id="formFile" class="btn btn-primary" name="students"
+                            required>
+                    </div>
+                </form>
+                <div class="text-end"><a href="/uploads/students-template.xlsx" download> Download template Excel
+                        here</a></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#modelSingle" data-bs-toggle="modal"
@@ -70,12 +73,11 @@
     </div>
 </div>
 
-<script language = "javascript" >
-    function ReadData(cell, row) {
-        var excel = new ActiveXObject("Excel.Application");
-        var excel_file = excel.Workbooks.Open("C:\\RS_Data\\MyFile.xls");
-        var excel_sheet = excel.Worksheets("Sheet1");
-        var data = excel_sheet.Cells(cell, row).Value;
-        document.getElementById('div1').innerText = data;
+<script type="text/javascript">
+document.getElementById("submitMultiple").onclick = function() {
+    if (document.getElementById("formFile").value) {
+        document.getElementById('fileForm').submit();
+    } else {
     }
+}
 </script>
