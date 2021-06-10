@@ -1,5 +1,8 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
+
+
 $request = $_SERVER['REQUEST_URI'];
 
 $parts = parse_url($request);
@@ -82,6 +85,9 @@ switch ($request) {
         break;
     case '/logout':
         require_once __DIR__ . '/utils/logout.php';
+        break;        
+    case '/students/submit':
+        require_once __DIR__ . '/views/students/submit.php';
         break;
     default:
         http_response_code(404);
