@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
 $user = get_current_logged_user();
-if (isset($query_params['id'])) {    
+if (isset($query_params['clid'])) {    
     if (!isset($query_params['did'])) {
         $error_mess = 'Department Id not provided';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
@@ -23,13 +23,13 @@ if (isset($query_params['id'])) {
         die();
     }
     $department = get_dpt($query_params['did'])[0];
-    echo "dept"; print_r($department);
+    // echo "dept"; print_r($department);
     $college = get_college($query_params['cid'])[0];
-    echo "<br>college"; print_r($college);
+    // echo "<br>college"; print_r($college);
     $batch = get_batch($query_params['bid'])[0];
-    echo "<br>batch"; print_r($batch);
-    $class = get_a_class($query_params['id'])[0];
-    echo "<br>class"; print_r($class);
+    // echo "<br>batch"; print_r($batch);
+    $class = get_a_class($query_params['clid'])[0];
+    // echo "<br>class"; print_r($class);
     if($class['batch_id'] != $batch['id']) {
         $error_mess = 'Batch Id mismatch';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';

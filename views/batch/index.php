@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
 $user = get_current_logged_user();
-if (isset($query_params['id'])) {    
+if (isset($query_params['bid'])) {    
     if (!isset($query_params['cid'])) {
         $error_mess = 'College Id not provided';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
@@ -20,7 +20,7 @@ if (isset($query_params['id'])) {
     // print_r($department);
     $college = get_college($query_params['cid'])[0];
     // print_r($college);
-    $batch = get_batch($query_params['id'])[0];
+    $batch = get_batch($query_params['bid'])[0];
     // print_r($batch);
     if($batch['dpt_id'] != $department['id']) {
         $error_mess = 'Department Id mismatch';

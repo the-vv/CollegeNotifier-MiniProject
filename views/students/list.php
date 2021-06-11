@@ -19,7 +19,7 @@
                     foreach ($students as $s) {
                         echo "<li class='list-group-item d-inline-block text-truncate text-start d-flex align-items-center'>\n";
                         echo "<span class='d-inline-block'><i class='bi bi-person me-3' style='font-size:2rem'></i></span>\n";
-                        echo "<span class='d-inline-block'>{$s['student_name']}<br>\n";
+                        echo "<span class='d-inline-block'><strong>{$s['student_name']}</strong><br>\n";
                         echo "<small class='small'>{$s['email']}</small></span>\n\n";
                     }
                     ?>

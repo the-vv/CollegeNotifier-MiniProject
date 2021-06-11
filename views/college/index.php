@@ -3,8 +3,8 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 $user = get_current_logged_user();
-if(isset($query_params['id'])) {
-    $college = get_college($query_params['id']);
+if(isset($query_params['cid'])) {
+    $college = get_college($query_params['cid']);
     // print_r($college);
     if(count($college) < 1) {
         $error_mess = 'College Id is invalid, Please try again';

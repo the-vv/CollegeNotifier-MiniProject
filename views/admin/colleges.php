@@ -32,7 +32,7 @@ $colleges = get_colleges($user['id']);
                 echo "
                     <li class='list-group-item d-flex justify-content-between align-items-center'>
                         <div class='h6 d-block text-truncate'><i class='bi bi-building me-3'></i>{$college['college_name']}</div>
-                        <a href='college?id={$college['id']}' class='btn btn-success px-md-5 strong'>
+                        <a href='college?cid={$college['id']}' class='btn btn-success px-md-5 strong'>
                             Go
                         </a>
                     </li>

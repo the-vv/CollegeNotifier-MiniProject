@@ -5,9 +5,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
-$departments = get_dpts($query_params['id']);
-$college = get_college($query_params['id'])[0];
-$students = get_students_from_college($query_params['id']);
+$departments = get_dpts($query_params['cid']);
+$college = get_college($query_params['cid'])[0];
+$students = get_students_from_college($query_params['cid']);
 ?>
 
 
@@ -73,7 +73,7 @@ $students = get_students_from_college($query_params['id']);
                         <?php foreach ($departments as $dept) {
                         echo "
                             <li class='list-group-item d-flex justify-content-between align-items-center'>
-                                <a style='text-decoration:none' href='department?id={$dept['id']}&cid={$query_params['id']}' class='strong'>
+                                <a style='text-decoration:none' href='department?did={$dept['id']}&cid={$query_params['cid']}' class='strong'>
                                     <div class='h6 d-block text-truncate'><i class='fas fa-building me-1'></i>{$dept['dpt_name']} • <small class='small text-muted'>{$dept['category']}</small></div>
                                 </a>
                             </li>
@@ -82,7 +82,7 @@ $students = get_students_from_college($query_params['id']);
                         <li
                             class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
                             <span class="h5">Create one:</span>
-                            <a href="department/create?cid=<?php echo $query_params['id'] ?>"
+                            <a href="department/create?cid=<?php echo $query_params['cid'] ?>"
                                 class="btn btn-info strong">
                                 Create
                             </a>

@@ -3,12 +3,14 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 
 $user = get_current_logged_user();
 $college = get_college($query_params['cid'])[0];
-$department = get_dpt($query_params['id'])[0];
+$department = get_dpt($query_params['did'])[0];
 $batches = get_batches($college['id'], $department['id']);
+$students = get_students_from_dpt($query_params['did']);
 // print_r($batches);
 ?>
 
@@ -27,7 +29,9 @@ $batches = get_batches($college['id'], $department['id']);
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
-                <li class="breadcrumb-item"><a href="college?id=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a></li>
+                <li class="breadcrumb-item"><a
+                        href="college?cid=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
+                </li>
                 <li class="breadcrumb-item"><a href="#">Batches</a></li>
             </ol>
         </nav>
@@ -67,25 +71,40 @@ $batches = get_batches($college['id'], $department['id']);
             </ul>
         </div>
         <div class="col-md-4">
-            <div class="h4 text-center mb-4 mt-3">
-            Batches managed by you
+            <div class="row">
+                <div class="h4 text-center mb-4 mt-3">
+                    Batches managed by you
+                </div>
+                <ul class="list-group">
+                    <?php foreach ($batches as $batch) {
+                    echo "
+                    <li class='list-group-item d-flex justify-content-between align-items-center'>
+                        <a href='batch?bid={$batch['id']}&cid={$query_params['cid']}&did={$query_params['did']}' style='text-decoration:none' class='strong'>
+                            <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
+                        </a>
+                    </li>
+                    ";
+                } ?>
+                    <li
+                        class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
+                        <span class="h5">Create one:</span>
+                        <a href="batch/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['did'] ?>"
+                            class="btn btn-info strong">
+                            Create
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row my-3">
+                <div class="col-12 text-center mb-3">
+                    <span class="h4">Total of <?php echo count($students); ?> Students Added</span>
+                </div>
+                <div class="col-6 text-center">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                </div>
+                <div class="col-6 text-center">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
+                </div>
+            </div>
         </div>
-        <ul class="list-group">
-            <?php foreach ($batches as $batch) {
-                echo "
-                <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href='batch?id={$batch['id']}&cid={$query_params['cid']}&did={$query_params['id']}' style='text-decoration:none' class='strong'>
-                        <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
-                    </a>
-                </li>
-                ";
-            } ?>
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary text-white">
-                <span class="h5">Create one:</span>
-                <a href="batch/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['id'] ?>" class="btn btn-info strong">
-                    Create
-                </a>
-            </li>
-        </ul>
     </div>
-</div>

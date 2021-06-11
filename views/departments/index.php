@@ -4,13 +4,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 $user = get_current_logged_user();
-if (isset($query_params['id'])) {    
+if (isset($query_params['did'])) {    
     if (!isset($query_params['cid'])) {
         $error_mess = 'College Id not provided';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
-    $department = get_dpt($query_params['id'])[0];
+    $department = get_dpt($query_params['did'])[0];
     // print_r($department);
     $college = get_college($query_params['cid'])[0];
     // print_r($college);

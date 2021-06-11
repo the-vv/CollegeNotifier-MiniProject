@@ -26,17 +26,18 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $student_password)
+function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $student_password = '123')
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
             dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_no, $name, $email, $phone, $student_password)) {
+        $hashed = password_hash($student_password, PASSWORD_DEFAULT);
+        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_no, $name, $email, $phone, $hashed)) {
             echo "Error Creating student values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -151,7 +152,7 @@ function get_students_from_college($cid)
 function get_students_from_dpt($did)
 {
     global $student_table_name, $connection;
-    $query = "SELECT * from $student_table_name WHERE class_id = ?";
+    $query = "SELECT * from $student_table_name WHERE dpt_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $did)) {
@@ -185,7 +186,8 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
         foreach ($students as $row) {
             $roll_number = isset($row['roll']) ? $row['roll'] : $roll;
             $phone_number = isset($row['phone']) ? $row['roll'] : $phone;
-            if (!$safeQuery->bind_param('iiiiiissss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_number, $row['name'], $row['email'], $phone_number, $student_password)) {
+            $hashed = password_hash($student_password, PASSWORD_DEFAULT);
+            if (!$safeQuery->bind_param('iiiiiissss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_number, $row['name'], $row['email'], $phone_number, $hashed)) {
                 echo "Error Creating student values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }

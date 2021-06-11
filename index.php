@@ -9,10 +9,11 @@ if (isset($parts['query'])) {
 }
 
 $request = explode('?', $request)[0];
-// Use $query_params for query params
+// Use variable $query_params for query params
 
 require_once __DIR__ . './public/header.php';
 
+// Routing Begins Here
 switch ($request) {
     case '/':
         require_once __DIR__ . '/views/index.php';
@@ -67,18 +68,6 @@ switch ($request) {
         break;
     case '/class/submit':
         require_once __DIR__ . '/views/classes/submit.php';
-        break;
-    case '/faculty':
-        require_once __DIR__ . '/views/faculty/index.php';
-        break;
-    case '/faculty/login':
-        require_once __DIR__ . '/views/faculty/login.html';
-        break;
-    case '/faculty/signup':
-        require_once __DIR__ . '/views/faculty/signup.html';
-        break;
-    case '/faculty/submit':
-        require_once __DIR__ . '/views/faculty/submit.php';
         break;
     case '/logout':
         require_once __DIR__ . '/utils/logout.php';
