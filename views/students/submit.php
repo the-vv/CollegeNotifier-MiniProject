@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 
 function import_students_from_file($fname)
 {
-    global $query_params, $target_file;
+    global $target_file;
     require_once $_SERVER['DOCUMENT_ROOT'] . '\libs\spreadsheet-reader-master\php-excel-reader\excel_reader2.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '\libs\spreadsheet-reader-master\SpreadsheetReader.php';
 
@@ -21,7 +21,7 @@ function import_students_from_file($fname)
             $header = 1;
             continue;
         }
-        array_push($students, array('name' => $Row[0], 'email' => $Row[1], 'phone' => $Row['phone']));
+        array_push($students, array('name' => $Row[0], 'email' => $Row[1], 'phone' => $Row['2'], 'gender' => $Row['3']));
     }
     $res = create_multiple_students($students, $did, $cid, $bid, $clid);
     if (isset($res['error'])) {
