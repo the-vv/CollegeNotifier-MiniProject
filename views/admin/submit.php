@@ -1,8 +1,11 @@
 <?php
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
+
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';    
     $user = find_admin_user($email);
     if (isset($user['error'])) {
         echo "
@@ -26,7 +29,8 @@ if (isset($_POST['login'])) {
     } elseif (count($user) > 0) {        
         if (password_verify($lpassword, $user[0]['admin_password'])) {
             unset($user[0]['admin_password']);
-            setcookie('adminUser', $user[0]['email'], time() + (86400 * 30), '/');
+            $token = encrypt($user[0]['email']);
+            setcookie('adminUser', $token, time() + (86400 * 30), '/');
             header('Location:../admin');
             // echo "<script>location.href='../admin'</script>";
         } else {
@@ -100,7 +104,8 @@ if (isset($_POST['signup'])) {
         ";
     } elseif (count($user) > 0) {
         unset($user[0]['admin_password']);
-        setcookie('adminUser', $user[0]['email'], time() + (86400 * 30), '/');
+        $token = encrypt($user[0]['email']);
+        setcookie('adminUser', $token, time() + (86400 * 30), '/');
         header('Location:../../admin');
         // echo "<script>location.href='../admin'</script>";
     }

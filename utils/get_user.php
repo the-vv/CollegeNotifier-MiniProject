@@ -4,7 +4,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
 function get_current_logged_user()
 {
     if (isset($_COOKIE['adminUser'])) {
-        $email = $_COOKIE['adminUser'];
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
+        $email = decrypt($_COOKIE['adminUser']);
         $res = find_admin_user($email)[0];
         if (!isset($res['error'])) {
             unset($res['admin_password']);
