@@ -15,12 +15,12 @@ if (isset($_POST['login'])) {
             <div class='row my-4 text-center'>
                 <div class='alert alert-danger d-flex align-items-center' role='alert'>
                     <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                <div>
-                    Some Error Occured. {$user['message']}
+                    <div>
+                        Some Error Occured. {$user['message']}
+                    </div>
                 </div>
+                <span>Please go back to <a href='./signup'>Sign Up/ Login</a></span>
             </div>
-            <span>Please go back to <a href='./signup'>Sign Up/ Login</a></span>
-        </div>
         </div>
         ";
     } elseif (count($user) > 0) {        
@@ -40,12 +40,12 @@ if (isset($_POST['login'])) {
                 <div class='row my-4 text-center'>
                     <div class='alert alert-danger d-flex align-items-center' role='alert'>
                         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-                    <div>
-                       Email Id or Password is Incorrect, Please try again
+                        <div>
+                            Email Id or Password is Incorrect, Please try again
+                        </div>
                     </div>
+                    <span>Please go back to <a href='./login'>Login</a></span>
                 </div>
-                <span>Please go back to <a href='./login'>Login</a></span>
-            </div>
             </div>
             ";
         }

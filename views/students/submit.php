@@ -80,7 +80,8 @@ else {
     $email = $_POST['email'];
     $name = $_POST['name'];
     $phone = isset($_POST['phone']) ? $_POST['phone'] : 0;
-    $res = create_student($did, $cid, $bid, $clid, 0, 0, $name, $email);
+    $gender = $_POST['gender'];
+    $res = create_student($did, $cid, $bid, $clid, 0, 0, $name, $email, $phone, $gender);
     if (isset($res['error'])) {
         $error_mess = $res['message'];
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';

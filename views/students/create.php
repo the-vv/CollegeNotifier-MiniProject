@@ -7,11 +7,21 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
 ?>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-primary rounded rounded-pill w-100" data-bs-toggle="modal"
-    id="studentAdd" data-bs-target="#modelMultiple">
+<!-- <button type="button" class="btn btn-outline-primary rounded rounded-pill w-100" data-bs-toggle="modal" id="studentAdd"
+    data-bs-target="#modelMultiple">
     Create/Add
-</button>
-
+</button> -->
+<div class="row p-1 align-items-end">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <h5 class="p-0 m-0">Students Here</h5>
+        <span>
+            <button type="button" data-bs-toggle="modal" class="btn btn-outline-primary rounded rounded-pill btn-sm"
+                data-bs-target="#modelMultiple">
+                Create <i class="bi bi-plus-lg"></i>
+            </button>
+        </span>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="modelSingle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -24,7 +34,8 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
             <div class="modal-body">
                 <div class="col-12">
                     <p class="h6 text-start">Create single student:</p>
-                    <form class="row gx-1 align-items-end" action="students/submit?<?php echo $submit_url_params ?>" method="POST" id="singleForm">
+                    <form class="row gx-1 align-items-end" action="students/submit?<?php echo $submit_url_params ?>"
+                        method="POST" id="singleForm">
                         <div class="form-group col-12 col-md-6 text-start">
                             <label for="exampleInputEmail1">Full Name*</label>
                             <input type="text" class="form-control" name="name" id="sname" required
@@ -42,6 +53,15 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
                             <input type="text" class="form-control" name="email" id="semail" required
                                 aria-describedby="nameHelp" placeholder="Create Email">
                             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group col-12 col-md-6 text-start mt-2">
+                            <label for="name">Select Gender*</label>
+                            <select class="form-select" aria-label="Default select example" name="gender" id="gender"
+                                required>
+                                <option selected value="">Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
                         </div>
                         <!-- <div class="text-center col-4 col-md-2">
                             <button type="submit" class="btn btn-primary col-12" name="create">Create</button>
@@ -92,16 +112,18 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
 <script type="text/javascript">
 document.getElementById("singleForm").oninput = function() {
     if (document.getElementById("sname").value &&
-        document.getElementById("semail").value
-    ){
+        document.getElementById("semail").value &&
+        document.getElementById("gender").value
+    ) {
         document.getElementById("singleSubmit").disabled = false;
-    }else {
+    } else {
         document.getElementById("singleSubmit").disabled = true;
     }
 }
 document.getElementById("singleSubmit").onclick = function() {
     if (document.getElementById("sname").value &&
-        document.getElementById("semail").value
+        document.getElementById("semail").value &&
+        document.getElementById("gender").value
     ) {
         document.getElementById("singleForm").submit();
     }
@@ -109,7 +131,7 @@ document.getElementById("singleSubmit").onclick = function() {
 document.getElementById('fileForm').onchange = function() {
     if (document.getElementById("formFile").value) {
         document.getElementById("submitMultiple").disabled = false;
-    } else {        
+    } else {
         document.getElementById("submitMultiple").disabled = true;
     }
 }

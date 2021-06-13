@@ -21,6 +21,9 @@ switch ($request) {
     case '':
         require_once __DIR__ . '/views/index.php';
         break;
+    case '/index.php':
+        require_once __DIR__ . '/views/index.php';
+        break;
     case '/admin':
         require_once __DIR__ . '/views/admin/index.php';
         break;

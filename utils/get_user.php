@@ -4,12 +4,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
 function get_current_logged_user()
 {
     if (isset($_COOKIE['adminUser'])) {
-        $user = array();
-        $user['type'] = 'admin';
         $email = $_COOKIE['adminUser'];
         $res = find_admin_user($email)[0];
         if (!isset($res['error'])) {
             unset($res['admin_password']);
+            $res['type'] = 'admin';
             return $res;
         }
         return $res;

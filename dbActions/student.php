@@ -14,8 +14,10 @@ $create_query = "CREATE TABLE IF NOT EXISTS $student_table_name (
         roll_no VARCHAR(5) NOT NULL,
         student_name VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
-        phone VARCHAR(10),
+        phone VARCHAR(13),
+        gender VARCHAR(8),
         student_password VARCHAR(255),
+        CHECK (gender IN ('male', 'female')),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
         FOREIGN KEY (batch_id) REFERENCES batches(id),
@@ -26,18 +28,18 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $student_password = '123')
+function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $parent_id = '', $roll_no = '', $name = '', $email = '', $phone = '', $gender = null, $student_password = '123')
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
-            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
+            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, gender, student_password
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         $hashed = password_hash($student_password, PASSWORD_DEFAULT);
-        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_no, $name, $email, $phone, $hashed)) {
+        if (!$safeQuery->bind_param('sssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_no, $name, $email, $phone, $gender, $hashed)) {
             echo "Error Creating student values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -177,22 +179,22 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
-            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, student_password
+            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, gender, student_password
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         foreach ($students as $row) {
             $roll_number = isset($row['roll']) ? $row['roll'] : $roll;
-            $phone_number = isset($row['phone']) ? $row['roll'] : $phone;
+            $phone_number = isset($row['phone']) ? $row['phone'] : $phone;
             $hashed = password_hash($student_password, PASSWORD_DEFAULT);
-            if (!$safeQuery->bind_param('iiiiiissss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_number, $row['name'], $row['email'], $phone_number, $hashed)) {
+            if (!$safeQuery->bind_param('iiiiiissss', $dpt_id, $college_id, $batch_id, $class_id, $parent_id, $roll_number, $row['name'], $row['email'], $phone_number, $row['gender'], $hashed)) {
                 echo "Error Creating student values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
             if (!$safeQuery->execute()) {
-                echo "Error Creating Stundnt Error: " . $safeQuery->error;
+                echo "Error Creating Student Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
         }
@@ -203,3 +205,5 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
     }
     return array("success" => true, "message" => "Students created Successfully");
 }
+
+
