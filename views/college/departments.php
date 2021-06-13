@@ -19,7 +19,7 @@ $students = get_students_from_college($query_params['cid']);
     <?php if ($user['type'] == 'admin') {?>
     <div class="row">
         <div class="col-12 mb-2">
-            <p class="h4 text-center"><?php echo $college['college_name'] ?> Administration Tools</p>
+            <p class="h4 text-center">Administration Tools</p>
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -50,7 +50,7 @@ $students = get_students_from_college($query_params['cid']);
                     </button>
                 </div>
                 <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-user-graduate"></i>
+                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-chalkboard-teacher"></i>
                         Faculties
                     </button>
                 </div>
@@ -67,13 +67,13 @@ $students = get_students_from_college($query_params['cid']);
     <div class="row mb-5" style="max-height: 90vh">
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">
-                Dashboard
+            <?php echo $college['college_name'] ?> Dashboard
             </div>
         </div>
         <div class="col-md-8">
             <div class="row p-1 align-items-end">
                 <div class="col-12 d-flex justify-content-between align-items-center">
-                    <h5 class="p-0 m-0">Events/Announcements in College level</h5>
+                    <h5 class="p-0 m-0">Events/Announcements</h5>
                     <span>
                         <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                             Create <i class="bi bi-plus-lg"></i>

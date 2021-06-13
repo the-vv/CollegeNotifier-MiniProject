@@ -13,7 +13,7 @@ $request = explode('?', $request)[0];
 
 require_once __DIR__ . './public/header.php';
 
-// Routing Begins Here
+// Normal Routing Begins Here
 switch ($request) {
     case '/':
         require_once __DIR__ . '/views/index.php';
