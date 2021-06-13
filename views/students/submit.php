@@ -75,8 +75,7 @@ if (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
             require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         }
     }
-}
-else {
+} else {
     $email = $_POST['email'];
     $name = $_POST['name'];
     $phone = isset($_POST['phone']) ? $_POST['phone'] : 0;

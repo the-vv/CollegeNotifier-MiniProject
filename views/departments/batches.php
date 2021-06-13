@@ -20,94 +20,22 @@ $students = get_students_from_dpt($query_params['did']);
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
         <li class="breadcrumb-item"><a
-                href="college?cid=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
+                href="college?cid=<?php echo $query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
         </li>
         <li class="breadcrumb-item">Batches</li>
     </ol>
-    <?php if ($user['type'] == 'admin') {?>
-    <div class="row">
-        <div class="col-12 mb-2">
-            <p class="h4 text-center">Administration Tools</p>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class='fas fa-building me-1'></i>
-                        Departments
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i
-                            class='fas fa-graduation-cap me-1'></i>
-                        Batches
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-user-graduate"></i>
-                        Classes
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i
-                            class="bi bi-house-door-fill"></i>
-                        Rooms
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i
-                            class="fas fa-chalkboard-teacher"></i>
-                        Faculties
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-user-graduate"></i>
-                        Students
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php }?>
+    <?php if ($user['type'] == 'admin') {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
+    }?>
     <hr class="mb-0 p-0">
     <div class="row mb-5">
         <div class="col-12">
-            <div class="h4 text-center mb-4 mt-3">
+            <div class="h4 text-center mb-3 mt-3">
                 <?php echo $department['dpt_name'] ?> Dashboard
             </div>
-        </div>
+        </div>        
         <div class="col-md-8">
-            <div class="row p-1 align-items-end">
-                <div class="col-12 d-flex justify-content-between align-items-center">
-                    <h5 class="p-0 m-0">Events/Announcements</h5>
-                    <span>
-                        <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                            Create <i class="bi bi-plus-lg"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-            <ul class="list-group">
-                <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-                        Here is the event content
-                        <small class="small text-muted">
-                            | Content description
-                        </small>
-                    </a>
-                </li>
-                <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-                        Here is the event content
-                        <small class="small text-muted">
-                            | Content description
-                        </small>
-                    </a>
-                </li>
-            </ul>
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php'?>
         </div>
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -124,9 +52,9 @@ $students = get_students_from_dpt($query_params['did']);
                 <div class="tab-pane fade show active" id="batch" role="tabpanel" aria-labelledby="batch-tab">
                     <div class="row p-1 align-items-end">
                         <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h5 class="p-0 m-0">Departments Here</h5>
+                            <h5 class="p-0 m-0">Batches Here</h5>
                             <span>
-                                <a href="department/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['did'] ?>"
+                                <a href="batch/create?<?php echo $url_with_query_params ?>"
                                     class="btn btn-outline-primary rounded rounded-pill btn-sm"
                                     class="btn btn-info strong">
                                     Create <i class="bi bi-plus-lg"></i>
@@ -136,14 +64,14 @@ $students = get_students_from_dpt($query_params['did']);
                     </div>
                     <ul class="list-group">
                         <?php foreach ($batches as $batch) {
-                    echo "
-                    <li class='list-group-item d-flex justify-content-between align-items-center'>
-                        <a href='batch?bid={$batch['id']}&cid={$query_params['cid']}&did={$query_params['did']}' style='text-decoration:none' class='strong'>
-                            <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
-                        </a>
-                    </li>
-                    ";
-                } ?>
+    echo "
+                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                            <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong'>
+                                <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
+                            </a>
+                        </li>
+                        ";
+}?>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">

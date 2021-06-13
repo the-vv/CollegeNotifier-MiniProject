@@ -44,6 +44,6 @@ if (isset($query_params['bid'])) {
     }
     require_once 'classes.php';
 } else {
-    $error_mess = 'Department Id not provided';
+    $error_mess = 'Batch Id not provided';
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
 }

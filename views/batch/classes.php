@@ -15,70 +15,56 @@ $students = get_students_from_batch($batch['id'])
 ?>
 
 <div class="container shadow rounded border" id="departments" style="min-height: 80vh">
-    <div class="row mt-4 text-center">
-        <h2>
-            Welcome, <?php echo $user['admin_name'] ?>
-        </h2>
-        <h6>
-            <?php echo $user['email'] ?>
-        </h6>
-    </div>
-    <div class="d-flex justify-content-center border pt-2 rounded">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
-                <li class="breadcrumb-item"><a
-                        href="college?cid=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
-                </li>
-                <li class="breadcrumb-item"><a
-                        href="department?did=<?php echo$query_params['did'] ?>&cid=<?php echo$query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
-                </li>
-                <li class="breadcrumb-item"><a href="#">Classes</a></li>
-            </ol>
-        </nav>
-    </div>
-    <div class="row mb-5">
+    <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
+        <li class="breadcrumb-item"><a
+                href="college?cid=<?php echo$query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
+        </li>
+        <li class="breadcrumb-item"><a
+                href="department?did=<?php echo$query_params['did'] ?>&cid=<?php echo$query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
+        </li>
+        <li class="breadcrumb-item">Classes</li>
+    </ol>
+    <?php if ($user['type'] == 'admin') {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
+    }?>
+    <hr class="p-0 mb-0">
+    <div class="row mb-5" style="max-height: 90vh">
+        <div class="col-12">
+            <div class="h4 text-center mb-3 mt-3">
+                <?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?> Dashboard
+            </div>
+        </div>
         <div class="col-md-8">
-            <div class="h4 text-center mb-4 mt-3">
-                <?php echo $college['college_name'] ?> Dashboard
-            </div>
-            <div class="row p-1 align-items-end">
-                <div class="col-12 d-flex justify-content-between align-items-center">
-                    <h6 class="p-0 m-0">Events/Announcements in Batch level</h6>
-                    <span>
-                        <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                            Create <i class="bi bi-plus-lg"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-            <ul class="list-group">
-                <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-                        Here is the event content
-                        <small class="small text-muted">
-                            | Content description
-                        </small>
-                    </a>
-                </li>
-                <li class='list-group-item d-flex justify-content-between align-items-center'>
-                    <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-                        Here is the event content
-                        <small class="small text-muted">
-                            | Content description
-                        </small>
-                    </a>
-                </li>
-            </ul>
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php'?>
         </div>
         <div class="col-md-4">
-            <div class="row">
-                <div class="h4 text-center mb-4 mt-3">
-                    Classes managed by you
-                </div>
-                <ul class="list-group">
-                    <?php foreach ($classes as $class) {
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="class-tab" data-bs-toggle="tab" data-bs-target="#class"
+                        type="button" role="tab" aria-controls="class" aria-selected="true">Classes</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
+                        type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="class" role="tabpanel" aria-labelledby="class-tab">
+                    <div class="row p-1">
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+                            <h5 class="p-0 m-0">Classes Here</h5>
+                            <span>
+                                <a href="class/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['did'] ?>&bid=<?php echo $query_params['bid'] ?>"
+                                    class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                                    Create <i class="bi bi-plus-lg"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        <?php foreach ($classes as $class) {
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
                             <a href='class?clid={$class['id']}&bid={$query_params['bid']}&cid={$query_params['cid']}&did={$query_params['did']}' style='text-decoration: none' class='strong'>
@@ -87,25 +73,10 @@ $students = get_students_from_batch($batch['id'])
                         </li>
                         ";
                     } ?>
-                    <li
-                        class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
-                        <span class="h5">Create one:</span>
-                        <a href="class/create?cid=<?php echo $query_params['cid'] ?>&did=<?php echo $query_params['did'] ?>&bid=<?php echo $query_params['bid'] ?>"
-                            class="btn btn-info strong">
-                            Create
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="row my-3">
-                <div class="col-12 text-center mb-3">
-                    <span class="h4">Total of <?php echo count($students); ?> Students Added</span>
+                    </ul>
                 </div>
-                <div class="col-6 text-center">
+                <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
-                </div>
-                <div class="col-6 text-center">
-                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
                 </div>
             </div>
         </div>
