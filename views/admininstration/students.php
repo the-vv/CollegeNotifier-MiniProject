@@ -45,8 +45,7 @@ $all_students = get_all_students_bi_cid($cid);
                         <td>$dpt</td>
                         <td>$batch</td>
                         <td>$class</td>
-                        <td>
-                        </td>
+                        <td></td>
                     </tr>";
                     $count++;
                 }?>
@@ -99,6 +98,5 @@ const myDataTable = FathGrid("studnetslist", {
             }
         },
     ]
-
 });
 </script>
