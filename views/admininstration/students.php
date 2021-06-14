@@ -63,33 +63,42 @@ const myDataTable = FathGrid("studnetslist", {
     showTableTotal: true,
     showGraph: false,
     columns: [{
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        editable: false,
-    }, {
-        printable: false,
-        editable: false,
-        html: function(item) {
-            return `
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            printable: false,
+            editable: false,
+            html: function(item) {
+                return `
                 <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'>
                 <i class='bi bi-trash-fill'></i></button>
                 <button type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
                 <i class='bi bi-pencil-square'></i></button>
                 `
-        }
-    }, ]
+            }
+        },
+    ]
 
 });
 </script>
