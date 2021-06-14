@@ -1,6 +1,10 @@
 <?php
 
 require_once 'connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
 
 $student_table_name = 'students';
 
@@ -206,4 +210,38 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
     return array("success" => true, "message" => "Students created Successfully");
 }
 
+function get_all_students_bi_cid($cid)
+{
+    global $student_table_name, $connection, $department_table_name, $table_batch_name, $class_table_name;
+    $query = "SELECT
+    $student_table_name.id, $student_table_name.student_name, $student_table_name.email, $student_table_name.phone, $student_table_name.gender,
+    $department_table_name.dpt_name, 
+    $table_batch_name.start_year, $table_batch_name.end_year,
+    $class_table_name.division
+    FROM $student_table_name
+    LEFT JOIN $department_table_name ON $student_table_name.dpt_id = $department_table_name.id
+    LEFT JOIN $table_batch_name ON $student_table_name.batch_id = $table_batch_name.id
+    LEFT JOIN $class_table_name ON $student_table_name.class_id = $class_table_name.id
+    WHERE $student_table_name.college_id = ?
+    ";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $cid)) {
+            echo "Error getting student values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => mysqli_error($connection));
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting student Error: " . $safeQuery->error;            return array("error" => true, "message" => mysqli_error($connection));
+        }
 
+        if (!$res = $safeQuery->get_result()) {
+            return array("error" => true, "message" => mysqli_error($connection));
+        }
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("error" => true, "message" => mysqli_error($connection));
+}

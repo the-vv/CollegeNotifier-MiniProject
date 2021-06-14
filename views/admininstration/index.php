@@ -36,9 +36,9 @@
                 </button>
             </div>
             <div class="col-4">
-                <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-user-graduate"></i>
+                <a href="administration/students?<?php echo $url_with_query_params ?>" class="btn btn-outline-dark rounded rounded-pill w-100" ><i class="fas fa-user-graduate"></i>
                     Students
-                </button>
+                </a>
             </div>
         </div>
     </div>

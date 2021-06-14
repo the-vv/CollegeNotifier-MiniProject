@@ -10,8 +10,9 @@ $user = get_current_logged_user();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <title>College Notifier</title>
-    
+
     <!-- Global CSS  -->
     <link rel="stylesheet" href="public/styles/style.css">
 
@@ -30,6 +31,7 @@ $user = get_current_logged_user();
     <!-- JQuery js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -44,8 +46,8 @@ $user = get_current_logged_user();
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link <?php if ($request == '/') {
-    echo 'active';
-}?>" aria-current="page" href="/">Home</a>
+                            echo 'active';
+                        }?>" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -53,10 +55,10 @@ $user = get_current_logged_user();
                 </ul>
                 <span class="navbar-text text-white">
                     <?php
-if (isset($user['email'])) {
-    echo $user['email'];
-}
-?>
+                    if (isset($user['email'])) {
+                        echo $user['email'];
+                    }
+                    ?>
                 </span>
             </div>
         </div>
