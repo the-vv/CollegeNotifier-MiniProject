@@ -1,3 +1,9 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php [QSA,L]
+
 <Files ~ "^.*">
   Deny from all
 </Files>
@@ -5,9 +11,3 @@
 <Files ~ "^index\.php|css|js|.*\.png|.*\.jpg|.*\.gif">
   Allow from all
 </Files>
-
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+)$ index.php [QSA,L]

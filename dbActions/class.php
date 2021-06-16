@@ -9,7 +9,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $class_table_name (
         dpt_id INT(6) UNSIGNED,
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
-        division VARCHAR(10),
+        division VARCHAR(10) NOT NULL,
         tutor_id INT(6) UNSIGNED,
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),

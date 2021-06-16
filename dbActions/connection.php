@@ -9,7 +9,7 @@ $databaseName = 'collegeapp';
 // Connection
 $connection = mysqli_connect($host, $username, $password);
 if (!$connection) {
-    echo "Error connecting to Database: $databaseName<br>" . mysqli_connect_error($connection);
+    echo "Error connecting to MYSQL: $databaseName<br>" . mysqli_connect_error($connection);
     die();
 }
 
@@ -22,4 +22,5 @@ if (!mysqli_query($connection, "CREATE DATABASE IF NOT EXISTS $databaseName")) {
 // Selecting Database
 if (!mysqli_select_db($connection, $databaseName)) {
     echo "Database Selection Error <br>" . mysqli_error($connection);
+    die();
 }

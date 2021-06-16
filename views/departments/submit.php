@@ -33,7 +33,7 @@ if (isset($_POST['create'])) {
                         Department $name created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../college?id=$cid'>Go to Departments</a></span>
+                <span>Go to <a href='../college?cid=$cid'>Go to Departments</a></span>
             </div>
         </div>
         ";

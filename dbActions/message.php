@@ -2,40 +2,41 @@
 
 require_once 'connection.php';
 
-$TableName = 'messages';
+$tbl_message = 'messages';
 
-$create_query = "CREATE TABLE IF NOT EXISTS $TableName (
+$create_query = "CREATE TABLE IF NOT EXISTS $tbl_message (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         dpt_id INT(6) UNSIGNED,
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
         class_id INT(6) UNSIGNED,
-        from_level INT(1) UNSIGNED NOT NULL,
-        to_level INT(1) UNSIGNED NOT NULL,
-        content VARCHAR(10000),
+        room_id INT(6) UNSIGNED,
+        content TEXT,
         sendtime INT(15) NOT NULL,
-        fromid INT(6) NOT NULL,
+        from_id INT(6) NOT NULL,
+        event_type VARCHAR() NOT NULL,
+        CHECK (event_type IN ('notification', 'event')),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
         FOREIGN KEY (batch_id) REFERENCES batches(id),
         FOREIGN KEY (class_id) REFERENCES classes(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
-    echo "Error creating Table $TableName " . mysqli_error($connection);
+    echo "Error creating Table $tbl_message " . mysqli_error($connection);
     die();
 }
 
 function create_message($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $from = '', $to = '', $content = '', $time = '', $fromid = '')
 {
-    global $TableName, $connection;
-    $query = "INSERT INTO $TableName (
+    global $tbl_message, $connection;
+    $query = "INSERT INTO $tbl_message (
             dpt_id, college_id, batch_id, class_id, from_level, to_level, content, sendtime, fromid
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssssssss', $dpt_id, $college_id, $batch_id, $class_id,  $from, $to, $content, $time, $fromid)) {
+        if (!$safeQuery->bind_param('iiiisssss', $dpt_id, $college_id, $batch_id, $class_id,  $from, $to, $content, $time, $fromid)) {
             echo "Error Creating message values Error: " . $safeQuery->error;
             return false;
         }
@@ -53,8 +54,8 @@ function create_message($dpt_id = '', $college_id = '', $batch_id = '', $class_i
 
 function get_message($id)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE id = ?";
+    global $tbl_message, $connection;
+    $query = "SELECT * from $tbl_message WHERE id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {

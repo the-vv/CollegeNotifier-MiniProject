@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 
 function import_students_from_file($fname)
 {
-    global $target_file;
+    global $target_file, $cid, $did, $bid, $clid;
     require_once $_SERVER['DOCUMENT_ROOT'] . '\libs\spreadsheet-reader-master\php-excel-reader\excel_reader2.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '\libs\spreadsheet-reader-master\SpreadsheetReader.php';
 

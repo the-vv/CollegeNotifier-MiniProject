@@ -22,7 +22,7 @@ if (isset($_POST['login'])) {
                         Some Error Occured. {$user['message']}
                     </div>
                 </div>
-                <span>Please go back to <a href='./signup'>Sign Up/ Login</a></span>
+                <span>Please go back to <a href='admin/signup'>Sign Up/ Login</a></span>
             </div>
         </div>
         ";
@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
                             Email Id or Password is Incorrect, Please try again
                         </div>
                     </div>
-                    <span>Please go back to <a href='./login'>Login</a></span>
+                    <span>Please go back to <a href='admin/login'>Login</a></span>
                 </div>
             </div>
             ";
@@ -68,7 +68,7 @@ if (isset($_POST['login'])) {
                     Email Id or Password is Incorrect, Please try again
                 </div>
             </div>
-            <span>Please go back to <a href='./login'>Login</a></span>
+            <span>Please go back to <a href='admin/login'>Login</a></span>
         </div>
         </div>
         ";
@@ -82,7 +82,7 @@ if (isset($_POST['signup'])) {
     $spassword = $_POST['password'];
     require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
     $hashed = password_hash($spassword, PASSWORD_DEFAULT);
-    $user = create_admin('', '', '', '', 0, $name, $email, $phone, $hashed);
+    $user = create_admin($name, $email, $phone, $hashed);
     if (isset($user['error'])) {
         echo "
         <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
@@ -98,7 +98,7 @@ if (isset($_POST['signup'])) {
                 {$user['message']}
                 </div>
             </div>
-            <span>Please go back to <a href='./signup'>Sign Up/ Login</a></span>
+            <span>Please go back to <a href='admin/signup'>Sign Up/ Login</a></span>
         </div>
         </div>
         ";

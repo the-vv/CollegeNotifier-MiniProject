@@ -8,7 +8,7 @@ if (isset($query_params['cid'])) {
     <div class="row">
         <div class="col-12 p-5">
             <h2 class="text-center"> Create Department now </h2>
-            <form class="mt-4" action="submit?cid=<?php echo $cid ?>" method="POST">
+            <form class="mt-4" action="department/submit?cid=<?php echo $cid ?>" method="POST">
                 <div class="form-group mx-auto col-md-6 mt-3">
                     <label for="name">Department Name*</label>
                     <input type="text" class="form-control" name="name" id="name" required

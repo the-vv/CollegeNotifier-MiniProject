@@ -25,7 +25,7 @@ function create_participant($eid = '', $sid = '')
             ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ss', $eid, $sid)) {
+        if (!$safeQuery->bind_param('ii', $eid, $sid)) {
             echo "Error Creating participant values Error: " . $safeQuery->error;
             return false;
         }
