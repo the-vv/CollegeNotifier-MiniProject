@@ -1,5 +1,10 @@
 <?php
 $cid = $query_param_values['cid'];
+if($cid == 0) {
+    $error_mess = 'CID not provided';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    die();
+}
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 $college = get_college($cid)[0];
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
@@ -94,13 +99,13 @@ let gridOptions = {
         {
             printable: false,
             editable: false,
-            html: function(item) {
+            html: (item) => {
                 return `
                 <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
                     onclick="deleteStudent('${[item[0]]}', '${[item[2]]}', '${[item[4]]}')">
                 <i class='bi bi-trash-fill'></i></button>
-                <button type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                <i class='bi bi-pencil-square'></i></button>
+                <a href='/students/edit?cid=<?php echo $cid ?>&sid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                <i class='bi bi-pencil-square'></i></a>
                 `
             }
         },
@@ -114,17 +119,17 @@ function deleteStudent(id, name, email) {
         containerFluid: true,
         backgroundDismiss: true,
         title: 'Confirm Delete!',
-        content: `Are you sure want to delete the student:<br>${name}<br>${email}`,
+        content: `Are you sure want to delete the student:<br><strong>${name}</strong><br><i>${email}</i>`,
         type: 'red',
         icon: 'bi bi-trash-fill',
         bgOpacity: 0.8,
         buttons: {
             confirm: {
                 btnClass: 'btn btn-danger',
-                action: function() {
-                    $.getJSON(`/services/students/deleteone?sid=${id}`, function(res) {
+                action: () => {
+                    $.getJSON(`/services/students/deleteone?sid=${id}`, (res) => {
                         if (res.success) {
-                            myDataTable.getData().forEach(function(el, index) {
+                            myDataTable.getData().forEach((el, index) => {
                                 if(el[0] == id) {
                                     myDataTable.deleteRow(index + 1);
                                 }
@@ -148,7 +153,7 @@ function deleteStudent(id, name, email) {
                     });
                 }
             },
-            cancel: function() {}
+            cancel: () => {}
         }
     })
 }

@@ -39,7 +39,9 @@ if (strlen($url_with_query_params) > 1) {
 
 $request = explode('?', $request)[0];
 // Use variable $query_params for query params
-if(strpos($request, 'services') == 1) {
+
+
+if (strpos($request, 'services') == 1) {
     switch ($request) {
         case '/services/students/deleteone':
             require_once __DIR__ . '/api/delete_student.php';
@@ -115,6 +117,9 @@ switch ($request) {
         break;
     case '/students/submit':
         require_once __DIR__ . '/views/students/submit.php';
+        break;
+    case '/students/edit':
+        require_once __DIR__ . '/views/students/edit.php';
         break;
     case '/administration/students':
         require_once __DIR__ . '/views/admininstration/students.php';

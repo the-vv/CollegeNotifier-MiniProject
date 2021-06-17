@@ -34,7 +34,36 @@ function import_students_from_file($fname)
     unlink($target_file);
 }
 
-if (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
+if (isset($_POST['edit'])) {
+    $sid = $_POST['id'];
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    $phone = isset($_POST['phone']) ? $_POST['phone'] : 0;
+    $gender = $_POST['gender'];
+    $password = isset($_POST['password']) ? $_POST['password'] : 0;
+    $referer = $_POST['referer'];
+    $res = update_student_by_id($sid, $name, $email, $phone, $gender, $password);
+    if (isset($res['error'])) {
+        $error_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    } else {
+        $success_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+    }
+    echo "    
+    <div class='container'>
+        <div class='row'>
+            <div class='col-12 text-center'>
+                <span>
+                    <a class='btn btn-outline-primary shadow border px-5 py-1' href='$referer'>Continue</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    ";
+    die();
+} 
+elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     $target_file = $target_dir . basename($_FILES["students"]["name"]);
     $uploadOk = 1;
@@ -46,25 +75,25 @@ if (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
         $uploadOk = 0;
     }
 
-// Check file size
+    // Check file size
     if ($_FILES["students"]["size"] > 500000) {
         $error_mess = "Sorry, your file is too large";
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         $uploadOk = 0;
     }
 
-// Allow certain file formats
+    // Allow certain file formats
     if ($fileType != "xlsx" && $fileType != "xls" && $fileType != "csv") {
         $error_mess = "Sorry, XLSX/ XLS/ CSV are supported";
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         $uploadOk = 0;
     }
 
-// Check if $uploadOk is set to 0 by an error
+    // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         $error_mess = "Sorry, your file was not uploaded.";
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
-// if everything is ok, try to upload file
+        // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["students"]["tmp_name"], $target_file)) {
             $success_mess = "The file " . htmlspecialchars(basename($_FILES["students"]["name"])) . " has been uploaded.";

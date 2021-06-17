@@ -43,6 +43,9 @@ $user = get_current_logged_user();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
+    <!-- Jquery List Pager Plugin -->
+    <script type="text/javascript"src="/js-vendor/list-pager/paging.min.js"></script>
+
 </head>
 
 <body>
@@ -56,9 +59,8 @@ $user = get_current_logged_user();
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($request == '/') {
-                            echo 'active';
-                        }?>" aria-current="page" href="/">Home</a>
+                        <a class="nav-link <?php if ($request == '/') { echo 'active'; }?>"
+                        aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>

@@ -142,3 +142,32 @@
 	box-shadow      : 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 
 }
+
+#students-list-container #paging {
+	padding   : 0 20px 20px 20px;
+	font-size : 13px;
+	margin-top: 10px;
+}
+
+#students-list-container #paging a {
+	color          : #000;
+	background     : #e0e0e0;
+	padding        : 8px 12px;
+	margin-right   : 5px;
+	text-decoration: none;
+}
+
+#students-list-container #paging a.aktif {
+	background: #000 !important;
+	color     : #fff;
+}
+
+#students-list-container #paging a:hover {
+	/* border: 1px solid #000; */
+	background-color: #5a5a5a;
+	color           : #fff;
+}
+
+#students-list-container .hidden {
+	display: none;
+}
