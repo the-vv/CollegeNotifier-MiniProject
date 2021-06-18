@@ -14,12 +14,19 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
 <div class="row p-1 align-items-end">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <h5 class="p-0 m-0">Students Here</h5>
-        <span>
-            <button type="button" data-bs-toggle="modal" class="btn btn-outline-primary rounded rounded-pill btn-sm"
-                data-bs-target="#modelMultiple">
-                Create <i class="bi bi-plus-lg"></i>
-            </button>
-        </span>
+        <p class="p-0 m-0">
+            <span>
+                <a href="/students/map?<?php echo $url_with_query_params ?>" type="button" class="px-3 btn btn-outline-success rounded rounded-pill btn-sm">
+                    Add <i class="bi bi-person-plus-fill"></i>
+                </a>
+            </span>
+            <span>
+                <button type="button" data-bs-toggle="modal" class="ms-1 btn btn-outline-primary rounded rounded-pill btn-sm"
+                    data-bs-target="#modelMultiple">
+                    Create <i class="bi bi-plus-lg"></i>
+                </button>
+            </span>
+        </p>
     </div>
 </div>
 <!-- Modal -->

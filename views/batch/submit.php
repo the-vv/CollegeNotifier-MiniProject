@@ -44,7 +44,7 @@ if (isset($_POST['create'])) {
                         Batch created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../department?id=$did&cid=$cid'>Go to Departments</a></span>
+                <span>Go to <a href='../department?did=$did&cid=$cid'>Go to Departments</a></span>
             </div>
         </div>
         ";
