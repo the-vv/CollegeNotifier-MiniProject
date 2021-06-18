@@ -41,18 +41,46 @@ if ($query_param_values['cid'] == 0) {
         </div>
     </div>
     <div class="row pb-5">
-        <div class="col-12">
-            <select id="countries" class="multiselect" multiple="multiple" name="countries[]">
-                <option value="AFG">Afghanistan</option>
-                <option value="ALB">Albania</option>
-                <option value="DZA">Algeria</option>
-                <option value="AND">Andorra</option>
-                <option value="ARG">Argentina</option>
-                <option value="ARM">Armenia</option>
-                <option value="ABW">Aruba</option>
-                <option value="AUS">Australia</option>
-                <option value="AUT" selected="selected">Austria</option>
+        <div class="col-5">
+            <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
+            <?php
+            foreach ($students as $s) {?>
+                <option value="<?php echo $s['id'] ?>" class="border p-2 my-1">
+                <?php 
+                echo "{$s['student_name']} - ";
+                echo "{$s['email']}";
+                ?>
+                </option>
+            <?php }?>
             </select>
+        </div>
+        <div class="col-2">
+            <button type="button" id="search_rightAll" class="btn btn-outline-secondary w-100 mt-3 mb-3"><i
+                    class="bi bi-chevron-double-right"></i></button>
+            <button type="button" id="search_rightSelected" class="btn btn-outline-secondary w-100 mb-3"><i
+                    class="bi bi-chevron-right"></i></button>
+            <button type="button" id="search_leftSelected" class="btn btn-outline-secondary w-100 mb-3"><i
+                    class="bi bi-chevron-left"></i></button>
+            <button type="button" id="search_leftAll" class="btn btn-outline-secondary w-100 mb-3"><i
+                    class="bi bi-chevron-double-left"></i></button>
+        </div>
+        <div class="col-5">
+            <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple"></select>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/js-vendor/multiselect/multiselect.js"></script>
+<script>
+$(document).ready(function() {
+    $('#search').multiselect({
+        search: {
+            left: '<input type="text" name="q" class="form-control mb-1" placeholder="Search..." />',
+            right: '<input type="text" name="q" class="form-control mb-1" placeholder="Search..." />',
+        },
+        fireSearch: function(value) {
+            return value.length > 0;
+        }
+    });
+})
+</script>
