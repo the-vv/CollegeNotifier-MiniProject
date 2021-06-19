@@ -1,4 +1,3 @@
-<!-- Button trigger modal -->
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/create.php';?>
 <div id="students-list-container">
@@ -19,3 +18,4 @@ $(function() {
     $("#StudentsList").JPaging();
 });
 </script>
+

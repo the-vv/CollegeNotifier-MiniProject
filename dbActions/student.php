@@ -269,23 +269,24 @@ function delete_student($sid)
     return array("error" => true, "message" => mysqli_error($connection));
 }
 
-function update_student_by_id($sid, $name = '', $email = '', $phone = '', $gender = '', $student_password = '', $roll = 0) {
+function update_student_by_id($sid, $name = '', $email = '', $phone = '', $gender = '', $student_password = '', $roll = 0)
+{
     global $student_table_name, $connection;
     $query = "UPDATE $student_table_name SET
             student_name = ?, email = ?, phone = ?, gender = ?";
-    if(strlen($student_password) > 0) {
+    if (strlen($student_password) > 0) {
         $query  .= ", student_password = ?";
     }
     $query .= " WHERE id = ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (strlen($student_password) > 0) {
             $hashed = password_hash($student_password, PASSWORD_DEFAULT);
-            if (!$safeQuery->bind_param('ssssss',$name, $email, $phone, $gender, $hashed, $sid)) {
+            if (!$safeQuery->bind_param('ssssss', $name, $email, $phone, $gender, $hashed, $sid)) {
                 // echo "Error Creating student values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
         } else {
-            if (!$safeQuery->bind_param('sssss',$name, $email, $phone, $gender, $sid)) {
+            if (!$safeQuery->bind_param('sssss', $name, $email, $phone, $gender, $sid)) {
                 // echo "Error Creating student values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
@@ -301,4 +302,30 @@ function update_student_by_id($sid, $name = '', $email = '', $phone = '', $gende
         return array("error" => true, "message" => mysqli_error($connection));
     }
     return array("success" => true, "message" => "Student created Successfully");
+}
+
+function map_students($sids, $college_id = 0, $dpt_id = 0, $batch_id = 0, $class_id = 0)
+{
+    global $student_table_name, $connection;
+    $query = "UPDATE $student_table_name SET 
+              college_id = ?, dpt_id = ?, batch_id = ?, class_id = ?
+              WHERE id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        foreach ($sids as $s) {
+            if (!$safeQuery->bind_param('iiiii', $college_id, $dpt_id, $batch_id, $class_id, $s)) {
+                // echo "Error Creating student values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                // echo "Error Creating class Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Student mapped Successfully");
+    } else {
+        // echo "Error Creating student Error: " . mysqli_error($connection);
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("success" => true, "message" => "Student mapped Successfully");
 }

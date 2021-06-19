@@ -55,12 +55,8 @@ require_once __DIR__ . './public/header.php';
 
 // Normal Routing Begins Here
 switch ($request) {
-    case '/':
-        require_once __DIR__ . '/views/index.php';
-        break;
     case '':
-        require_once __DIR__ . '/views/index.php';
-        break;
+    case '/':
     case '/index.php':
         require_once __DIR__ . '/views/index.php';
         break;

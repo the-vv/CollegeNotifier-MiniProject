@@ -47,7 +47,7 @@ if (isset($_POST['create'])) {
                         Class created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../batch?id=$bid&did=$did&cid=$cid'>Go to Departments</a></span>
+                <span>Go to <a href='../batch?bid=$bid&did=$did&cid=$cid'>Go to Departments</a></span>
             </div>
         </div>
         ";

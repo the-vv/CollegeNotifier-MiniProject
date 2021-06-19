@@ -17,7 +17,7 @@ if (isset($query_params['bid'])) {
     <div class="row">
         <div class="col-12 p-5">
             <h2 class="text-center"> Create Class now </h2>
-            <form class="mt-4" action="submit?cid=<?php echo $cid ?>&did=<?php echo $did ?>&bid=<?php echo $bid ?>" method="POST">
+            <form class="mt-4" action="class/submit?cid=<?php echo $cid ?>&did=<?php echo $did ?>&bid=<?php echo $bid ?>" method="POST">
                 <div class="form-group mx-auto col-md-6 mt-3">
                     <label for="name">Enter Division Name</label>
                     <input type="text" class="form-control" name="div" id="name" required

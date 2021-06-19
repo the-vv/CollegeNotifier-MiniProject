@@ -34,7 +34,33 @@ function import_students_from_file($fname)
     unlink($target_file);
 }
 
-if (isset($_POST['edit'])) {
+if (isset($_POST['mapings'])) {
+    // print_r($_POST);
+    $mappings = json_decode($_POST['mapings']);
+    $referer = $_POST['referer'];
+    // print_r($mappings);
+    $res = map_students($mappings, $cid, $did, $bid, $clid);
+    if (isset($res['error'])) {
+        $error_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    } else {
+        $success_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+    }
+    echo "    
+    <div class='container'>
+        <div class='row'>
+            <div class='col-12 text-center'>
+                <span>
+                    <a class='btn btn-outline-primary shadow border px-5 py-1' href='$referer'>Continue</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    ";
+    die();
+} 
+elseif (isset($_POST['edit'])) {
     $sid = $_POST['id'];
     $email = $_POST['email'];
     $name = $_POST['name'];
@@ -62,8 +88,7 @@ if (isset($_POST['edit'])) {
     </div>
     ";
     die();
-} 
-elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
+} elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     $target_file = $target_dir . basename($_FILES["students"]["name"]);
     $uploadOk = 1;
