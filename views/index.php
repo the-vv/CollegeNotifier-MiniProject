@@ -31,7 +31,7 @@
                         <div class="card shadow rounded border" style="width: 100%">
                             <img src="../../public/assets/teacher.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">Faculty/ Teacher</h5>
+                                <h5 class="card-title">Employee</h5>
                                 <p class="card-text">Login as a teaching or a non-teaching staff in college and manage your rooms</p>
                                 <a href="#" class="btn btn-primary">Explore</a>
                             </div>

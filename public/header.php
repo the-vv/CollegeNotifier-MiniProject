@@ -36,9 +36,6 @@ $user = get_current_logged_user();
     <link rel="stylesheet" href="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.css">
     <script src="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
 
-    <!-- JavaScript Data Table Plugin -->
-    <script type="text/javascript" src="/js-vendor/FathGrid-master/dist/FathGrid.js"></script>
-
     <!-- JQuery Dialog Plugin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>

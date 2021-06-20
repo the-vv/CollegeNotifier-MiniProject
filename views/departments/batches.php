@@ -66,7 +66,7 @@ $students = get_students_from_dpt($query_params['did']);
                         <?php foreach ($batches as $batch) {
     echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong'>
+                            <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
                                 <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
                             </a>
                         </li>

@@ -67,7 +67,7 @@ $students = get_students_from_batch($batch['id'])
                         <?php foreach ($classes as $class) {
                         echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href='class?clid={$class['id']}&bid={$query_params['bid']}&cid={$query_params['cid']}&did={$query_params['did']}' style='text-decoration: none' class='strong'>
+                            <a href='class?clid={$class['id']}&bid={$query_params['bid']}&cid={$query_params['cid']}&did={$query_params['did']}' style='text-decoration: none' class='strong stretched-link'>
                                 <div class='h6 d-block text-truncate'><i class='fas fa-chalkboard-teacher me-1'></i> Class: {$class['division']} division</div>
                             </a>
                         </li>

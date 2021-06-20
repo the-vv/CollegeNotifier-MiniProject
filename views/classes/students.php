@@ -16,23 +16,20 @@ $students = get_students_from_class($current_class['id']);
 ?>
 
 <div class="container shadow rounded border" id="departments" style="min-height: 80vh">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
-        <li class="breadcrumb-item"><a
-                href="college?cid=<?php echo $query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
+        <li class="breadcrumb-item"><a href="college?cid=<?php echo $query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
         </li>
-        <li class="breadcrumb-item"><a
-                href="department?did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
+        <li class="breadcrumb-item"><a href="department?did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
         </li>
-        <li class="breadcrumb-item"><a
-                href="batch?bid=<?php echo $query_params['bid'] ?>&did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>">Division
+        <li class="breadcrumb-item"><a href="batch?bid=<?php echo $query_params['bid'] ?>&did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>">Division
                 <?php echo $class['division'] ?></a></li>
         <li class="breadcrumb-item"><a href="#">Students</a></li>
     </ol>
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
-    }?>
+    } ?>
     <hr class="p-0 mb-0">
     <div class="row" style="max-height: 90vh">
         <div class="col-12">
@@ -43,10 +40,10 @@ $students = get_students_from_class($current_class['id']);
     </div>
     <div class="row mb-5">
         <div class="col-md-8">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php'?>
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php' ?>
         </div>
         <div class="col-md-4">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
         </div>
     </div>
 </div>

@@ -23,27 +23,29 @@ $colleges = get_colleges($user['id']);
             </ol>
         </nav>
     </div>
-    <div class="row mb-5">
-        <div class="h4 text-center mb-4 mt-3">
-            Colleges managed by you
-        </div>
-        <ul class="list-group px-5">
-            <?php foreach ($colleges as $college) {
-                echo "
+    <div class="row">
+        <div class="col-12">
+            <div class="row p-1 mt-5">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h5 class="p-0 m-0"> Colleges managed by you</h5>
+                    <span>
+                        <a href="college/create" class="btn btn-outline-primary rounded rounded-pill btn-sm" class="btn btn-info strong">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <ul class="list-group">
+                <?php foreach ($colleges as $college) {
+                    echo "
                     <li class='list-group-item d-flex justify-content-between align-items-center'>
-                        <div class='h6 d-block text-truncate'><i class='bi bi-building me-3'></i>{$college['college_name']}</div>
-                        <a href='college?cid={$college['id']}' class='btn btn-success px-md-5 strong'>
-                            Go
+                    <a href='college?cid={$college['id']}' class='py-2 strong stretched-link'>
+                    <div class='h6 d-block text-truncate'><i class='bi bi-building me-3'></i>{$college['college_name']}</div>
                         </a>
                     </li>
                     ";
-                }?>
-            <li class="list-group-item d-flex justify-content-evenly align-items-center bg-secondary text-white">
-                <span class="h5">Create a college now:</span>
-                <a href="college/create" class="btn btn-info px-md-5 strong">
-                    Create
-                </a>
-            </li>
-        </ul>
+                } ?>
+            </ul>
+        </div>
     </div>
 </div>

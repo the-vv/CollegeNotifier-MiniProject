@@ -10,14 +10,12 @@
                 </button>
             </div>
             <div class="col-4">
-                <button class="btn btn-outline-dark rounded rounded-pill w-100"><i
-                        class='fas fa-graduation-cap me-1'></i>
+                <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class='fas fa-graduation-cap me-1'></i>
                     Batches
                 </button>
             </div>
             <div class="col-4">
-                <button class="btn btn-outline-dark rounded rounded-pill w-100"><i
-                        class="fas fa-chalkboard-teacher"></i>
+                <button class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-chalkboard-teacher"></i>
                     Classes
                 </button>
             </div>
@@ -36,7 +34,7 @@
                 </button>
             </div>
             <div class="col-4">
-                <a href="administration/students?<?php echo $url_with_query_params ?>" class="btn btn-outline-dark rounded rounded-pill w-100" ><i class="fas fa-user-graduate"></i>
+                <a href="administration/students?<?php echo $url_with_query_params ?>" class="btn btn-outline-dark rounded rounded-pill w-100"><i class="fas fa-user-graduate"></i>
                     Students
                 </a>
             </div>

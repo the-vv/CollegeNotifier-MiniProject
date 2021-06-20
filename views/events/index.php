@@ -10,16 +10,16 @@
 </div>
 <ul class="list-group">
     <li class='list-group-item d-flex justify-content-between align-items-center'>
-        <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-            Here is the event content
+        <a href="javascript:void(0)" class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
+            Here is the dummy event content
             <small class="small text-muted">
                 | Content description
             </small>
         </a>
     </li>
     <li class='list-group-item d-flex justify-content-between align-items-center'>
-        <a href="#" class="d-inline-block text-truncate h6 text-decoration-none">
-            Here is the event content
+        <a href="javascript:void(0)" class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
+            Here is the dummy event content
             <small class="small text-muted">
                 | Content description
             </small>

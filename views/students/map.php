@@ -30,16 +30,13 @@
                     $room_to_add = 'dpt_id';
                 }
                 // TODO: implement parent room match checking
+                // $students = $students_all;
                 $students = array_filter($students_all, function ($stud) {
-                    global $room_to_add, $query_param_values;
-                    $to_add = false;
-                    if ($query_param_values['clid'] != 0) {
-                        $room_to_add = 'class_id';
-                    } elseif ($query_param_values['bid'] != 0) {
-                        $room_to_add = 'batch_id';
-                    } elseif ($query_param_values['did'] != 0) {
-                        $room_to_add = 'dpt_id';
+                    global $room_to_add;
+                    if($stud[$room_to_add] != 0) {
+                        return false;
                     }
+                    return true;
                 });
             }
             ?>

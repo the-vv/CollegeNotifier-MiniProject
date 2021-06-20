@@ -1,3 +1,8 @@
+<!-- 
+    JavaScript Data Table Plugin -->
+<script src="/js-vendor/jsPDF/dist/jspdf.min.js"></script>
+<script type="text/javascript" src="/js-vendor/FathGrid-master/dist/FathGrid.js"></script>
+
 <?php
 $cid = $query_param_values['cid'];
 if ($cid == 0) {
@@ -23,26 +28,26 @@ $all_students = get_all_students_bi_cid($cid);
     <div class="row pb-5 overflow-auto">
         <table class="table table-success table-striped table-bordered rounded" id="studnetslist">
             <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Department</th>
-                <th scope="col">Batch</th>
-                <th scope="col">Class</th>
-                <th scope="col">Actions</th>
-            </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Batch</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Actions</th>
+                </tr>
             </thead>
             <tbody>
-            <?php $count = 1;
-            foreach ($all_students as $stud) {
-                $batch = strlen($stud['start_year']) > 0 ? "{$stud['start_year']} - {$stud['end_year']}" : '-';
-                $dpt = strlen($stud['dpt_name']) > 0 ? "{$stud['dpt_name']}" : '-';
-                $class = strlen($stud['division']) > 0 ? "Division {$stud['division']}" : '-';
-                echo "<tr>
+                <?php $count = 1;
+                foreach ($all_students as $stud) {
+                    $batch = strlen($stud['start_year']) > 0 ? "{$stud['start_year']} - {$stud['end_year']}" : '-';
+                    $dpt = strlen($stud['dpt_name']) > 0 ? "{$stud['dpt_name']}" : '-';
+                    $class = strlen($stud['division']) > 0 ? "Division {$stud['division']}" : '-';
+                    echo "<tr>
                         <td scope='row'>{$stud['id']}</td>
                         <td scope='row'>{$count}</td>
                         <td>{$stud['student_name']}</td>
@@ -54,8 +59,8 @@ $all_students = get_all_students_bi_cid($cid);
                         <td>$class</td>
                         <td></td>
                     </tr>";
-                $count++;
-            } ?>
+                    $count++;
+                } ?>
             </tbody>
         </table>
     </div>
@@ -70,9 +75,9 @@ $all_students = get_all_students_bi_cid($cid);
         showTableTotal: true,
         showGraph: false,
         columns: [{
-            editable: false,
-            visible: false
-        },
+                editable: false,
+                visible: false
+            },
             {
                 editable: false
             },
@@ -154,8 +159,7 @@ $all_students = get_all_students_bi_cid($cid);
                         });
                     }
                 },
-                cancel: () => {
-                }
+                cancel: () => {}
             }
         })
     }
