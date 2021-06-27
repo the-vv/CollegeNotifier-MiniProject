@@ -1,9 +1,9 @@
 <?php
 
-$cid = isset($query_params['cid']) ? $query_params['cid'] : 0;
-$did = isset($query_params['did']) ? $query_params['did'] : 0;
-$bid = isset($query_params['bid']) ? $query_params['bid'] : 0;
-$clid = isset($query_params['clid']) ? $query_params['clid'] : 0;
+$cid = $query_params['cid'] ?? 0;
+$did = $query_params['did'] ?? 0;
+$bid = $query_params['bid'] ?? 0;
+$clid = $query_params['clid'] ?? 0;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 

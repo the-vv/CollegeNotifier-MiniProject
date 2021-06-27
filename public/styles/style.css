@@ -171,3 +171,7 @@
 #students-list-container .hidden {
 	display: none;
 }
+
+body > div > .container {
+	background-color: #fff;
+}

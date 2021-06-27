@@ -29,6 +29,11 @@
                 } elseif ($query_param_values['did'] != 0) {
                     $room_to_add = 'dpt_id';
                 }
+                else {
+                    $error_mess = "Required parameters not provided or mapping not allowed here.";
+                    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+                    die();
+                }
                 // TODO: implement parent room match checking
                 // $students = $students_all;
                 $students = array_filter($students_all, function ($stud) {

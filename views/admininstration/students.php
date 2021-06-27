@@ -107,12 +107,12 @@ $all_students = get_all_students_bi_cid($cid);
                 editable: false,
                 html: (item) => {
                     return `
-                <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
-                    onclick="deleteStudent('${[item[0]]}', '${[item[2]]}', '${[item[4]]}')">
-                <i class='bi bi-trash-fill'></i></button>
-                <a href='/students/edit?cid=<?php echo $cid ?>&sid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                <i class='bi bi-pencil-square'></i></a>
-                `
+                        <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
+                            onclick="deleteStudent('${[item[0]]}', '${[item[2]]}', '${[item[4]]}')">
+                        <i class='bi bi-trash-fill'></i></button>
+                        <a href='/students/edit?cid=<?php echo $cid ?>&sid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                        <i class='bi bi-pencil-square'></i></a>
+                    `
                 }
             },
         ]

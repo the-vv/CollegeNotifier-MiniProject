@@ -31,7 +31,7 @@ $user = get_current_logged_user();
     <!-- JQuery js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        
+
     <!-- JQuery Toasts plugin  -->
     <link rel="stylesheet" href="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.css">
     <script src="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
@@ -41,11 +41,11 @@ $user = get_current_logged_user();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- Jquery List Pager Plugin -->
-    <script type="text/javascript"src="/js-vendor/list-pager/paging.min.js"></script>
+    <script type="text/javascript" src="/js-vendor/list-pager/paging.min.js"></script>
 
 </head>
 
-<body>
+<body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
             <a class="navbar-brand" href="/">College Notifier</a>
@@ -56,8 +56,8 @@ $user = get_current_logged_user();
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($request == '/') { echo 'active'; }?>"
-                        aria-current="page" href="/">Home</a>
+                        <a class="nav-link <?php if ($request == '/') { echo 'active'; }?>" aria-current="page"
+                            href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -73,3 +73,5 @@ $user = get_current_logged_user();
             </div>
         </div>
     </nav>
+
+    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 56px);">
