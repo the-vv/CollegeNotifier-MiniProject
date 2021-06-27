@@ -10,7 +10,7 @@ $college = get_college($query_params['cid'])[0];
 $students = get_students_from_college($query_params['cid']);
 ?>
 
-<div class="container shadow rounded border" id="departments" style="min-height: 80vh">
+<div class="container-fluid bg-light mx-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>

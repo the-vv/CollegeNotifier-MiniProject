@@ -1,11 +1,13 @@
 <?php
 $room_to_add = '';
 if ($query_param_values['clid'] != 0) {
-    $room_to_add = 'College';
+    $room_to_add = 'Class';
 } elseif ($query_param_values['bid'] != 0) {
     $room_to_add = 'Batch';
 } elseif ($query_param_values['did'] != 0) {
     $room_to_add = 'Department';
+} elseif ($query_param_values['cid'] != 0) {
+    $room_to_add = 'College';
 }
 ?>
 
@@ -17,7 +19,7 @@ if ($query_param_values['clid'] != 0) {
         <button class="nav-link" id="nav-events-tab" data-bs-toggle="tab" data-bs-target="#nav-events" type="button"
             role="tab" aria-controls="nav-events" aria-selected="false">All Events</button>
         <button class="nav-link" id="nav-room-tab" data-bs-toggle="tab" data-bs-target="#nav-room" type="button"
-            role="tab" aria-controls="nav-room" aria-selected="false">room</button>
+            role="tab" aria-controls="nav-room" aria-selected="false"><?php echo $room_to_add?> Wise</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">

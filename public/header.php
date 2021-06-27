@@ -45,7 +45,7 @@ $user = get_current_logged_user();
 
 </head>
 
-<body class="bg-light">
+<body class="bg-primary">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
             <a class="navbar-brand" href="/">College Notifier</a>
