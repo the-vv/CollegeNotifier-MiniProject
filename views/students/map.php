@@ -1,4 +1,4 @@
-<div class="container border rounded shadow">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <div class="row pt-5">
         <div class="col-12">
             <?php
@@ -78,8 +78,8 @@
                 <?php } ?>
             </select>
         </div>
-        <div class="col-1 d-flex align-items-center justify-content-cener">
-            <div class="text-md-center" id="mapControllers">
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <div class="text-md-center d-flex flex-column" id="mapControllers">
                 <button title="Add All" type="button" id="search_rightAll" class=" btn btn-danger py-2 rounded-circle mb-3"><i class="bi bi-chevron-double-right"></i></button>
                 <button title="Add Selected" type="button" id="search_rightSelected" class=" btn btn-warning py-2 rounded-circle mb-3"><i class="bi bi-chevron-right"></i></button>
                 <button title="Remove Selected" type="button" id="search_leftSelected" class=" btn btn-warning py-2 rounded-circle mb-3"><i class="bi bi-chevron-left"></i></button>

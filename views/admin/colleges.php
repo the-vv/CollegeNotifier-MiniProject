@@ -6,7 +6,7 @@ $user = get_current_logged_user();
 $colleges = get_colleges($user['id']);
 ?>
 
-<div class="container shadow rounded border" id="colleges" style="min-height: 80vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb"  style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Colleges</a></li>
@@ -18,7 +18,7 @@ $colleges = get_colleges($user['id']);
         <h6>
             <?php echo $user['email'] ?>
         </h6>
-    </div>
+    </div> 
     <div class="row">
         <div class="col-10 mx-auto">
             <div class="row p-1 mt-5">

@@ -24,7 +24,7 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $from = '', $to = '', $content = '', $time = '', $fromid = '', $attatchement = '')
+function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $content = '', $time = '', $fromid = '', $attatchement = '')
 {
     global $TableName, $connection;
     $query = "INSERT INTO $TableName (

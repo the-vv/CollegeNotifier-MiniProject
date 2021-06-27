@@ -14,7 +14,7 @@ $classes = get_classes($department['id'], $college['id'], $batch['id']);
 $students = get_students_from_batch($batch['id'])
 ?>
 
-<div class="container shadow rounded border" id="departments" style="min-height: 80vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>

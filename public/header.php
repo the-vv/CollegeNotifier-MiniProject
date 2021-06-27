@@ -43,6 +43,11 @@ $user = get_current_logged_user();
     <!-- Jquery List Pager Plugin -->
     <script type="text/javascript" src="/js-vendor/list-pager/paging.min.js"></script>
 
+    <!-- Rich Text Editor Plugin style-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.24.0/ui/trumbowyg.min.css"
+        integrity="sha512-baPsQggIoNC4ezJg68uPTtrEJ9OLY1SlnTnnDrYn+LgUBMbc1q5gSD9v5BN4+MWpfIG50AYhnCFmCDszbJaygw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body class="bg-primary">
@@ -74,4 +79,4 @@ $user = get_current_logged_user();
         </div>
     </nav>
 
-    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 56px);">
+    <div class="d-flex align-items-center" style="min-height: calc(100vh - 56px);">

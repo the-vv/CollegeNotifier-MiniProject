@@ -123,6 +123,12 @@ switch ($request) {
     case '/administration/students':
         require_once __DIR__ . '/views/admininstration/students.php';
         break;
+    case '/events/create':
+        require_once __DIR__ . '/views/events/create.php';
+        break;
+    case '/events/submit':
+        require_once __DIR__ . '/views/events/submit.php';
+        break;
     default:
         http_response_code(404);
         require_once __DIR__ . '/views/404.php';

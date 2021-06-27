@@ -16,7 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 $all_students = get_all_students_bi_cid($cid);
 ?>
 
-<div class="container border shadow rounded">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>

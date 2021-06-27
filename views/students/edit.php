@@ -16,7 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 $student_details = get_student($sid)[0];
 ?>
 
-<div class="container border shadow">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <div class="row py-5">
         <div class="col-12">
             <p class="h3 text-start mb-4">Edit student</p>

@@ -28,9 +28,9 @@ if ($query_param_values['clid'] != 0) {
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <h5 class="p-0 m-0">Events/Announcements</h5>
                 <span>
-                    <button type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                         Create <i class="bi bi-plus-lg"></i>
-                    </button>
+                    </a>
                 </span>
             </div>
         </div>

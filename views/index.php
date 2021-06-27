@@ -1,4 +1,4 @@
-<div class="container-fluid mx-3 bg-light rounded shadow" id="home">
+<div class="container-fluid mx-md-4 bg-light rounded shadow" id="home">
     <div class="row p-5 pt-4 shadow rounded">
         <div class="text-center">
             <h1 class="">Welcome to College Notifier</h1>
