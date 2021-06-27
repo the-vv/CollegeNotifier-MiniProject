@@ -35,7 +35,7 @@ $user = get_current_logged_user();
     <!-- JQuery Toasts plugin  -->
     <link rel="stylesheet" href="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.css">
     <script src="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
-
+ 
     <!-- JQuery Dialog Plugin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -43,10 +43,9 @@ $user = get_current_logged_user();
     <!-- Jquery List Pager Plugin -->
     <script type="text/javascript" src="/js-vendor/list-pager/paging.min.js"></script>
 
-    <!-- Rich Text Editor Plugin style-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.24.0/ui/trumbowyg.min.css"
-        integrity="sha512-baPsQggIoNC4ezJg68uPTtrEJ9OLY1SlnTnnDrYn+LgUBMbc1q5gSD9v5BN4+MWpfIG50AYhnCFmCDszbJaygw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Quill Rich Text Editor Plugin style-->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 
 </head>
 

@@ -10,7 +10,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
         class_id INT(6) UNSIGNED,
-        content TEXT,
+        content MEDIUMTEXT,
         sendtime INT(15) NOT NULL,
         from_id INT(6) NOT NULL,
         attatchement VARCHAR(500),

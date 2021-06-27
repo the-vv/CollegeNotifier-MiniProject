@@ -9,31 +9,86 @@ if (isset($query_params['cid'])) {
 }
 ?>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.24.0/trumbowyg.min.js"
-    integrity="sha512-1grPXW6pB3WKyOH6zbXrYrYf+SHKeky6JTpUVtjDfz4NZ6uIu0HLRNSmXnv5rjn7iLJXrWLoVFR3XBAuaG3IRg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-<div class="container shadow border rounded rounded-lg">
+
+<div class="container-fluid bg-light shadow border rounded rounded-lg mx-3">
     <div class="row">
         <div class="col-12 p-5">
             <h2 class="text-center"> Create an Event/Notification now </h2>
-            <form class="mt-4" action="events/submit?<?php echo $url_with_query_params ?>" method="POST">
-                <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="name">Department Name*</label>
-                    <input type="text" class="form-control" name="name" id="name" required aria-describedby="nameHelp"
-                        placeholder="Department name">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <form class="mt-4 row" action="events/submit?<?php echo $url_with_query_params ?>" method="POST"
+                enctype="multipart/form-data">
+                <div class="mb-4 col-12">
+                    <label for="formFile" class="form-label">Add attatchement if any</label>
+                    <input class="form-control" type="file" id="formFile" name="attatchement">
                 </div>
-                <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="exampleInputEmail1">Department category</label>
-                    <input type="text" class="form-control" name="category" id="exampleInputcategory1"
-                        aria-describedby="categoryHelp" placeholder="Department Category">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                <div class="col-12 mb-xl-4 mb-5" style="min-height:100px">
+                    <div id="textEditor" style="min-height:100px"></div>
                 </div>
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary px-5" name="create">Create</button>
+                <input type="hidden" name="content">
+                <div class="text-center mt-5">
+                    <button type="button" class="btn btn-primary px-5" name="create">Publish</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+    ['blockquote', 'code-block'],
+
+    [{
+        'header': 1
+    }, {
+        'header': 2
+    }], // custom button values
+    [{
+        'list': 'ordered'
+    }, {
+        'list': 'bullet'
+    }],
+    [{
+        'script': 'sub'
+    }, {
+        'script': 'super'
+    }], // superscript/subscript
+    [{
+        'indent': '-1'
+    }, {
+        'indent': '+1'
+    }], // outdent/indent
+    [{
+        'direction': 'rtl'
+    }], // text direction
+
+    [{
+        'size': ['small', false, 'large', 'huge']
+    }], // custom dropdown
+    [{
+        'header': [1, 2, 3, 4, 5, 6, false]
+    }],
+
+    [{
+        'color': []
+    }, {
+        'background': []
+    }], // dropdown with defaults from theme
+    [{
+        'font': []
+    }],
+    [{
+        'align': []
+    }],
+
+    ['clean', 'image', 'video'] // remove formatting button
+];
+
+var quill = new Quill('#textEditor', {
+    placeholder: 'Compose a Notification...',
+    modules: {
+        toolbar: toolbarOptions
+    },
+    theme: 'snow'
+});
+</script>
