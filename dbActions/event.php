@@ -2,39 +2,42 @@
 
 require_once 'connection.php';
 
-$TableName = 'events';
+$event_table_name = 'events';
 
-$create_query = "CREATE TABLE IF NOT EXISTS $TableName (
+$create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         dpt_id INT(6) UNSIGNED,
         college_id INT(6) UNSIGNED,
         batch_id INT(6) UNSIGNED,
         class_id INT(6) UNSIGNED,
+        title VARCHAR(200) NOT NULL,
         content MEDIUMTEXT,
         sendtime INT(15) NOT NULL,
         from_id INT(6) NOT NULL,
         attatchement VARCHAR(500),
+        is_event INT(1) NOT NULL,
+        CHECK (is_event IN (1, 0)),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
         FOREIGN KEY (batch_id) REFERENCES batches(id),
         FOREIGN KEY (class_id) REFERENCES classes(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
-    echo "Error creating Table $TableName " . mysqli_error($connection);
+    echo "Error creating Table $event_table_name " . mysqli_error($connection);
     die();
 }
 
-function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $content = '', $time = '', $fromid = '', $attatchement = '')
+function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0)
 {
-    global $TableName, $connection;
-    $query = "INSERT INTO $TableName (
-            dpt_id, college_id, batch_id, class_id, from_level, to_level, content, sendtime, fromid, attatchement
+    global $event_table_name, $connection;
+    $query = "INSERT INTO $event_table_name (
+            dpt_id, college_id, batch_id, class_id, title, content, sendtime, from_id, attatchement, is_event
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id,  $from, $to, $content, $time, $fromid, $attatchement)) {
+        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $title, $content, $time, $fromid, $attatchement, $isevent)) {
             echo "Error Creating event values Error: " . $safeQuery->error;
             return false;
         }
@@ -52,8 +55,8 @@ function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id 
 
 function get_event($id)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE id = ?";
+    global $event_table_name, $connection;
+    $query = "SELECT * from $event_table_name WHERE id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {

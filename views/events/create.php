@@ -10,14 +10,26 @@ if (isset($query_params['cid'])) {
 ?>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
+<script src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js"></script>
 
 <div class="container-fluid bg-light shadow border rounded rounded-lg mx-3">
     <div class="row">
         <div class="col-12 p-5">
             <h2 class="text-center"> Create an Event/Notification now </h2>
-            <form class="mt-4 row" action="events/submit?<?php echo $url_with_query_params ?>" method="POST"
-                enctype="multipart/form-data">
+            <form id="eventForm" class="mt-4 row d-flex align-items-center"
+                action="events/submit?<?php echo $url_with_query_params ?>" method="POST" enctype="multipart/form-data">
+                <div class="form-group col-md-9 text-start">
+                    <label for="">Title od the Notification</label>
+                    <input type="text" class="form-control" name="title" id="title" aria-describedby=""
+                        placeholder="Enter Title" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Mode of this Nofitication</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="isevent">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">This is an Event</label>
+                    </div>
+                </div>
                 <div class="mb-4 col-12">
                     <label for="formFile" class="form-label">Add attatchement if any</label>
                     <input class="form-control" type="file" id="formFile" name="attatchement">
@@ -25,9 +37,9 @@ if (isset($query_params['cid'])) {
                 <div class="col-12 mb-xl-4 mb-5" style="min-height:100px">
                     <div id="textEditor" style="min-height:100px"></div>
                 </div>
-                <input type="hidden" name="content">
+                <input type="hidden" name="eventContent" id="eventContent">
                 <div class="text-center mt-5">
-                    <button type="button" class="btn btn-primary px-5" name="create">Publish</button>
+                    <button type="submit" class="btn btn-primary px-5" name="publish" id="publishEvent">Publish</button>
                 </div>
             </form>
         </div>
@@ -81,14 +93,23 @@ var toolbarOptions = [
         'align': []
     }],
 
-    ['clean', 'image', 'video'] // remove formatting button
+    ['formula', 'clean', 'image', 'video'] // remove formatting button
 ];
 
 var quill = new Quill('#textEditor', {
-    placeholder: 'Compose a Notification...',
+    placeholder: 'Compose an Event/Notification...',
     modules: {
+        imageResize: {
+            displaySize: true,
+        },
         toolbar: toolbarOptions
     },
     theme: 'snow'
 });
+$("#eventForm").submit((e) => {
+    e.preventDefault();
+    console.log(quill.root.innerHTML);
+    $("#eventContent").val(quill.root.innerHTML);
+    document.getElementById("eventForm").submit();
+})
 </script>
