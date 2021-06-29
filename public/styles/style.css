@@ -178,7 +178,7 @@ body>div>.container {
 
 body {
 	/* background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm209-kul-04_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=98c963e0cd476b607a5ee57537b52faa"); */
-	background-size: cover;
+	background-size : cover;
 	background-color: #0093E9;
 	background-image: linear-gradient(180deg, #0b69f7 0%, #80D0C7 100%);
 
@@ -186,21 +186,36 @@ body {
 
 body>div>.container-fluid {
 	/* z-index: 1041; */
-	background-color: rgba(255, 255, 255, 0.8)!important;
+	background-color  : rgba(255, 255, 255, 0.8) !important;
 	/* backdrop-filter: blur(25px)!important;  */
-	border-radius: 20px !important;
-	/* color: #fff !important; */
+	border-radius     : 20px !important;
+	/* color          : #fff !important; */
 
 }
 
 * {
-	 border-radius: 20px!important;
- }
+	border-radius: 20px !important;
+}
 
-nav, table, td, tr, thead, svg {
-	 border-radius: unset !important;
- }
+nav,
+table,
+td,
+tr,
+thead,
+svg {
+	border-radius: unset !important;
+}
 
- table *, .tab-pane span, .tab-pane a, .tab-pane p, .tab-pane a *{
-	 border-radius: 5px !important;
- }
+table *,
+.tab-pane span,
+.tab-pane,
+.tab-pane p,
+.tab-pane li a,
+.tab-pane a div,
+#eventcontent * {
+	border-radius: 5px !important;
+}
+
+a {
+	cursor: pointer;
+}

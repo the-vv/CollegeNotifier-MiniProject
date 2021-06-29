@@ -48,15 +48,13 @@ if (isset($_POST['mapings'])) {
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
     }
     echo "    
-    <div class='container'>
         <div class='row'>
             <div class='col-12 text-center'>
                 <span>
-                    <a class='btn btn-outline-primary shadow border px-5 py-1' href='$referer'>Continue</a>
+                    <a class='btn btn-light shadow border px-5 py-1' href='$referer'>Continue</a>
                 </span>
             </div>
         </div>
-    </div>
     ";
     die();
 } 
@@ -77,7 +75,6 @@ elseif (isset($_POST['edit'])) {
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
     }
     echo "    
-    <div class='container'>
         <div class='row'>
             <div class='col-12 text-center'>
                 <span>
@@ -85,7 +82,6 @@ elseif (isset($_POST['edit'])) {
                 </span>
             </div>
         </div>
-    </div>
     ";
     die();
 } elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
@@ -144,7 +140,6 @@ elseif (isset($_POST['edit'])) {
     }
 }
 ?>
-<div class="container">
     <div class="row">
         <div class="col-12 text-center">
             <span>
@@ -152,4 +147,3 @@ elseif (isset($_POST['edit'])) {
             </span>
         </div>
     </div>
-</div>

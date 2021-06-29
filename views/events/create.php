@@ -9,8 +9,6 @@ if (isset($query_params['cid'])) {
 }
 ?>
 
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js"></script>
 
 <div class="container-fluid bg-light shadow rounded rounded-lg mx-3">
     <div class="row">

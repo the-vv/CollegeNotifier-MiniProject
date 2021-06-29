@@ -23,16 +23,14 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-room-tab" data-bs-toggle="tab" data-bs-target="#nav-room" type="button"
             role="tab" aria-controls="nav-room" aria-selected="false">All</button>
-        <button class="nav-link" id="nav-notifications-tab" data-bs-toggle="tab"
-            data-bs-target="#nav-notifications" type="button" role="tab" aria-controls="nav-notifications"
-            aria-selected="true">All Notifications</button>
+        <button class="nav-link" id="nav-notifications-tab" data-bs-toggle="tab" data-bs-target="#nav-notifications"
+            type="button" role="tab" aria-controls="nav-notifications" aria-selected="true">All Notifications</button>
         <button class="nav-link" id="nav-events-tab" data-bs-toggle="tab" data-bs-target="#nav-events" type="button"
             role="tab" aria-controls="nav-events" aria-selected="false">All Events</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel"
-        aria-labelledby="nav-notifications-tab">
+    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <h5 class="p-0 m-0">Events/Announcements</h5>
@@ -51,7 +49,7 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                 }
             ?>
             <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a href="javascript:void(0)"
+                <a onclick="showEvent('<?php echo $e['id'] ?>')"
                     class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
                     <p class="h6 p-0 m-0">
                         <?php echo $e['title'] ?>
@@ -61,9 +59,10 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                     </small>
                 </a>
                 <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']) ?>
-                    <?php if(strlen($e['attatchement']) > 0){ ?><i class="bi bi-paperclip text-primary"
-                        style="font-size:1.8rem"></i><?php } ?>
+                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
+                        if (strlen($e['attatchement']) > 0) { ?>
+                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
+                    <?php } ?>
                 </span>
             </li>
             <?php } ?>
@@ -88,7 +87,7 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                 }
             ?>
             <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a href="javascript:void(0)"
+                <a onclick="showEvent('<?php echo $e['id'] ?>')"
                     class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
                     <p class="h6 p-0 m-0">
                         <?php echo $e['title'] ?>
@@ -98,8 +97,10 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                     </small>
                 </a>
                 <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']) ?>
-                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem"></i>
+                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
+                        if (strlen($e['attatchement']) > 0) { ?>
+                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
+                    <?php } ?>
                 </span>
             </li>
             <?php } ?>
@@ -120,7 +121,7 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
         <ul class="list-group">
             <?php foreach ($events as $e) { ?>
             <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a href="javascript:void(0)"
+                <a onclick="showEvent('<?php echo $e['id'] ?>')"
                     class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
                     <p class="h6 p-0 m-0">
                         <?php echo $e['title'] ?>
@@ -130,11 +131,72 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                     </small>
                 </a>
                 <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']) ?>
-                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem"></i>
+                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
+                        if (strlen($e['attatchement']) > 0) { ?>
+                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
+                    <?php } ?>
                 </span>
             </li>
             <?php } ?>
         </ul>
     </div>
 </div>
+
+<div class="modal fade" id="eventDisplay" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <p class="text-start p-0 m-0 col-6 ps-3" id="attatchementlink"></p>
+                <p class="text-end p-0 m-0 mb-3 small col-6 pe-3" id="eventtime"></p>
+                <div id="eventcontent"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="registerEvent">Register Now</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+'use strict';
+
+function showEvent(id) {
+    var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
+    $.getJSON(`/services/events/getone?eid=${id}`, (res) => {
+        console.log(res);
+        if (!res.error) {
+            res = res[0];
+        }
+        console.log(new Date(res.sendtime * 1000).toLocaleString());
+        $('#eventtime').html(new Date(res.sendtime * 1000).toLocaleString())
+        $('#eventtitle').html(res.title);
+        // $('#eventcontent').html(res.content);
+        var quill = new Quill('#eventcontent', {
+            theme: 'snow'
+        });
+        quill.root.innerHTML = res.content;
+        quill.disable();
+        $('.ql-toolbar').hide();
+        $('.ql-container.ql-snow').css('border', 'none');
+        $('#attatchementlink').empty();
+        if (res.attatchement.length > 0) {
+            let fileLink = document.createElement('a');
+            fileLink.href = res.attatchement;
+            fileLink.innerHTML = 'Download Attatchement Here';
+            fileLink.download = res.attatchement.split('/')[1].slice(0, res.attatchement.length);
+            $('#attatchementlink').append(fileLink);
+        }
+        if (res.is_event == 1) {
+            $('#registerEvent').show();
+        } else {
+            $('#registerEvent').hide();
+        }
+        myModal.toggle();
+    })
+}
+</script>

@@ -28,6 +28,11 @@ $user = get_current_logged_user();
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Bootstrap Js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+
     <!-- JQuery js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -35,7 +40,7 @@ $user = get_current_logged_user();
     <!-- JQuery Toasts plugin  -->
     <link rel="stylesheet" href="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.css">
     <script src="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
- 
+
     <!-- JQuery Dialog Plugin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -43,7 +48,10 @@ $user = get_current_logged_user();
     <!-- Jquery List Pager Plugin -->
     <script type="text/javascript" src="/js-vendor/list-pager/paging.min.js"></script>
 
-    <!-- Quill Rich Text Editor Plugin style-->
+    <!-- Quill Rich Text Editor Plugin-->
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 

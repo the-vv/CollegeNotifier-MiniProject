@@ -7,7 +7,7 @@ $query_params = null;
 if (isset($parts['query'])) {
     parse_str($parts['query'], $query_params);
 }
- 
+
 $query_param_values = array(
     'cid' => $query_params['cid'] ?? 0,
     'did' => $query_params['did'] ?? 0,
@@ -45,6 +45,9 @@ if (strpos($request, 'services') == 1) {
     switch ($request) {
         case '/services/students/deleteone':
             require_once __DIR__ . '/api/delete_student.php';
+            break;
+        case '/services/events/getone':
+            require_once __DIR__ . '/api/get_event.php';
             break;
     }
     die();

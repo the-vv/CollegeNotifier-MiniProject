@@ -9,39 +9,43 @@ $did = $query_params['did'] ?? 0;
 $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
 
-function upload_file() {
-  // print_r($_FILES['attatchement']);
-    if(is_uploaded_file($_FILES['attatchement']['name']))
-  {
-    $path = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
+function upload_file()
+{
+  if (!isset($_FILES['attatchement']) || $_FILES['attatchement']['error'] == UPLOAD_ERR_NO_FILE) {
+    return '';
+  } else {
+    $path = "uploads/";
     $path = $path . basename(microtime(true) . '-' . $_FILES['attatchement']['name']);
-    if(move_uploaded_file($_FILES['attatchement']['tmp_name'], $path)) {
-      echo "The file ".  basename( $_FILES['attatchement']['name']). 
-      " has been uploaded";
-    } else{
-        echo "There was an error uploading the file, please try again!";
-        die();
+    if (move_uploaded_file($_FILES['attatchement']['tmp_name'], $path)) {
+      $success_mess = "The file " .  basename($_FILES['attatchement']['name']) .
+        " has been uploaded";
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+    } else {
+      $error_mess = "There was an error uploading the file, please try again!";
+      require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+      die();
     }
     return $path;
   }
   return '';
 }
 
-if(isset($_POST['eventContent'])) {
-    $title = $_POST['title'];
-    $is_event = isset($_POST['isevent']) ? 1 : 0;
-    $content = $_POST['eventContent'];
-    $time = time();
-    $attatchement = upload_file();
-    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event);
-    if (isset($res['error'])) {
-        $error_mess = $res['message'];
-        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
-    } else {
-        $success_mess = $res['message'];
-        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
-    }
-    echo "    
+if (isset($_POST['eventContent'])) {
+  $title = $_POST['title'];
+  $is_event = isset($_POST['isevent']) ? 1 : 0;
+  $content = $_POST['eventContent'];
+  $time = time();
+  $attatchement = upload_file();
+  $referer = $_POST['referer'];
+  $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event);
+  if (isset($res['error'])) {
+    $error_mess = $res['message'];
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+  } else {
+    $success_mess = $res['message'];
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+  }
+  echo "    
         <div class='row'>
             <div class='col-12 text-center'>
                 <span>
@@ -50,5 +54,5 @@ if(isset($_POST['eventContent'])) {
             </div>
         </div>
     ";
-    die();
+  die();
 }
