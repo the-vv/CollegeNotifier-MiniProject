@@ -12,14 +12,14 @@ if (isset($query_params['cid'])) {
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js"></script>
 
-<div class="container-fluid bg-light shadow border rounded rounded-lg mx-3">
+<div class="container-fluid bg-light shadow rounded rounded-lg mx-3">
     <div class="row">
         <div class="col-12 p-5">
             <h2 class="text-center"> Create an Event/Notification now </h2>
             <form id="eventForm" class="mt-4 row d-flex align-items-center"
                 action="events/submit?<?php echo $url_with_query_params ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group col-md-9 text-start">
-                    <label for="">Title od the Notification</label>
+                    <label for="">Title of the Notification</label>
                     <input type="text" class="form-control" name="title" id="title" aria-describedby=""
                         placeholder="Enter Title" required>
                 </div>
@@ -35,8 +35,9 @@ if (isset($query_params['cid'])) {
                     <input class="form-control" type="file" id="formFile" name="attatchement">
                 </div>
                 <div class="col-12 mb-xl-4 mb-5" style="min-height:100px">
-                    <div id="textEditor" style="min-height:100px"></div>
+                    <div id="textEditor" class="bg-light" style="min-height:100px"></div>
                 </div>
+                <input type="hidden" name="referer" value="<?php echo isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/admin' ?>">
                 <input type="hidden" name="eventContent" id="eventContent">
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary px-5" name="publish" id="publishEvent">Publish</button>

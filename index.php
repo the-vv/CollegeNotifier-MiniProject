@@ -7,7 +7,7 @@ $query_params = null;
 if (isset($parts['query'])) {
     parse_str($parts['query'], $query_params);
 }
-
+ 
 $query_param_values = array(
     'cid' => $query_params['cid'] ?? 0,
     'did' => $query_params['did'] ?? 0,

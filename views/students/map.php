@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded" id="departments" style="min-height: 85vh">
     <div class="row pt-5">
         <div class="col-12">
             <?php

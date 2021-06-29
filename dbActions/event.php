@@ -39,18 +39,18 @@ function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id 
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $title, $content, $time, $fromid, $attatchement, $isevent)) {
             echo "Error Creating event values Error: " . $safeQuery->error;
-            return false;
+            return array("error" => true, "message" => $safeQuery->error);
         }
         if (!$safeQuery->execute()) {
             echo "Error Creating event Error: " . $safeQuery->error;
-            return false;
+            return array("error" => true, "message" => $safeQuery->error);
         }
         $safeQuery->close();
     } else {
         echo "Error Creating event Error: " . mysqli_error($connection);
-        return false;
+        return array("error" => true, "message" => mysqli_error($connection));
     }
-    return true;
+    return array("success" => true, "message" => "Department created successfully");
 }
 
 function get_event($id)
@@ -61,11 +61,11 @@ function get_event($id)
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
             echo "Error getting event values Error: " . $safeQuery->error;
-            return false;
+             return array("error" => true, "message" => mysqli_error($connection));
         }
         if (!$safeQuery->execute()) {
             echo "Error getting event Error: " . $safeQuery->error;
-            return false;
+             return array("error" => true, "message" => mysqli_error($connection));
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
@@ -74,7 +74,29 @@ function get_event($id)
         $safeQuery->close();
         return $results;
     }
-    return false;
+     return array("error" => true, "message" => mysqli_error($connection));
 }
 
-
+function get_events_by_param($cid = 0, $did = 0, $bid = 0, $clid = 0, $rid = 0) {
+    global $event_table_name, $connection;
+    $query = "SELECT * from $event_table_name
+    WHERE college_id = ? AND dpt_id = ? AND batch_id = ? AND class_id = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('ssss', $cid, $did, $bid, $clid)) {
+            echo "Error getting event values Error: " . $safeQuery->error;
+             return array("error" => true, "message" => mysqli_error($connection));
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting event Error: " . $safeQuery->error;
+             return array("error" => true, "message" => mysqli_error($connection));
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+     return array("error" => true, "message" => mysqli_error($connection));
+}

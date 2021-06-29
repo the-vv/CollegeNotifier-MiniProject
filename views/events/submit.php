@@ -10,7 +10,8 @@ $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
 
 function upload_file() {
-    if(!empty($_FILES['attatchement']))
+  // print_r($_FILES['attatchement']);
+    if(is_uploaded_file($_FILES['attatchement']['name']))
   {
     $path = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     $path = $path . basename(microtime(true) . '-' . $_FILES['attatchement']['name']);
@@ -19,6 +20,7 @@ function upload_file() {
       " has been uploaded";
     } else{
         echo "There was an error uploading the file, please try again!";
+        die();
     }
     return $path;
   }
@@ -32,23 +34,21 @@ if(isset($_POST['eventContent'])) {
     $time = time();
     $attatchement = upload_file();
     $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event);
-    // if (isset($res['error'])) {
-    //     $error_mess = $res['message'];
-    //     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
-    // } else {
-    //     $success_mess = $res['message'];
-    //     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
-    // }
-    // echo "    
-    // <div class='container'>
-    //     <div class='row'>
-    //         <div class='col-12 text-center'>
-    //             <span>
-    //                 <a class='btn btn-outline-primary shadow border px-5 py-1' href='$referer'>Continue</a>
-    //             </span>
-    //         </div>
-    //     </div>
-    // </div>
-    // ";
+    if (isset($res['error'])) {
+        $error_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    } else {
+        $success_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+    }
+    echo "    
+        <div class='row'>
+            <div class='col-12 text-center'>
+                <span>
+                    <a class='btn btn-light shadow border px-5 py-1' href='$referer'>Continue</a>
+                </span>
+            </div>
+        </div>
+    ";
     die();
 }
