@@ -36,8 +36,14 @@ if (isset($_POST['eventContent'])) {
   $content = $_POST['eventContent'];
   $time = time();
   $attatchement = upload_file();
-  $referer = $_POST['referer'];
-  $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event);
+  $referer = $_POST['referer'];  
+  $sdate = 0;
+  $edate = 0;
+  if($is_event) {
+    $sdate = $_POST['sdate'];
+    $edate = $_POST['edate'];
+  }
+  $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
   if (isset($res['error'])) {
     $error_mess = $res['message'];
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';

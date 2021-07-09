@@ -16,6 +16,8 @@ $create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         from_id INT(6) NOT NULL,
         attatchement VARCHAR(500),
         is_event INT(1) NOT NULL,
+        starttime VARCHAR(50),
+        endtime VARCHAR(50),
         CHECK (is_event IN (1, 0)),
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
         FOREIGN KEY (college_id) REFERENCES college(id),
@@ -27,17 +29,17 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0)
+function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0)
 {
     global $event_table_name, $connection;
     $query = "INSERT INTO $event_table_name (
-            dpt_id, college_id, batch_id, class_id, title, content, sendtime, from_id, attatchement, is_event
+            dpt_id, college_id, batch_id, class_id, title, content, sendtime, from_id, attatchement, is_event, starttime, endtime
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $title, $content, $time, $fromid, $attatchement, $isevent)) {
+        if (!$safeQuery->bind_param('ssssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $title, $content, $time, $fromid, $attatchement, $isevent, $st, $et)) {
             echo "Error Creating event values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }

@@ -194,7 +194,7 @@ body>div>.container-fluid {
 }
 
 * {
-	border-radius: 20px !important;
+	border-radius: 4px !important;
 }
 
 nav,
@@ -202,8 +202,8 @@ table,
 td,
 tr,
 thead,
-svg {
-	border-radius: unset !important;
+svg{
+	border-radius:initial !important;
 }
 
 table *,
@@ -213,9 +213,20 @@ table *,
 .tab-pane li a,
 .tab-pane a div,
 #eventcontent * {
-	border-radius: 5px !important;
+	border-radius: 4px !important;
 }
 
 a {
 	cursor: pointer;
+}
+
+#homeCards div {
+	border-radius: 4px !important;
+
+}
+
+.event-actions button{
+	border-radius: 5px !important;
+	border: 1px solid black !important;
+	margin-left: 3px!important;
 }

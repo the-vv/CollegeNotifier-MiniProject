@@ -9,15 +9,49 @@ if ($query_param_values['clid'] != 0) {
 } elseif ($query_param_values['cid'] != 0) {
     $room_to_add = 'College';
 }
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
 $events = get_events_by_param($query_param_values['cid'], $query_param_values['did'], $query_param_values['bid'], $query_param_values['clid']);
 
 // echo "<pre>";
 // print_r($events);
 // echo "</pre>";
-?>
 
+function eventItem($e) { ?>
+<li class='list-group-item d-flex justify-content-between align-items-center'>
+    <a onclick="showEvent('<?php echo $e['id'] ?>')" class="d-inline-block text-truncate h6 text-decoration-none">
+        <div class="row">
+            <div class="col-auto d-flex align-items-center">
+                <?php if ($e['is_event'] == 0) { ?>
+                <i class="bi bi-app-indicator text-primary d-inline" style="font-size:1.5rem"></i>
+                <?php } else { ?>
+                <i class="bi bi-calendar2-event text-primary d-inline" style="font-size:1.5rem"></i>
+                <?php } ?>
+            </div>
+            <div class="col-auto">
+                <p class="h6 p-0 m-0">
+                    <?php echo $e['title'];
+                        if (strlen($e['attatchement']) > 0) { ?>
+                            <i class="bi bi-paperclip text-primary" title="Has Attatchement"></i>
+                    <?php } ?>
+                </p>
+                <small class="text-muted">
+                    <?php echo substr(htmlentities(strip_tags($e['content'])), 0, 200) ?>...
+                </small>
+            </div>
+        </div>
+    </a>
+    <span class="d-flex align-items-center event-actions">
+        <span class="me-2">
+        <?php echo date('d/m/y h:i:s', $e['sendtime']);
+            ?>
+        </span>
+        <button type='button' class='btn btn-sm btn-danger m-0 border border-dark'>
+            <i class='bi bi-trash-fill'></i></button>
+        <button type='button' class='btn btn-sm btn-warning m-0 border border-dark'>
+            <i class='bi bi-pencil-square'></i></button>
+    </span>
+</li>
+<?php } ?>
 
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -47,25 +81,8 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                 if ($e['is_event'] == 1) {
                     continue;
                 }
-            ?>
-            <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a onclick="showEvent('<?php echo $e['id'] ?>')"
-                    class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
-                    <p class="h6 p-0 m-0">
-                        <?php echo $e['title'] ?>
-                    </p>
-                    <small class="text-muted">
-                        <?php echo substr(htmlentities(strip_tags($e['content'])), 0, 100) ?>...
-                    </small>
-                </a>
-                <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
-                        if (strlen($e['attatchement']) > 0) { ?>
-                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
-                    <?php } ?>
-                </span>
-            </li>
-            <?php } ?>
+                eventItem($e);
+            } ?>
         </ul>
     </div>
     <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
@@ -85,25 +102,9 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
                 if ($e['is_event'] == 0) {
                     continue;
                 }
+                eventItem($e);
+            }
             ?>
-            <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a onclick="showEvent('<?php echo $e['id'] ?>')"
-                    class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
-                    <p class="h6 p-0 m-0">
-                        <?php echo $e['title'] ?>
-                    </p>
-                    <small class="text-muted">
-                        <?php echo substr(htmlentities(strip_tags($e['content'])), 0, 100) ?>...
-                    </small>
-                </a>
-                <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
-                        if (strlen($e['attatchement']) > 0) { ?>
-                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
-                    <?php } ?>
-                </span>
-            </li>
-            <?php } ?>
         </ul>
     </div>
     <div class="tab-pane fade active show" id="nav-room" role="tabpanel" aria-labelledby="nav-room-tab">
@@ -119,25 +120,9 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
             </div>
         </div>
         <ul class="list-group">
-            <?php foreach ($events as $e) { ?>
-            <li class='list-group-item d-flex justify-content-between align-items-center'>
-                <a onclick="showEvent('<?php echo $e['id'] ?>')"
-                    class="d-inline-block text-truncate h6 text-decoration-none stretched-link">
-                    <p class="h6 p-0 m-0">
-                        <?php echo $e['title'] ?>
-                    </p>
-                    <small class="text-muted">
-                        <?php echo substr(htmlentities(strip_tags($e['content'])), 0, 100) ?>...
-                    </small>
-                </a>
-                <span class="d-flex align-items-center">
-                    <?php echo date('d/m/y H:i:s', $e['sendtime']);
-                        if (strlen($e['attatchement']) > 0) { ?>
-                    <i class="bi bi-paperclip text-primary" style="font-size:1.8rem" title="Has Attatchement"></i>
-                    <?php } ?>
-                </span>
-            </li>
-            <?php } ?>
+            <?php foreach ($events as $e) {
+                eventItem($e);
+            } ?>
         </ul>
     </div>
 </div>
@@ -168,15 +153,13 @@ $events = get_events_by_param($query_param_values['cid'], $query_param_values['d
 function showEvent(id) {
     var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
     $.getJSON(`/services/events/getone?eid=${id}`, (res) => {
-        console.log(res);
         if (!res.error) {
             res = res[0];
         }
-        console.log(new Date(res.sendtime * 1000).toLocaleString());
         $('#eventtime').html(new Date(res.sendtime * 1000).toLocaleString())
         $('#eventtitle').html(res.title);
         // $('#eventcontent').html(res.content);
-        var quill = new Quill('#eventcontent', {
+        let quill = new Quill('#eventcontent', {
             theme: 'snow'
         });
         quill.root.innerHTML = res.content;
