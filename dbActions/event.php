@@ -102,3 +102,25 @@ function get_events_by_param($cid = 0, $did = 0, $bid = 0, $clid = 0, $rid = 0) 
     }
      return array("error" => true, "message" => mysqli_error($connection));
 }
+
+function delete_event($eid)
+{
+    global $event_table_name, $connection;
+    $query = "DELETE FROM $event_table_name WHERE id = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $eid)) {
+            // echo "Error deleting event values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error deleting event Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Event deleted Successfully");
+    } else {
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("error" => true, "message" => mysqli_error($connection));
+}

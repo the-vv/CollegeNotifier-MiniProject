@@ -230,3 +230,9 @@ a {
 	border: 1px solid black !important;
 	margin-left: 3px!important;
 }
+
+.nav-tabs .nav-link.active {
+	font-weight: 500;
+	border-top-left-radius: 10px !important;
+	border-top-right-radius: 10px !important;
+}

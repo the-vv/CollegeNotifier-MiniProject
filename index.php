@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Kolkata'); 
+date_default_timezone_set('Asia/Kolkata');
 
 
 $request = $_SERVER['REQUEST_URI'];
@@ -50,6 +50,9 @@ if (strpos($request, 'services') == 1) {
             break;
         case '/services/events/getone':
             require_once __DIR__ . '/api/get_event.php';
+            break;
+        case '/services/events/deleteone':
+            require_once __DIR__ . '/api/delete_event.php';
             break;
     }
     die();
