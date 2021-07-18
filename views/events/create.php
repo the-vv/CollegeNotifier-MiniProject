@@ -1,6 +1,17 @@
 <?php
 $cid = 0;
-if (isset($query_params['cid'])) {
+$event = null;
+if (isset($query_params['eid'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+    $event = get_event($query_params['eid']);
+    $event = $event[0] ?? null;
+    if($event == null) {
+        $error_mess = 'Incorrect Event ID';
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+        die();
+    }
+    print_r($event);
+} elseif (isset($query_params['cid'])) {
     $cid = $query_params['cid'];
 } else {
     $error_mess = 'Required Parameters not provided';
@@ -19,20 +30,13 @@ if (isset($query_params['cid'])) {
                 <div class="form-group col-md-9 text-start">
                     <label for="">Title of the Notification</label>
                     <input type="text" class="form-control" name="title" id="title" aria-describedby=""
-                        placeholder="Enter Title" required>
+                        <?php if($event) { echo "value='{$event['title']}'"; } ?> placeholder="Enter Title" required>
                 </div>
-                <!-- <div class="col-md-3 mb-3">
-                    <label class="form-label">Mode of this Nofitication</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="isEventSwitch" name="isevent">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">This is an Event</label>
-                    </div>
-                </div> -->
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Mode of this Nofitication</label>
                     <div class="form-checkr">
                         <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value=""
-                            id="isEventSwitch" name="isevent">
+                        <?php if($event && isset($event['is_event'])) { echo "checked='{$event['is_event']}'"; } ?> id="isEventSwitch" name="isevent">
                         <label class="form-check-label " for="isEventSwitch">Mark this as an Event</label>
                     </div>
                 </div>
@@ -40,17 +44,25 @@ if (isset($query_params['cid'])) {
                     <div class="row">
                         <div class="col-6">
                             <label for="formFile" class="form-label">Set Starting Date</label>
-                            <input class="form-control" type="datetime-local" id="sdate" name="sdate">
+                            <input class="form-control" type="datetime-local" id="sdate" name="sdate"
+                            <?php if($event) { echo "value='{$event['starttime']}'"; } ?> >
                         </div>
                         <div class="col-6">
                             <label for="formFile" class="form-label">Set Ending date</label>
-                            <input class="form-control" type="datetime-local" id="edate" name="edate">
+                            <input class="form-control" type="datetime-local" id="edate" name="edate"
+                            <?php if($event) { echo "value='{$event['endtime']}'"; } ?> >
                         </div>
                     </div>
                 </div>
                 <div class="mb-4 col-12">
                     <label for="formFile" class="form-label">Add attatchement if any</label>
                     <input class="form-control" type="file" id="formFile" name="attatchement">
+                    <?php if($event && strlen($event['attatchement'])) { ?>
+                        <div class="d-flex justify-items-between">
+                            <label for="formFile"><strong>File Seleced:</strong> <?php echo explode('/',$event['attatchement'])[1] ?></label>
+                            <button class="btn btn-link btn-sm" type="button">Remove</button>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="col-12 mb-xl-4 mb-5" style="min-height:100px">
                     <div id="textEditor" class="bg-light" style="min-height:100px"></div>
@@ -61,13 +73,13 @@ if (isset($query_params['cid'])) {
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary px-5" name="publish" id="publishEvent">Publish</button>
                 </div>
-            </form>
+            </form> 
+            <!-- TODO: editing this is to be handled -->
         </div>
     </div>
 </div>
 <script type="text/javascript">
-$('#dateselection').hide();
-document.getElementById('isEventSwitch').onchange = () => {
+let modeSwitcher = () => {
     if (document.getElementById('isEventSwitch').checked) {
         $('#dateselection').show();
         $('#dateselection input').prop('required', true);
@@ -76,14 +88,17 @@ document.getElementById('isEventSwitch').onchange = () => {
         $('#dateselection input').prop('required', false);
     }
 }
+$('document').ready(modeSwitcher)
+$('#isEventSwitch').change(modeSwitcher);
+
 var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+    ['bold', 'italic', 'underline', 'strike'],
     ['blockquote', 'code-block'],
     [{
         'header': 1
     }, {
         'header': 2
-    }], // custom button values
+    }],
     [{
         'list': 'ordered'
     }, {
@@ -93,36 +108,33 @@ var toolbarOptions = [
         'script': 'sub'
     }, {
         'script': 'super'
-    }], // superscript/subscript
+    }],
     [{
         'indent': '-1'
     }, {
         'indent': '+1'
-    }], // outdent/indent
+    }],
     [{
         'direction': 'rtl'
-    }], // text direction
-
+    }],
     [{
         'size': ['small', false, 'large', 'huge']
-    }], // custom dropdown
+    }],
     [{
         'header': [1, 2, 3, 4, 5, 6, false]
     }],
-
     [{
         'color': []
     }, {
         'background': []
-    }], // dropdown with defaults from theme
+    }],
     [{
         'font': []
     }],
     [{
         'align': []
     }],
-
-    ['formula', 'clean', 'image', 'video'] // remove formatting button
+    ['formula', 'clean', 'image', 'video'] 
 ];
 
 var quill = new Quill('#textEditor', {
@@ -135,6 +147,7 @@ var quill = new Quill('#textEditor', {
     },
     theme: 'snow'
 });
+<?php if($event && strlen($event['content'])) { echo "quill.root.innerHTML='{$event['title']}';\n"; } ?>
 $("#eventForm").submit((e) => {
     e.preventDefault();
     console.log(quill.root.innerHTML);

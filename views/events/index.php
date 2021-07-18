@@ -48,8 +48,8 @@ function eventItem($e)
             </span>
             <button type='button' class='btn btn-sm btn-danger m-0 border border-dark' onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
                 <i class='bi bi-trash-fill'></i></button>
-            <button type='button' class='btn btn-sm btn-warning m-0 border border-dark'>
-                <i class='bi bi-pencil-square'></i></button>
+            <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark'>
+                <i class='bi bi-pencil-square'></i></a>
         </span>
     </li>
 <?php } ?>

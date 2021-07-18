@@ -181,6 +181,7 @@ body {
 	background-size : cover;
 	background-color: #0093E9;
 	background-image: linear-gradient(180deg, #0b69f7 0%, #80D0C7 100%);
+	min-height: 100vh;
 
 }
 
