@@ -81,10 +81,10 @@ if (isset($query_params['eid'])) {
 <script type="text/javascript">
 let modeSwitcher = () => {
     if (document.getElementById('isEventSwitch').checked) {
-        $('#dateselection').show();
+        $('#dateselection').show(200);
         $('#dateselection input').prop('required', true);
     } else {
-        $('#dateselection').hide()
+        $('#dateselection').hide(200)
         $('#dateselection input').prop('required', false);
     }
 }
