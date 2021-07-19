@@ -52,7 +52,7 @@ function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id 
         echo "Error Creating event Error: " . mysqli_error($connection);
         return array("error" => true, "message" => mysqli_error($connection));
     }
-    return array("success" => true, "message" => "Department created successfully");
+    return array("success" => true, "message" => "Event created successfully");
 }
 
 function get_event($id)
@@ -123,4 +123,27 @@ function delete_event($eid)
         return array("error" => true, "message" => mysqli_error($connection));
     }
     return array("error" => true, "message" => mysqli_error($connection));
+}
+
+function update_event_by_id($eid = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0)
+{
+    global $event_table_name, $connection;
+    $query = "UPDATE $event_table_name SET
+            title = ?, content = ?, sendtime = ?, from_id = ?, attatchement = ?, is_event = ?, starttime = ?, endtime = ?
+            WHERE id= ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('sssssssss', $title, $content, $time, $fromid, $attatchement, $isevent, $st, $et, $eid)) {
+            echo "Error Updating event values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error Updating event Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+    } else {
+        echo "Error Updating event Error: " . mysqli_error($connection);
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("success" => true, "message" => "Event Updated successfully");
 }

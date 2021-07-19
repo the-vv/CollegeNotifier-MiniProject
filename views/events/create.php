@@ -10,7 +10,6 @@ if (isset($query_params['eid'])) {
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
-    print_r($event);
 } elseif (isset($query_params['cid'])) {
     $cid = $query_params['cid'];
 } else {
@@ -26,7 +25,7 @@ if (isset($query_params['eid'])) {
         <div class="col-12 p-md-5">
             <h2 class="text-center"> Create an Event/Notification now </h2>
             <form id="eventForm" class="mt-4 row d-flex align-items-center"
-                action="events/submit?<?php echo $url_with_query_params ?>" method="POST" enctype="multipart/form-data">
+                action="events/submit<?php if(isset($query_params['eid'])){ echo "?eid=" . $query_params['eid']; } else { echo "?" . $url_with_query_params; }?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group col-md-9 text-start">
                     <label for="">Title of the Notification</label>
                     <input type="text" class="form-control" name="title" id="title" aria-describedby=""
@@ -36,7 +35,7 @@ if (isset($query_params['eid'])) {
                     <label class="form-label">Mode of this Nofitication</label>
                     <div class="form-checkr">
                         <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value=""
-                        <?php if($event && isset($event['is_event'])) { echo "checked='{$event['is_event']}'"; } ?> id="isEventSwitch" name="isevent">
+                        <?php if($event && isset($event['is_event']) && $event['is_event'] == 1) { echo "checked"; } ?> id="isEventSwitch" name="isevent">
                         <label class="form-check-label " for="isEventSwitch">Mark this as an Event</label>
                     </div>
                 </div>
@@ -56,11 +55,11 @@ if (isset($query_params['eid'])) {
                 </div>
                 <div class="mb-4 col-12">
                     <label for="formFile" class="form-label">Add attatchement if any</label>
-                    <input class="form-control" type="file" id="formFile" name="attatchement">
+                    <input class="form-control" type="file" id="formFile" name="attatchement" onchange="removeFile()">
                     <?php if($event && strlen($event['attatchement'])) { ?>
-                        <div class="d-flex justify-items-between">
-                            <label for="formFile"><strong>File Seleced:</strong> <?php echo explode('/',$event['attatchement'])[1] ?></label>
-                            <button class="btn btn-link btn-sm" type="button">Remove</button>
+                        <div class="d-flex justify-items-between" id="hasFile">
+                            <div for="formFile d-inline-block text-truncate"><strong>File Selected:</strong> <?php echo explode('/',$event['attatchement'])[1] ?></div>
+                            <button class="btn btn-link btn-sm" onclick="removeFile()" type="button">Remove</button>
                         </div>
                     <?php } ?>
                 </div>
@@ -69,16 +68,19 @@ if (isset($query_params['eid'])) {
                 </div>
                 <input type="hidden" name="referer"
                     value="<?php echo isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/admin' ?>">
+                <input type="hidden" name="attatchement" id="attatchement" value="">
                 <input type="hidden" name="eventContent" id="eventContent">
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary px-5" name="publish" id="publishEvent">Publish</button>
                 </div>
             </form> 
-            <!-- TODO: editing this is to be handled -->
         </div>
     </div>
 </div>
 <script type="text/javascript">
+'use strict';
+
+let fileRemoved = false;
 let modeSwitcher = () => {
     if (document.getElementById('isEventSwitch').checked) {
         $('#dateselection').show(200);
@@ -90,8 +92,12 @@ let modeSwitcher = () => {
 }
 $('document').ready(modeSwitcher)
 $('#isEventSwitch').change(modeSwitcher);
-
-var toolbarOptions = [
+let removeFile = () => {
+    fileRemoved = true;
+    $('#attatchement').val('');
+    $("#hasFile").empty();
+}
+let toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],
     ['blockquote', 'code-block'],
     [{
@@ -147,11 +153,14 @@ var quill = new Quill('#textEditor', {
     },
     theme: 'snow'
 });
-<?php if($event && strlen($event['content'])) { echo "quill.root.innerHTML='{$event['title']}';\n"; } ?>
+<?php if($event && strlen($event['content'])) { echo "quill.root.innerHTML=`{$event['content']}`;\n"; } ?>
 $("#eventForm").submit((e) => {
     e.preventDefault();
     console.log(quill.root.innerHTML);
     $("#eventContent").val(quill.root.innerHTML);
+    if(<?php if($event && strlen($event['attatchement'])) { echo 1; } else { echo 0; }?> && !fileRemoved) {
+        $('#attatchement').val('<?php if($event && strlen($event['attatchement'])){ echo $event['attatchement']; } ?>')
+    }
     document.getElementById("eventForm").submit();
 })
 </script>

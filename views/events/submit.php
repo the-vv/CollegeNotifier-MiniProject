@@ -19,7 +19,7 @@ function upload_file()
     if (move_uploaded_file($_FILES['attatchement']['tmp_name'], $path)) {
       $success_mess = "The file " .  basename($_FILES['attatchement']['name']) .
         " has been uploaded";
-    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+      require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
     } else {
       $error_mess = "There was an error uploading the file, please try again!";
       require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
@@ -35,15 +35,24 @@ if (isset($_POST['eventContent'])) {
   $is_event = isset($_POST['isevent']) ? 1 : 0;
   $content = $_POST['eventContent'];
   $time = time();
-  $attatchement = upload_file();
-  $referer = $_POST['referer'];  
+  if (strlen($_POST['attatchement']) < 1) {
+    $attatchement = upload_file();
+  } else {
+    $attatchement = $_POST['attatchement'];
+  }
+  $referer = $_POST['referer'];
   $sdate = 0;
   $edate = 0;
-  if($is_event) {
+  if ($is_event) {
     $sdate = $_POST['sdate'];
     $edate = $_POST['edate'];
   }
-  $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
+  $result = array();
+  if(isset($query_params['eid'])) {
+    $res = update_event_by_id($query_params['eid'], $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
+  } else {
+    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
+  }
   if (isset($res['error'])) {
     $error_mess = $res['message'];
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
