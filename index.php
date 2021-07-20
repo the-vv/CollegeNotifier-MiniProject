@@ -137,6 +137,15 @@ switch ($request) {
     case '/events/submit':
         require_once __DIR__ . '/views/events/submit.php';
         break;
+    case '/rooms':
+        require_once __DIR__ . '/views/rooms/index.php';
+        break;
+    case '/rooms/create':
+        require_once __DIR__ . '/views/rooms/create.php';
+        break;
+    case '/rooms/submit':
+        require_once __DIR__ . '/views/rooms/submit.php';
+        break;
     default:
         http_response_code(404);
         require_once __DIR__ . '/views/404.php';
