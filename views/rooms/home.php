@@ -5,6 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/rooms.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $college = get_college($query_params['cid'])[0];
+$students = array();
 ?>
 
 
@@ -20,8 +21,7 @@ $college = get_college($query_params['cid'])[0];
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
     } ?>
-    <hr class="mb-0 p-0">
-    <div class="row mb-5">
+    <div class="row mb-5 mt-2">
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">
                 <?php echo $current_room['room_name'] ?> Dashboard
@@ -70,7 +70,7 @@ $college = get_college($query_params['cid'])[0];
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-                    <?php // require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
             </div>
         </div>

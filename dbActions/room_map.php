@@ -14,6 +14,7 @@ class EventMap
             room_id INT(6) UNSIGNED NOT NULL REFERENCES rooms(id),
             member_id INT(6) UNSIGNED NOT NULL,
             member_type VARCHAR(100) NOT NULL,
+            CHECK (member_type IN ('student', 'employee'))
         )";
         if (!mysqli_query($connection, $create_map_query)) {
             echo "Error creating Table {$this->table_name}" . mysqli_error($connection);
@@ -63,5 +64,28 @@ class EventMap
             return array("error" => true, "message" => "Unknown Error occurred");
         }
         return array("success" => true, "message" => "room map created successfully");
+    }
+    function get_students_to_map($cid, $rid) {
+        global $connection;
+        $query = "SELECT member_id from {$this->table_name} WHERE cid = ? AND room_id <> ? AND member_type = student";
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('ss', $cid, $rid)) {
+                echo "Error getting students id values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error getting students id Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            $safeQuery->close();
+        } else {
+            echo "Error getting students id Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "students id created successfully");
+    }
+    function get_students_detals($sids) {
+        $studs = array();
+        return $studs;
     }
 }

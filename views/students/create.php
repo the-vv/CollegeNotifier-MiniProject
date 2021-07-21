@@ -16,13 +16,14 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
         <h5 class="p-0 m-0">Students Here</h5>
         <p class="p-0 m-0">
             <span>
-                <a href="/students/map?<?php echo $url_with_query_params ?>" type="button" class="px-3 btn btn-outline-success rounded rounded-pill btn-sm">
+                <a href="/students/map?<?php echo $url_with_query_params ?>" type="button"
+                    class="px-3 btn btn-outline-success rounded rounded-pill btn-sm">
                     Add <i class="bi bi-person-plus-fill"></i>
                 </a>
             </span>
             <span>
-                <button type="button" data-bs-toggle="modal" class="ms-1 btn btn-outline-primary rounded rounded-pill btn-sm"
-                    data-bs-target="#modelMultiple">
+                <button type="button" data-bs-toggle="modal"
+                    class="ms-1 btn btn-outline-primary rounded rounded-pill btn-sm" data-bs-target="#modelMultiple">
                     Create <i class="bi bi-plus-lg"></i>
                 </button>
             </span>
@@ -75,6 +76,7 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
                         </div> -->
                     </form>
                 </div>
+                <div class="mt-3 text-secondary">*Each Students will be added to College Students list</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#modelMultiple" data-bs-toggle="modal"
@@ -105,6 +107,8 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
                 </form>
                 <div class="text-end"><a href="/uploads/students-template.xlsx" download> Download template Excel
                         here</a></div>
+
+                <div class="mt-3 text-secondary">*Each Students will be added to College Students list</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#modelSingle" data-bs-toggle="modal"

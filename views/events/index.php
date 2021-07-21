@@ -9,9 +9,21 @@ if ($query_param_values['clid'] != 0) {
 } elseif ($query_param_values['cid'] != 0) {
     $room_to_add = 'College';
 }
+if ($query_param_values['rid'] != 0) {
+    $room_to_add = 'Room';
+}
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
-$events = get_events_by_param($query_param_values['cid'], $query_param_values['did'], $query_param_values['bid'], $query_param_values['clid']);
-
+if ($room_to_add == 'College') {
+    $events = get_events_by_college($query_param_values['cid']);
+} elseif ($room_to_add == 'Department') {
+    $events = get_events_by_dpt($query_param_values['cid'], $query_param_values['did']);
+} elseif ($room_to_add == 'Batch') {
+    $events = get_events_by_batch($query_param_values['cid'], $query_param_values['did'], $query_param_values['bid']);
+} elseif ($room_to_add == 'Class') {
+    $events = get_events_by_class($query_param_values['cid'], $query_param_values['did'], $query_param_values['bid'], $query_param_values['clid']);
+} else {
+    $events = get_events_by_param($query_param_values['cid'], $query_param_values['did'], $query_param_values['bid'], $query_param_values['clid'], $query_param_values['rid']);
+}
 // echo "<pre>";
 // print_r($events);
 // echo "</pre>";
@@ -48,7 +60,7 @@ function eventItem($e)
             </span>
             <button type='button' class='btn btn-sm btn-danger m-0 border border-dark' onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
                 <i class='bi bi-trash-fill'></i></button>
-            <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark'>
+            <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark ms-1'>
                 <i class='bi bi-pencil-square'></i></a>
         </span>
     </li>

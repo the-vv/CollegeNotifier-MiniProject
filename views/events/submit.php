@@ -8,6 +8,7 @@ $cid = $query_params['cid'] ?? 0;
 $did = $query_params['did'] ?? 0;
 $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
+$rid = $query_params['rid'] ?? 0;
 
 function upload_file()
 {
@@ -48,10 +49,10 @@ if (isset($_POST['eventContent'])) {
     $edate = $_POST['edate'];
   }
   $result = array();
-  if(isset($query_params['eid'])) {
+  if (isset($query_params['eid'])) {
     $res = update_event_by_id($query_params['eid'], $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
   } else {
-    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
+    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate, $rid);
   }
   if (isset($res['error'])) {
     $error_mess = $res['message'];

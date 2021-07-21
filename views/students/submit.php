@@ -97,7 +97,7 @@ elseif (isset($_POST['edit'])) {
     }
 
     // Check file size
-    if ($_FILES["students"]["size"] > 500000) {
+    if ($_FILES["students"]["size"] > 10000000) {
         $error_mess = "Sorry, your file is too large";
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         $uploadOk = 0;
