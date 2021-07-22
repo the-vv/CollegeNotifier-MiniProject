@@ -128,6 +128,9 @@ switch ($request) {
     case '/students/map':
         require_once __DIR__ . '/views/students/map.php';
         break;
+    case '/students/map-room':
+        require_once __DIR__ . '/views/students/map_room.php';
+        break;
     case '/administration/students':
         require_once __DIR__ . '/views/admininstration/students.php';
         break;

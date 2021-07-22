@@ -4,6 +4,11 @@ $did = isset($query_params['did']) ? $query_params['did'] : 0;
 $bid = isset($query_params['bid']) ? $query_params['bid'] : 0;
 $clid = isset($query_params['clid']) ? $query_params['clid'] : 0;
 $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
+if ($query_param_values['rid']) {
+    $room = true;
+} else {
+    $room = false;
+}
 ?>
 
 <!-- Button trigger modal -->
@@ -16,21 +21,24 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
         <h5 class="p-0 m-0">Students Here</h5>
         <p class="p-0 m-0">
             <span>
-                <a href="/students/map?<?php echo $url_with_query_params ?>" type="button"
+                <a href="/students/map<?php if($room){ echo "-room"; } ?>?<?php echo $url_with_query_params ?>" type="button"
                     class="px-3 btn btn-outline-success rounded rounded-pill btn-sm">
                     Add <i class="bi bi-person-plus-fill"></i>
                 </a>
             </span>
+            <?php if (!$room) { ?>
             <span>
                 <button type="button" data-bs-toggle="modal"
                     class="ms-1 btn btn-outline-primary rounded rounded-pill btn-sm" data-bs-target="#modelMultiple">
                     Create <i class="bi bi-plus-lg"></i>
                 </button>
             </span>
+            <?php } ?>
         </p>
     </div>
 </div>
 <!-- Modal -->
+<?php if (!$room) { ?>
 <div class="modal fade" id="modelSingle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -118,6 +126,8 @@ $submit_url_params = "cid=$cid&did=$did&bid=$bid&clid=$clid";
         </div>
     </div>
 </div>
+
+<?php } ?>
 
 
 <script type="text/javascript">

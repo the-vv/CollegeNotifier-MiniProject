@@ -4,6 +4,8 @@ $cid = $query_params['cid'] ?? 0;
 $did = $query_params['did'] ?? 0;
 $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
+$rid = $query_params['rid'] ?? 0;
+
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
 
@@ -57,8 +59,42 @@ if (isset($_POST['mapings'])) {
         </div>
     ";
     die();
-} 
-elseif (isset($_POST['edit'])) {
+} elseif (isset($_POST['room_mapings'])) {
+    // print_r($_POST);
+    require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
+    $Mapper = new RoomStudentMap();
+    $mappings = json_decode($_POST['room_mapings']);
+    $referer = $_POST['referer'];
+    // print_r($mappings);
+    // die();
+    foreach ($mappings as $mapping) {
+        $res = $Mapper->insert_one($cid, $rid, $mapping);
+        print_r($res);
+        if (isset($res['error'])) {
+            $success_mess = $res['message'];
+            require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+            die();
+        }
+    }
+    // $res = map_students($mappings, $cid, $did, $bid, $clid);
+    if (isset($res['error'])) {
+        $error_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    } else {
+        $success_mess = $res['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+    }
+    echo "    
+        <div class='row'>
+            <div class='col-12 text-center'>
+                <span>
+                    <a class='btn btn-light shadow border px-5 py-1' href='$referer'>Continue</a>
+                </span>
+            </div>
+        </div>
+    ";
+    die();
+} elseif (isset($_POST['edit'])) {
     $sid = $_POST['id'];
     $email = $_POST['email'];
     $name = $_POST['name'];
@@ -140,10 +176,10 @@ elseif (isset($_POST['edit'])) {
     }
 }
 ?>
-    <div class="row">
-        <div class="col-12 text-center">
-            <span>
-                <a class="btn btn-outline-primary shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">Continue</a>
-            </span>
-        </div>
+<div class="row">
+    <div class="col-12 text-center">
+        <span>
+            <a class="btn btn-outline-primary shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">Continue</a>
+        </span>
     </div>
+</div>

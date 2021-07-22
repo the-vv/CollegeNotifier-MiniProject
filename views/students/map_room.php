@@ -2,58 +2,29 @@
     <div class="row pt-5">
         <div class="col-12">
             <?php
-
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
-            // $user = get_current_logged_user();
-            // $department = get_dpt($query_params['did'])[0];
-            // $college = get_college($query_params['cid'])[0];
-            // $batch = get_batch($query_params['bid'])[0];
-            // $current_class = get_a_class($query_params['clid'])[0];
-            // $students = get_students_from_class($current_class['id']);
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
             $students_all = array();
             if ($query_param_values['cid'] == 0) {
                 $error_mess = "College Id not provided.";
                 require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
             } else {
-                $students_all = get_students_from_college($query_param_values['cid']);
                 $room_to_add = '';
-                if ($query_param_values['rid'] != 0) {
+                if ($query_param_values['rid'] != 0 && $query_param_values['cid'] != 0) {
                     $room_to_add = 'room_id';
+                    $StudentMapper = new RoomStudentMap();
+                    $students_all = $StudentMapper->get_students_to_map($query_param_values['cid'], $query_param_values['rid']);
+                    print_r($students_all);
                 } 
                 else {
                     $error_mess = "Required parameters not provided or mapping not allowed here.";
                     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
                     die();
                 }
-                $students = array_filter($students_all, function ($stud) {
-                    global $room_to_add;
-                    if($stud[$room_to_add] != 0) {
-                        return false;
-                    }
-                    return true;
-                });
             }
             ?>
             <?php if ($query_param_values['rid'] != 0) { ?>
                 <h3 class="text-center">Students will be mapped to this Room</h3>
-            <?php } elseif ($query_param_values['clid'] != 0) {
-                $current_class = get_a_class($query_params['clid'])[0] ?>
-                <h3 class="text-center">Students will be mapped to the <?php echo $current_class['division'] ?> Division</h3>
-            <?php } elseif ($query_param_values['bid'] != 0) {
-                $batch = get_batch($query_params['bid'])[0] ?>
-                <h3 class="text-center">Students will be mapped to the <?php echo $batch['start_year'] . '-' . $batch['end_year'] ?> Batch</h3>
-            <?php } elseif ($query_param_values['did'] != 0) {
-                $department = get_dpt($query_params['did'])[0] ?>
-                <h3 class="text-center">Students will be mapped to the <?php echo $department['dpt_name'] ?> Department</h3>
-            <?php } else {
-                $error_mess = "Required parameters not provided or mapping not allowed here.";
-                require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
-            } ?>
+            <?php } ?>
             <p class="small p-0 m-0 text-muted text-center">Use ctrl/shift key to select multiple students at once</p>
         </div>
     </div>
@@ -62,7 +33,7 @@
             <p class="h6">Available students to map</p>
             <select name="from[]" id="search" style="height:350px" class="form-control" size="8" multiple="multiple">
                 <?php
-                foreach ($students as $s) { ?>
+                foreach ($students_all as $s) { ?>
                     <option value="<?php echo $s['id'] ?>" class="border p-2 my-1 rounded d-block text-truncate">
                         <?php
                         echo "{$s['student_name']} - ";
