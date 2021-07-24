@@ -77,7 +77,14 @@ function eventItem($e)
     <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
-                <h5 class="p-0 m-0">Events/Announcements</h5>
+                <div>
+                    <h5 class="p-0 m-0">
+                        Events/Notifications
+                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h5>
+                </div>
                 <span>
                     <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                         Create <i class="bi bi-plus-lg"></i>
@@ -97,7 +104,11 @@ function eventItem($e)
     <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
-                <h5 class="p-0 m-0">Events/Announcements</h5>
+                <h5 class="p-0 m-0">Events/Announcements
+                    <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </h5>
                 <span>
                     <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                         Create <i class="bi bi-plus-lg"></i>
@@ -118,7 +129,11 @@ function eventItem($e)
     <div class="tab-pane fade active show" id="nav-room" role="tabpanel" aria-labelledby="nav-room-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
-                <h5 class="p-0 m-0">Events/Announcements</h5>
+                <h5 class="p-0 m-0">Events/Announcements
+                    <div class="event-spinner spinner-border spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </h5>
                 <span>
                     <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                         Create <i class="bi bi-plus-lg"></i>
@@ -157,11 +172,15 @@ function eventItem($e)
 <script type="text/javascript">
     'use strict';
 
+    $(".event-spinner").hide();
     function showEvent(id) {
+        $(".event-spinner").show();
         var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
         $.getJSON(`/services/events/getone?eid=${id}`, (res) => {
             if (!res.error) {
                 res = res[0];
+            } else {
+                $(".event-spinner").hide(300);
             }
             $('#eventtime').html(new Date(res.sendtime * 1000).toLocaleString())
             $('#eventtitle').html(res.title);
@@ -186,6 +205,7 @@ function eventItem($e)
             } else {
                 $('#registerEvent').hide();
             }
+            $(".event-spinner").hide(300);
             myModal.toggle();
         })
     }

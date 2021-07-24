@@ -3,7 +3,8 @@
 	--animate-delay   : 0.9s;
 }
 body, html {
-	overflow-y: hidden!important;
+	overflow-x: hidden!important;
+	overflow-y: auto!important
 }
 
 div#homeCards.card {
@@ -223,9 +224,9 @@ body>div>.container-fluid {
 
 }
 
-* {
+/* * {
 	border-radius: 4px !important;
-}
+} */
 
 nav,
 table,

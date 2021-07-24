@@ -69,12 +69,16 @@ $user = get_current_logged_user();
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($request == '/') { echo 'active'; }?>" aria-current="page"
-                            href="/">Home</a>
+                        <a class="nav-link <?php if ($request == '/') {
+                                echo 'active';
+                            } ?>" aria-current="page" href="/">Home</a>
                     </li>
+                    <?php
+                    if ($user) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
+                    <?php } ?>
                 </ul>
                 <span class="navbar-text text-white">
                     <?php
