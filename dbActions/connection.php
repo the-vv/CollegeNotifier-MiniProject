@@ -24,3 +24,4 @@ if (!mysqli_select_db($connection, $databaseName)) {
     echo "Database Selection Error <br>" . mysqli_error($connection);
     die();
 }
+

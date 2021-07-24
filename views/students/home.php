@@ -1,25 +1,15 @@
 <?php
 if (!isset($_COOKIE['studentUser'])) {
     header('Location:student/login');
-}
-$sid = $query_params['sid'] ?? 0;
-$student = array();
-if ($sid) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
-    $stud = get_student($sid);
-    if (count($stud) > 0) {
-        $student = $stud[0];
-    } else {
-        $error_mess = 'Student Id Missmatch Error';
+} else {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
+    $student = get_current_logged_user();
+    if (!(isset($student['type']) && $student['type'] == 'student')) {
+        $error_mess = 'Error verifying student, Please logout and login again';
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
-} else {
-    $error_mess = 'Student Id not Provided';
-    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
-    die();
 }
-
 $cid = $student['college_id'] ?? 0;
 $did = $student['dpt_id'] ?? 0;
 $bid = $student['batch_id'] ?? 0;

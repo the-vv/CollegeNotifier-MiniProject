@@ -28,7 +28,7 @@ function import_students_from_file($fname)
             array_push($students, array('name' => $Row[0], 'email' => $Row[1], 'phone' => $Row['2'], 'gender' => $Row['3']));
         }
     } catch (Exception $e) {
-        $error_mess = "Error Occured while processing Students from Excell sheet\n $e";
+        $error_mess = "Error Occured while processing Students from Excell sheet\n<br> $e";
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
             require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
             $token = encrypt($user[0]['email']);
             setcookie('studentUser', $token, time() + (86400 * 30), '/');
-            header("Location:/student?sid={$user[0]['id']}");
+            header("Location:/student");
             // echo "<script>location.href='../admin'</script>";
         } else {
             $error_mess = 'Incorrect Credentials';
