@@ -149,6 +149,14 @@ switch ($request) {
     case '/rooms/submit':
         require_once __DIR__ . '/views/rooms/submit.php';
         break;
+        
+    //Student User Routing Section
+    case '/student':
+        require_once __DIR__ . '/views/students/home.php';
+        break;
+    case '/student/login':
+        require_once __DIR__ . '/views/students/login.php';
+        break;
     default:
         http_response_code(404);
         require_once __DIR__ . '/views/404.php';

@@ -8,6 +8,7 @@ $rid = $query_params['rid'] ?? 0;
 
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
 
 function import_students_from_file($fname)
 {
@@ -18,12 +19,18 @@ function import_students_from_file($fname)
     $Reader = new SpreadsheetReader($_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $fname);
     $students = array();
     $header = 0;
-    foreach ($Reader as $Row) {
-        if ($header == 0) {
-            $header = 1;
-            continue;
+    try {
+        foreach ($Reader as $Row) {
+            if ($header == 0) {
+                $header = 1;
+                continue;
+            }
+            array_push($students, array('name' => $Row[0], 'email' => $Row[1], 'phone' => $Row['2'], 'gender' => $Row['3']));
         }
-        array_push($students, array('name' => $Row[0], 'email' => $Row[1], 'phone' => $Row['2'], 'gender' => $Row['3']));
+    } catch (Exception $e) {
+        $error_mess = "Error Occured while processing Students from Excell sheet\n $e";
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+        die();
     }
     $res = create_multiple_students($students, $did, $cid, $bid, $clid);
     if (isset($res['error'])) {
@@ -36,7 +43,30 @@ function import_students_from_file($fname)
     unlink($target_file);
 }
 
-if (isset($_POST['mapings'])) {
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $lpassword = $_POST['password'];
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+    $user = find_student_by_email($email);
+    if (isset($user['error'])) {
+        $error_mess = $user['message'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    } elseif (count($user) > 0) {
+        if (password_verify($lpassword, $user[0]['student_password'])) {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
+            $token = encrypt($user[0]['email']);
+            setcookie('studentUser', $token, time() + (86400 * 30), '/');
+            header("Location:/student?sid={$user[0]['id']}");
+            // echo "<script>location.href='../admin'</script>";
+        } else {
+            $error_mess = 'Incorrect Credentials';
+            require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+        }
+    } else {
+        $error_mess = 'Incorrect Credentials';
+        require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
+    }
+} elseif (isset($_POST['mapings'])) {
     // print_r($_POST);
     $mappings = json_decode($_POST['mapings']);
     $referer = $_POST['referer'];
@@ -69,10 +99,10 @@ if (isset($_POST['mapings'])) {
     // die();
     foreach ($mappings as $mapping) {
         $res = $Mapper->insert_one($cid, $rid, $mapping);
-        print_r($res);
+        // print_r($res);
         if (isset($res['error'])) {
-            $success_mess = $res['message'];
-            require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
+            $error_mess = $res['message'];
+            require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
             die();
         }
     }
@@ -110,16 +140,6 @@ if (isset($_POST['mapings'])) {
         $success_mess = $res['message'];
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
     }
-    echo "    
-        <div class='row'>
-            <div class='col-12 text-center'>
-                <span>
-                    <a class='btn btn-outline-primary shadow border px-5 py-1' href='$referer'>Continue</a>
-                </span>
-            </div>
-        </div>
-    ";
-    die();
 } elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     $target_file = $target_dir . basename($_FILES["students"]["name"]);
@@ -177,9 +197,9 @@ if (isset($_POST['mapings'])) {
 }
 ?>
 <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mt-2">
         <span>
-            <a class="btn btn-outline-primary shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">Continue</a>
+            <a class="btn btn-light shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">Continue</a>
         </span>
     </div>
 </div>

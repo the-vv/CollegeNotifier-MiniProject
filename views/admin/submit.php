@@ -1,6 +1,7 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/utils/logout.php';
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];

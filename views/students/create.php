@@ -84,7 +84,7 @@ if ($query_param_values['rid']) {
                         </div> -->
                     </form>
                 </div>
-                <div class="mt-3 text-secondary">*Each Students will be added to College Students list</div>
+                <div class="mt-3 text-secondary">*Each Students will be added to College Students list & Default password will be 123</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#modelMultiple" data-bs-toggle="modal"
@@ -116,7 +116,7 @@ if ($query_param_values['rid']) {
                 <div class="text-end"><a href="/uploads/students-template.xlsx" download> Download template Excel
                         here</a></div>
 
-                <div class="mt-3 text-secondary">*Each Students will be added to College Students list</div>
+                <div class="mt-3 text-secondary">*Each Students will be added to College Students list & Default password will be 123</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#modelSingle" data-bs-toggle="modal"

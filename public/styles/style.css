@@ -1,3 +1,15 @@
+:root {
+	--animate-duration: 400ms!important;
+	--animate-delay   : 0.9s;
+}
+body, html {
+	overflow-y: hidden!important;
+}
+
+div#homeCards.card {
+	border-radius: 10px!important;
+}
+
 #home .card img {
 	height    : 250px;
 	object-fit: cover;
@@ -36,6 +48,7 @@
 	background-color : #000;
 	box-sizing       : border-box;
 	/* height        : 100%; */
+	width: 90vw;
 	background-color : #000;
 	background-image : radial-gradient(#11581e, #041607), url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
 	background-repeat: no-repeat;
@@ -44,14 +57,14 @@
 	font-size        : 1.5rem;
 	color            : rgba(128, 255, 128, 0.8);
 	text-shadow      : 0 0 1ex rgba(51, 255, 51, 1), 0 0 2px rgba(255, 255, 255, 0.8);
-	height           : 100vh;
+	height           : 90vh;
 }
 
 .page-404 .noise {
 	pointer-events   : none;
 	position         : absolute;
-	width            : 100%;
-	height           : 100%;
+	width            : 90%;
+	height           : 90%;
 	background-image : url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
 	background-repeat: no-repeat;
 	background-size  : cover;
@@ -62,8 +75,8 @@
 .page-404 .overlay {
 	pointer-events : none;
 	position       : absolute;
-	width          : 100%;
-	height         : 100%;
+	width          : 90%;
+	height         : 90%;
 	background     : repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
 	background-size: auto 4px;
 	z-index        : 1;
@@ -99,7 +112,7 @@
 .page-404 .terminal {
 	box-sizing    : inherit;
 	position      : absolute;
-	height        : 100%;
+	height        : 90%;
 	width         : 1000px;
 	max-width     : 100%;
 	padding       : 4rem;
@@ -230,7 +243,7 @@ table *,
 .tab-pane li a,
 .tab-pane a div,
 #eventcontent * {
-	border-radius: 4px !important;
+	border-radius: .25rem !important;
 }
 
 a {
@@ -238,7 +251,7 @@ a {
 }
 
 #homeCards div {
-	border-radius: 4px !important;
+	border-radius: .25rem !important;
 
 }
 

@@ -83,6 +83,30 @@ function get_student($id)
     return array("error" => true, "message" => mysqli_error($connection));
 }
 
+function find_student_by_email($email)
+{
+    global $student_table_name, $connection;
+    $query = "SELECT * from $student_table_name WHERE email = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $email)) {
+            // echo "Error getting student values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => mysqli_error($connection));
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error getting student Error: " . $safeQuery->error;
+            return array("error" => true, "message" => mysqli_error($connection));
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("error" => true, "message" => mysqli_error($connection));
+}
+
 function get_students_from_class($cid)
 {
     global $student_table_name, $connection;
