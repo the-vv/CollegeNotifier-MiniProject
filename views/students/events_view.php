@@ -5,28 +5,33 @@ $dptEvents = array();
 $batchEvents = array();
 $classEvents = array();
 $roomEvents = array();
+$allEvents = array();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+
+// variables used below are coming from parent home.php
 if ($cid) {
-    $collegeEvents = get_events_by_college($cid);
+    $collegeEvents = get_events_by_param($cid);
     foreach ($rids as $r) {
         $te = get_events_by_room($cid, $r);
-        
+
         foreach ($te as $t) {
             array_push($roomEvents, $t);
         }
     }
-    print_r($roomEvents);
+    // print_r($roomEvents);
 }
 if ($did) {
-    $dptEvents = get_events_by_dpt($cid, $did);
+    $dptEvents = get_events_by_param($cid, $did);
 }
 if ($bid) {
-    $batchEvents = get_events_by_batch($cid, $did, $bid);
+    $batchEvents = get_events_by_param($cid, $did, $bid);
 }
 if ($clid) {
-    $classEvents = get_events_by_class($cid, $did, $bid, $clid);
+    $classEvents = get_events_by_param($cid, $did, $bid, $clid);
 }
+
+$allEvents = array_merge($collegeEvents, $dptEvents, $batchEvents, $classEvents, $roomEvents);
 
 // echo "<pre>";
 // print_r($events);
@@ -61,187 +66,203 @@ function eventItem($e)
                 <?php echo date('d/m/y h:i:s', $e['sendtime']);
                 ?>
             </span>
-            <!-- <button type='button' class='btn btn-sm btn-danger m-0 border border-dark' onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
-                <i class='bi bi-trash-fill'></i></button>
-            <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark ms-1'>
-                <i class='bi bi-pencil-square'></i></a> -->
         </span>
     </li>
 <?php } ?>
 
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">All</button>
-        <button class="nav-link" id="nav-college-tab" data-bs-toggle="tab" data-bs-target="#nav-college" type="button" role="tab" aria-controls="nav-college" aria-selected="false">College</button>
-        <button class="nav-link" id="nav-department-tab" data-bs-toggle="tab" data-bs-target="#nav-department" type="button" role="tab" aria-controls="nav-department" aria-selected="false">Department</button>
-        <button class="nav-link" id="nav-batch-tab" data-bs-toggle="tab" data-bs-target="#nav-batch" type="button" role="tab" aria-controls="nav-batch" aria-selected="false">Batch</button>
-        <button class="nav-link" id="nav-class-tab" data-bs-toggle="tab" data-bs-target="#nav-class" type="button" role="tab" aria-controls="nav-class" aria-selected="false">Class</button>
-        <button class="nav-link active" id="nav-room-tab" data-bs-toggle="tab" data-bs-target="#nav-room" type="button" role="tab" aria-controls="nav-room" aria-selected="false">Room</button>
+        <button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">All</button>
+        <?php if ($cid) { ?>
+            <button class="nav-link" id="nav-college-tab" data-bs-toggle="tab" data-bs-target="#nav-college" type="button" role="tab" aria-controls="nav-college" aria-selected="false">College</button>
+        <?php }
+        if ($did) { ?>
+            <button class="nav-link" id="nav-department-tab" data-bs-toggle="tab" data-bs-target="#nav-department" type="button" role="tab" aria-controls="nav-department" aria-selected="false">Department</button>
+        <?php }
+        if ($bid) { ?>
+            <button class="nav-link" id="nav-batch-tab" data-bs-toggle="tab" data-bs-target="#nav-batch" type="button" role="tab" aria-controls="nav-batch" aria-selected="false">Batch</button>
+        <?php }
+        if ($clid) { ?>
+            <button class="nav-link" id="nav-class-tab" data-bs-toggle="tab" data-bs-target="#nav-class" type="button" role="tab" aria-controls="nav-class" aria-selected="false">Class</button>
+        <?php }
+        if (count($roomEvents) > 0) { ?>
+            <button class="nav-link" id="nav-rooms-tab" data-bs-toggle="tab" data-bs-target="#nav-rooms" type="button" role="tab" aria-controls="nav-rooms" aria-selected="false">All Rooms</button>
+        <?php } ?>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
+    <div class="tab-pane fade active show" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="p-0 m-0">
-                        Events/Notifications from 
+                        All Events/Notifications
                         <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </h5>
                 </div>
-                <span>
+                <!-- <span>
                     <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
                         Create <i class="bi bi-plus-lg"></i>
                     </a>
-                </span>
+                </span> -->
             </div>
         </div>
         <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
+            <?php foreach ($allEvents as $e) {
+                // if ($e['is_event'] == 1) {
+                //     continue;
+                // }
                 eventItem($e);
             } ?>
         </ul>
     </div>
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
-        <div class="row p-1">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="p-0 m-0">
-                        Events/Notifications
-                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
+    <?php if ($cid) { ?>
+        <div class="tab-pane fade" id="nav-college" role="tabpanel" aria-labelledby="nav-college-tab">
+            <div class="row p-1">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="p-0 m-0">
+                            Events/Notifications of College
+                            <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h5>
+                    </div>
+                    <span>
+                        <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
+            <ul class="list-group">
+                <?php foreach ($collegeEvents as $e) {
+                    // if ($e['is_event'] == 1) {
+                    //     continue;
+                    // }
+                    eventItem($e);
+                } ?>
+            </ul>
         </div>
-        <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
-                eventItem($e);
-            } ?>
-        </ul>
-    </div>
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
-        <div class="row p-1">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="p-0 m-0">
-                        Events/Notifications
-                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
+    <?php }
+    if ($did) { ?>
+        <div class="tab-pane fade" id="nav-department" role="tabpanel" aria-labelledby="nav-department-tab">
+            <div class="row p-1">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="p-0 m-0">
+                            Events/Notifications of Departments
+                            <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h5>
+                    </div>
+                    <span>
+                        <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
+            <ul class="list-group">
+                <?php foreach ($dptEvents as $e) {
+                    // if ($e['is_event'] == 1) {
+                    //     continue;
+                    // }
+                    eventItem($e);
+                } ?>
+            </ul>
         </div>
-        <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
-                eventItem($e);
-            } ?>
-        </ul>
-    </div>
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
-        <div class="row p-1">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="p-0 m-0">
-                        Events/Notifications
-                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
+    <?php }
+    if ($bid) { ?>
+        <div class="tab-pane fade" id="nav-batch" role="tabpanel" aria-labelledby="nav-batch-tab">
+            <div class="row p-1">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="p-0 m-0">
+                            Events/Notifications of Batch
+                            <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h5>
+                    </div>
+                    <span>
+                        <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
+            <ul class="list-group">
+                <?php foreach ($batchEvents as $e) {
+                    // if ($e['is_event'] == 1) {
+                    //     continue;
+                    // }
+                    eventItem($e);
+                } ?>
+            </ul>
         </div>
-        <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
-                eventItem($e);
-            } ?>
-        </ul>
-    </div>
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
-        <div class="row p-1">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="p-0 m-0">
-                        Events/Notifications
-                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
+    <?php }
+    if ($clid) { ?>
+        <div class="tab-pane fade" id="nav-class" role="tabpanel" aria-labelledby="nav-class-tab">
+            <div class="row p-1">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="p-0 m-0">
+                            Events/Notifications of Class
+                            <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h5>
+                    </div>
+                    <span>
+                        <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
+            <ul class="list-group">
+                <?php foreach ($classEvents as $e) {
+                    // if ($e['is_event'] == 1) {
+                    //     continue;
+                    // }
+                    eventItem($e);
+                } ?>
+            </ul>
         </div>
-        <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
-                eventItem($e);
-            } ?>
-        </ul>
-    </div>
-    <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
-        <div class="row p-1">
-            <div class="col-12 d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="p-0 m-0">
-                        Events/Notifications
-                        <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
+    <?php }
+    if (count($rids) > 0) { ?>
+        <div class="tab-pane fade" id="nav-rooms" role="tabpanel" aria-labelledby="nav-rooms-tab">
+            <div class="row p-1">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="p-0 m-0">
+                            Events/Notifications of All Rooms
+                            <div class="event-spinner spinner-border  spinner-border-sm" style="font-size:0.8rem; display: inline-block; vertical-align: center" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </h5>
+                    </div>
+                    <span>
+                        <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
+                            Create <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </span>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button" class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
+            <ul class="list-group">
+                <?php foreach ($roomEvents as $e) {
+                    // if ($e['is_event'] == 1) {
+                    //     continue;
+                    // }
+                    eventItem($e);
+                } ?>
+            </ul>
         </div>
-        <ul class="list-group">
-            <?php foreach ($events as $e) {
-                if ($e['is_event'] == 1) {
-                    continue;
-                }
-                eventItem($e);
-            } ?>
-        </ul>
-    </div>
+    <?php } ?>
 </div>
 
 <div class="modal fade" id="eventDisplay" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -268,7 +289,6 @@ function eventItem($e)
     'use strict';
 
     $(".event-spinner").hide();
-
     function showEvent(id) {
         $(".event-spinner").show();
         var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
@@ -303,51 +323,6 @@ function eventItem($e)
             }
             $(".event-spinner").hide(300);
             myModal.toggle();
-        })
-    }
-
-    function deleteEvent(eid, title, isEvent) {
-        console.log(isEvent);
-        let type = isEvent ? 'event' : 'notification';
-        $.confirm({
-            theme: 'material',
-            containerFluid: true,
-            backgroundDismiss: true,
-            title: 'Confirm Delete!',
-            content: `Are you sure want to delete the ${type}:<br><strong>${title}</strong>`,
-            type: 'red',
-            icon: 'bi bi-trash-fill',
-            bgOpacity: 0.8,
-            buttons: {
-                confirm: {
-                    btnClass: 'btn btn-danger',
-                    action: () => {
-                        $.getJSON(`/services/events/deleteone?eid=${eid}`, (res) => {
-                            if (res.success) {
-                                location.reload();
-                            } else {
-                                $.toast({
-                                    heading: 'Error',
-                                    text: res.message,
-                                    showHideTransition: 'slide',
-                                    icon: 'error',
-                                    position: 'bottom-right',
-                                })
-                            }
-                        }).fail((e) => {
-                            // console.log(e);
-                            $.toast({
-                                heading: 'Error',
-                                text: 'Error Deleting Event, Try again later',
-                                showHideTransition: 'slide',
-                                icon: 'error',
-                                position: 'bottom-right',
-                            })
-                        });
-                    }
-                },
-                cancel: () => {}
-            }
         })
     }
 </script>

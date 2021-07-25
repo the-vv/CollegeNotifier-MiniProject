@@ -71,7 +71,3 @@ function get_staff($id)
     }
     return false;
 }
-
-
-create_staff(1,2,'non-teaching', 'dfvdfv', 'erferf', 3435, 'eferfef');
-var_dump(get_staff(1));

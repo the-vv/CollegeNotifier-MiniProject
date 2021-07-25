@@ -47,8 +47,8 @@ if ($cid) {
         array_push($tr, $r['room_id']);
     }
     $rids = $tr;
-    print_r($rids);
-    echo '<br>';
+    // print_r($rids);
+    // echo '<br>';
 }
 if ($did) {
     $department = get_dpt($did);
@@ -81,13 +81,13 @@ if ($clid) {
     }
 }
 
-print_r($college);
-echo "<br>";
-print_r($department);
-echo "<br>";
-print_r($batch);
-echo "<br>";
-print_r($class);
+// print_r($college);
+// echo "<br>";
+// print_r($department);
+// echo "<br>";
+// print_r($batch);
+// echo "<br>";
+// print_r($class);
 ?>
 
 <div class="container-fluid bg-light mx-md-4 pt-2 shadow rounded" id="rooms" style="min-height: 85vh">
@@ -125,8 +125,8 @@ print_r($class);
     <?php } ?>
     <div class="row mb-5 mt-2">
         <div class="col-12">
-            <div class="h4 text-center mb-3 mt-3">
-                Your Dashboard
+            <div class="h4 text-center mb-3">
+                Your Notifier Dashboard
             </div>
         </div>
         <div class="col-md-8">
@@ -166,7 +166,7 @@ print_r($class);
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
+                    <?php // require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
             </div>
         </div>
