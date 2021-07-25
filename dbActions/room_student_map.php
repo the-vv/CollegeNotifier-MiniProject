@@ -138,4 +138,32 @@ class RoomStudentMap
         }
         return array("error" => true, "message" => mysqli_error($connection));
     }
+    function get_rooms_of_student($cid, $sid) {
+        global $connection;
+        $query = "SELECT room_id FROM {$this->table_name} 
+            WHERE cid = ? AND students_id = ?";
+        $results = array();
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('ss', $cid, $sid)) {
+                echo "Error geting rids map values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error geting rids Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$res = $safeQuery->get_result()) {
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            while ($row = $res->fetch_assoc()) {
+                array_push($results, $row);
+            }
+            $safeQuery->close();
+            return $results;
+        } else {
+            echo "Error geting rids Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "Room map Updated successfully");
+    }
 }

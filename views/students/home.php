@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 
 if (!isset($_COOKIE['studentUser'])) {
@@ -20,12 +21,15 @@ $cid = $student['college_id'] ?? 0;
 $did = $student['dpt_id'] ?? 0;
 $bid = $student['batch_id'] ?? 0;
 $clid = $student['class_id'] ?? 0;
+$rids = array();
 
 $college = array();
 $department = array();
 $batch = array();
 $class = array();
-$student = array();
+// $student = array();
+
+
 
 if ($cid) {
     $college = get_college($cid);
@@ -36,6 +40,15 @@ if ($cid) {
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
+    $Mapper = new RoomStudentMap();
+    $rids = $Mapper->get_rooms_of_student($cid, $student['id']);
+    $tr = array();
+    foreach ($rids as $r) {
+        array_push($tr, $r['room_id']);
+    }
+    $rids = $tr;
+    print_r($rids);
+    echo '<br>';
 }
 if ($did) {
     $department = get_dpt($did);
@@ -67,6 +80,7 @@ if ($clid) {
         die();
     }
 }
+
 print_r($college);
 echo "<br>";
 print_r($department);
@@ -103,7 +117,7 @@ print_r($class);
                     <use xlink:href="#exclamation-triangle-fill" />
                 </svg>
                 <div class="">
-                    Warning: You are not part of any Class! 
+                    Warning: You are not part of any Class!
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -116,7 +130,7 @@ print_r($class);
             </div>
         </div>
         <div class="col-md-8">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php' ?>
+            <?php require_once 'events_view.php' ?>
         </div>
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">

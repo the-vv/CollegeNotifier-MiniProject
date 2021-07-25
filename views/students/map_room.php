@@ -13,7 +13,7 @@
                     $room_to_add = 'room_id';
                     $StudentMapper = new RoomStudentMap();
                     $students_all = $StudentMapper->get_students_to_map($query_param_values['cid'], $query_param_values['rid']);
-                    print_r($students_all);
+                    // print_r($students_all);
                 } 
                 else {
                     $error_mess = "Required parameters not provided or mapping not allowed here.";
