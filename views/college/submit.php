@@ -3,7 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 if (isset($_POST['create'])) {
     global $user;
     $oid = $user['id'];

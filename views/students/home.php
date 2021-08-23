@@ -1,10 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 
 if (!isset($_COOKIE['studentUser'])) {

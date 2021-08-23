@@ -1,6 +1,6 @@
 <?php 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 
 $sid = isset($query_params['sid']) ? $query_params['sid'] : 0;
 

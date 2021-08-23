@@ -12,7 +12,7 @@ if ($query_param_values['clid'] != 0) {
 if ($query_param_values['rid'] != 0) {
     $room_to_add = 'Room';
 }
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 if ($room_to_add == 'College') {
     $events = get_events_by_college($query_param_values['cid']);
 } elseif ($room_to_add == 'Department') {

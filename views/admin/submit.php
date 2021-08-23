@@ -1,12 +1,12 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/utils/logout.php';
+// require $_SERVER['DOCUMENT_ROOT'] . '/utils/logout.php';
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';    
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';    
     $user = find_admin_user($email);
     if (isset($user['error'])) {
         echo "
@@ -75,7 +75,7 @@ if (isset($_POST['signup'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $spassword = $_POST['password'];
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
     $hashed = password_hash($spassword, PASSWORD_DEFAULT);
     $user = create_admin($name, $email, $phone, $hashed);
     if (isset($user['error'])) {

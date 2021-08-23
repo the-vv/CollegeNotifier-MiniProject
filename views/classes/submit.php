@@ -28,7 +28,7 @@ if (isset($query_params['bid'])) {
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 if (isset($_POST['create'])) {
     $div = $_POST['div'];
     $res = create_class($did, $cid, $bid, $div);

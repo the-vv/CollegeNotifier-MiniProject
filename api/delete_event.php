@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 
 $eid = $query_params['eid'] ?? 0;
 

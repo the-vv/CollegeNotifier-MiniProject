@@ -1,9 +1,9 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 $user = get_current_logged_user();
 if (isset($query_params['bid'])) {    
     if (!isset($query_params['cid'])) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 

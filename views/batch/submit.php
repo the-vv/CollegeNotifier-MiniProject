@@ -20,7 +20,7 @@ if (isset($query_params['did'])) {
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 if (isset($_POST['create'])) {
     $smonth = $_POST['smonth'];
     $emonth = $_POST['emonth'];

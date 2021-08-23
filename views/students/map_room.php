@@ -2,7 +2,7 @@
     <div class="row pt-5">
         <div class="col-12">
             <?php
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
             $students_all = array();
             if ($query_param_values['cid'] == 0) {
                 $error_mess = "College Id not provided.";

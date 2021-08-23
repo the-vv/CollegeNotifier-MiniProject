@@ -7,7 +7,7 @@ $clid = $query_params['clid'] ?? 0;
 $rid = $query_params['rid'] ?? 0;
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
 
 function import_students_from_file($fname)
@@ -46,7 +46,7 @@ function import_students_from_file($fname)
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
     $user = find_student_by_email($email);
     if (isset($user['error'])) {
         $error_mess = $user['message'];
@@ -91,7 +91,7 @@ if (isset($_POST['login'])) {
     die();
 } elseif (isset($_POST['room_mapings'])) {
     // print_r($_POST);
-    require $_SERVER['DOCUMENT_ROOT'] . '/dbActions/room_student_map.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
     $Mapper = new RoomStudentMap();
     $mappings = json_decode($_POST['room_mapings']);
     $referer = $_POST['referer'];

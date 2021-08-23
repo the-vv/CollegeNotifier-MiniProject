@@ -1,8 +1,8 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 $user = get_current_logged_user();
 if (isset($query_params['did'])) {    
     if (!isset($query_params['cid'])) {

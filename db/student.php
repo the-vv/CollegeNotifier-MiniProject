@@ -1,10 +1,10 @@
 <?php
 
 require_once 'connection.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/batch.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 
 $student_table_name = 'students';
 

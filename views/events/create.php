@@ -2,7 +2,7 @@
 $cid = 0;
 $event = null;
 if (isset($query_params['eid'])) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     $event = get_event($query_params['eid']);
     $event = $event[0] ?? null;
     if($event == null) {

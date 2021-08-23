@@ -7,7 +7,7 @@ $classEvents = array();
 $roomEvents = array();
 $allEvents = array();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/event.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 
 // variables used below are coming from parent home.php
 if ($cid) {

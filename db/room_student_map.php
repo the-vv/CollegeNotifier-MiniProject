@@ -1,7 +1,7 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/rooms.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 require_once 'connection.php';
 
 class RoomStudentMap
@@ -138,7 +138,8 @@ class RoomStudentMap
         }
         return array("error" => true, "message" => mysqli_error($connection));
     }
-    function get_rooms_of_student($cid, $sid) {
+    function get_rooms_of_student($cid, $sid)
+    {
         global $connection;
         $query = "SELECT room_id FROM {$this->table_name} 
             WHERE cid = ? AND students_id = ?";

@@ -1,7 +1,7 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
 function get_current_logged_user()
 {

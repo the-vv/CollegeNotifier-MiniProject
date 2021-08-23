@@ -13,7 +13,7 @@ else {
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
 if (isset($_POST['create'])) {
     $name = $_POST['name'];
     $category = $_POST['category'];

@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/rooms.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 $Room = new rooms();
 $cid = $query_params['cid'] ?? 0;
 $current_room = null;

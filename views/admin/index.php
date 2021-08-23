@@ -6,7 +6,7 @@ if (!isset($_COOKIE['adminUser'])) {
     header('Location:admin/login');
     // echo "<script type='text/javascript'>location.href = 'admin/login';</script>";
 } else {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/admin.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
     $user = find_admin_user(decrypt($_COOKIE['adminUser']));
     if (count($user) < 1) {
         header('Location:/logout');

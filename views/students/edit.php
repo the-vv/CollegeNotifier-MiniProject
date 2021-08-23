@@ -12,7 +12,7 @@ if($cid == 0) {
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 $student_details = get_student($sid)[0];
 ?>
 

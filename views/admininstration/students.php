@@ -10,9 +10,9 @@ if ($cid == 0) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     die();
 }
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 $college = get_college($cid)[0];
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 $all_students = get_all_students_bi_cid($cid);
 ?>
 

@@ -10,7 +10,7 @@ else {
     die();
 }
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/dbActions/rooms.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 if (isset($_POST['create'])) {
     $Room = new Rooms();
     $name = $_POST['name'];
