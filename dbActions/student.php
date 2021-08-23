@@ -16,7 +16,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $student_table_name (
         class_id INT(6) UNSIGNED,
         parent_id INT(6) UNSIGNED,
         roll_no VARCHAR(5),
-        student_name VARCHAR(50) NOT NULL,
+        name VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         phone VARCHAR(13),
         gender VARCHAR(8) NOT NULL,
@@ -36,7 +36,7 @@ function create_student($dpt_id = '', $college_id = '', $batch_id = '', $class_i
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
-            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, gender, student_password
+            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, name, email, phone, gender, student_password
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
@@ -207,7 +207,7 @@ function create_multiple_students($students, $dpt_id = '', $college_id = '', $ba
 {
     global $student_table_name, $connection;
     $query = "INSERT INTO $student_table_name (
-            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, student_name, email, phone, gender, student_password
+            dpt_id, college_id, batch_id, class_id, parent_id, roll_no, name, email, phone, gender, student_password
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
@@ -238,7 +238,7 @@ function get_all_students_bi_cid($cid)
 {
     global $student_table_name, $connection, $department_table_name, $table_batch_name, $class_table_name;
     $query = "SELECT
-    $student_table_name.id, $student_table_name.student_name, $student_table_name.email, $student_table_name.phone, $student_table_name.gender,
+    $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.phone, $student_table_name.gender,
     $department_table_name.dpt_name, 
     $table_batch_name.start_year, $table_batch_name.end_year,
     $class_table_name.division
@@ -297,7 +297,7 @@ function update_student_by_id($sid, $name = '', $email = '', $phone = '', $gende
 {
     global $student_table_name, $connection;
     $query = "UPDATE $student_table_name SET
-            student_name = ?, email = ?, phone = ?, gender = ?";
+            name = ?, email = ?, phone = ?, gender = ?";
     if (strlen($student_password) > 0) {
         $query  .= ", student_password = ?";
     }

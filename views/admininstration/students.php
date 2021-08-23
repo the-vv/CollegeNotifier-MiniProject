@@ -50,7 +50,7 @@ $all_students = get_all_students_bi_cid($cid);
                     echo "<tr>
                         <td scope='row'>{$stud['id']}</td>
                         <td scope='row'>{$count}</td>
-                        <td>{$stud['student_name']}</td>
+                        <td>{$stud['name']}</td>
                         <td>{$stud['gender']}</td>
                         <td>{$stud['email']}</td>
                         <td>{$stud['phone']}</td>

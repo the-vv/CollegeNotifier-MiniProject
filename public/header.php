@@ -82,8 +82,8 @@ $user = get_current_logged_user();
                 </ul>
                 <span class="navbar-text text-white">
                     <?php
-                    if (isset($user['email'])) {
-                        echo $user['email'];
+                    if (isset($user['name'])) {
+                        echo "<strong>" . $user['name'] . "</strong> | <small>" . $user['type'] . "</small>";
                     }
                     ?>
                 </span>

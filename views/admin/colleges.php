@@ -13,7 +13,7 @@ $colleges = get_colleges($user['id']);
     </ol>
     <div class="row mt-4 text-center">
         <h2>
-            Welcome, <?php echo $user['admin_name'] ?>
+            Welcome, <?php echo $user['name'] ?>
         </h2>
         <h6>
             <?php echo $user['email'] ?>

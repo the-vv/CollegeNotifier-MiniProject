@@ -25,7 +25,7 @@ $student_details = get_student($sid)[0];
                 <div class="form-group col-12 col-md-6 text-start">
                     <label for="exampleInputEmail1">Full Name*</label>
                     <input type="text" class="form-control" name="name" id="sname" required
-                        aria-describedby="categoryHelp" placeholder="Enter Name" value="<?php echo $student_details['student_name'] ?>">
+                        aria-describedby="categoryHelp" placeholder="Enter Name" value="<?php echo $student_details['name'] ?>">
                 </div>
                 <div class="form-group col-12 col-md-6 text-start">
                     <label for="exampleInputEmail1">Phone</label>

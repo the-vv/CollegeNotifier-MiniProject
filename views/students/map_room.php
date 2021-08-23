@@ -36,7 +36,7 @@
                 foreach ($students_all as $s) { ?>
                     <option value="<?php echo $s['id'] ?>" class="border p-2 my-1 rounded d-block text-truncate">
                         <?php
-                        echo "{$s['student_name']} - ";
+                        echo "{$s['name']} - ";
                         echo "{$s['email']}";
                         ?>
                     </option>

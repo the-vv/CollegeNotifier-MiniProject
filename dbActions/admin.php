@@ -6,7 +6,7 @@ $TableName = 'admins';
 
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        admin_name VARCHAR(50) NOT NULL,
+        name VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         phone VARCHAR(10),
         admin_password VARCHAR(255) NOT NULL
@@ -23,7 +23,7 @@ function create_admin($name = '', $email = '', $phone = '', $admin_password)
         return array("error" => true, "message" => "User Already Exists, Please Login");
     }
     $query = "INSERT INTO $TableName (
-            admin_name, email, phone, admin_password
+            name, email, phone, admin_password
         )
         VALUES (
             ?, ?, ?, ?

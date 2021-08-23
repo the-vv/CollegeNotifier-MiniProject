@@ -30,7 +30,6 @@ $class = array();
 // $student = array();
 
 
-
 if ($cid) {
     $college = get_college($cid);
     if (count($college) > 0) {
@@ -81,6 +80,26 @@ if ($clid) {
     }
 }
 
+$students = get_students_from_college($college['id']);
+$RoomMapper = new RoomStudentMap();
+foreach($rids as $r) {
+    $sts = $RoomMapper->get_all_students_in_room($college['id'], $r);
+    foreach($sts as $s) {
+        array_push($students, $s);
+    }
+}
+$tempIds = array();
+$students = array_filter($students, function($s) {
+    global $tempIds;
+    if (array_search($s['id'], $tempIds) !== false) {
+        return false;
+    }
+    else {
+        array_push($tempIds, $s['id']);
+        return true;
+    }
+});
+// print_r($students);
 // print_r($college);
 // echo "<br>";
 // print_r($department);
@@ -126,7 +145,7 @@ if ($clid) {
     <div class="row mb-5 mt-2">
         <div class="col-12">
             <div class="h4 text-center mb-3">
-                Your Notifier Dashboard
+                Your College Dashboard
             </div>
         </div>
         <div class="col-md-8">
@@ -166,7 +185,7 @@ if ($clid) {
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-                    <?php // require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
             </div>
         </div>

@@ -72,7 +72,7 @@ class RoomStudentMap
         $Rooms = new Rooms();
         $student_table_name = 'students';
         $query = "SELECT
-            $student_table_name.id, $student_table_name.student_name, $student_table_name.email, $student_table_name.college_id
+            $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.college_id
             FROM {$this->table_name}
             RIGHT JOIN $student_table_name
             ON {$this->table_name}.students_id = $student_table_name.id  
@@ -110,7 +110,7 @@ class RoomStudentMap
         $Rooms = new Rooms();
         $student_table_name = 'students';
         $query = "SELECT
-            $student_table_name.id, $student_table_name.student_name, $student_table_name.email, $student_table_name.college_id
+            $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.college_id
             FROM {$this->table_name}
             INNER JOIN $student_table_name
             ON {$this->table_name}.students_id = $student_table_name.id 
