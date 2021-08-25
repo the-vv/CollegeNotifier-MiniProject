@@ -6,9 +6,7 @@ $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
 $rid = $query_params['rid'] ?? 0;
 
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
 
 function import_students_from_file($fname)
 {
@@ -44,6 +42,7 @@ function import_students_from_file($fname)
 }
 
 if (isset($_POST['login'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
     require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
@@ -140,6 +139,16 @@ if (isset($_POST['login'])) {
         $success_mess = $res['message'];
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
     }
+    echo "    
+        <div class='row'>
+            <div class='col-12 text-center'>
+                <span>
+                    <a class='btn btn-light shadow border px-5 py-1' href='$referer'>Continue</a>
+                </span>
+            </div>
+        </div>
+    ";
+    die();
 } elseif (isset($query_params['multiple']) && $query_params['multiple'] == '1') {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     $target_file = $target_dir . basename($_FILES["students"]["name"]);
@@ -182,6 +191,7 @@ if (isset($_POST['login'])) {
         }
     }
 } else {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $email = $_POST['email'];
     $name = $_POST['name'];
     $phone = isset($_POST['phone']) ? $_POST['phone'] : 0;

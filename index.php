@@ -163,4 +163,4 @@ switch ($request) {
         break;
 }
 
-require_once __DIR__ . './public/footer.html';
+require_once __DIR__ . './public/footer.php';

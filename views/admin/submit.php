@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
 // require $_SERVER['DOCUMENT_ROOT'] . '/utils/logout.php';
 
 if (isset($_POST['login'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
     require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';    
@@ -71,6 +72,7 @@ if (isset($_POST['login'])) {
 }
 
 if (isset($_POST['signup'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];

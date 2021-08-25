@@ -38,6 +38,7 @@ function get_current_logged_user()
         }
         return $res;
     } else {
+        // header('Location:/logout');
         return false; // for is logged in checking
     }
 }
