@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 mt-4 mt-md-0  animate__animated animate__fadeInDown">
+                    <div class="col-md-6 col-lg-3 mt-4 mt-md-0  animate__animated animate__fadeInUp">
                         <div class="card shadow rounded border" style="width: 100%">
                             <img src="../../public/assets/parent.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 mt-4 mt-lg-0 animate__animated animate__fadeInUp">
+                    <div class="col-md-6 col-lg-3 mt-4 mt-lg-0 animate__animated animate__fadeInDown">
                         <div class="card shadow rounded border" style="width: 100%">
                             <img src="../../public/assets/teacher.jpg" class="card-img-top" alt="...">
                             <div class="card-body">

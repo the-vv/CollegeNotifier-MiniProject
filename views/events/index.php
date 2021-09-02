@@ -54,14 +54,25 @@ function eventItem($e)
             </div>
         </a>
         <span class="d-flex align-items-center event-actions">
-            <span class="me-2">
-                <?php echo date('d/m/y h:i:s', $e['sendtime']);
-                ?>
-            </span>
-            <button type='button' class='btn btn-sm btn-danger m-0 border border-dark' onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
-                <i class='bi bi-trash-fill'></i></button>
-            <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark ms-1'>
-                <i class='bi bi-pencil-square'></i></a>
+            <div>
+                <div class="me-2 ms-auto">
+                    <p class="m-0 p-0 text-end">
+                        <?php echo date('d/m/y h:i:s', $e['sendtime']); ?>
+                        <button type='button' class='btn btn-sm btn-danger m-0 border border-dark' onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
+                            <i class='bi bi-trash-fill'></i></button>
+                        <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button' class='btn btn-sm btn-warning m-0 border border-dark ms-1'>
+                            <i class='bi bi-pencil-square'></i></a>
+                    </p>
+                </div>
+                <div class="me-2 d-block text-truncate">
+                    <span class="h6">
+                        <?php echo $e['user']['name']; ?>
+                    </span> |
+                    <small>
+                        <?php echo $e['user']['email']; ?>
+                    </small>
+                </div>
+            </div>
         </span>
     </li>
 <?php } ?>
@@ -153,7 +164,10 @@ function eventItem($e)
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                <div>
+                    <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                    <div id="ownerInfo" class="text-muted"></div>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row">
@@ -173,6 +187,7 @@ function eventItem($e)
     'use strict';
 
     $(".event-spinner").hide();
+
     function showEvent(id) {
         $(".event-spinner").show();
         var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
@@ -205,6 +220,7 @@ function eventItem($e)
             } else {
                 $('#registerEvent').hide();
             }
+            $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
             $(".event-spinner").hide(300);
             myModal.toggle();
         })

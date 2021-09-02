@@ -34,7 +34,7 @@ if (isset($query_params['eid'])) {
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Mode of this Nofitication</label>
                     <div class="form-checkr">
-                        <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value=""
+                        <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value="event"
                         <?php if($event && isset($event['is_event']) && $event['is_event'] == 1) { echo "checked"; } ?> id="isEventSwitch" name="isevent">
                         <label class="form-check-label " for="isEventSwitch">Mark this as an Event</label>
                     </div>

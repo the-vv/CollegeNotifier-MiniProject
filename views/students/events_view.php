@@ -34,10 +34,11 @@ if ($clid) {
 $allEvents = array_merge($collegeEvents, $dptEvents, $batchEvents, $classEvents, $roomEvents);
 
 // echo "<pre>";
-// print_r($events);
+// print_r($allEvents);
 // echo "</pre>";
 function eventItem($e)
 { ?>
+
     <li class='list-group-item d-flex justify-content-between align-items-center'>
         <a onclick="showEvent('<?php echo $e['id'] ?>')" class="d-inline-block text-truncate h6 text-decoration-none">
             <div class="row">
@@ -61,11 +62,20 @@ function eventItem($e)
                 </div>
             </div>
         </a>
-        <span class="d-flex align-items-center event-actions">
-            <span class="me-2">
-                <?php echo date('d/m/y h:i:s', $e['sendtime']);
-                ?>
-            </span>
+        <span class="d-flex align-items-center event-actions flex-column justify-content-end">
+            <div class="me-2 ms-auto">
+                <p class="m-0 p-0 text-end">
+                    <?php echo date('d/m/y h:i:s', $e['sendtime']); ?>
+                </p>
+            </div>
+            <div class="me-2 d-block text-truncate">
+                <span class="h6">
+                    <?php echo $e['user']['name']; ?>
+                </span> |
+                <small>
+                    <?php echo $e['user']['email']; ?>
+                </small>
+            </div>
         </span>
     </li>
 <?php } ?>
@@ -269,7 +279,10 @@ function eventItem($e)
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                <div>
+                    <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                    <div id="ownerInfo" class="text-muted"></div>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row">
@@ -289,6 +302,7 @@ function eventItem($e)
     'use strict';
 
     $(".event-spinner").hide();
+
     function showEvent(id) {
         $(".event-spinner").show();
         var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
@@ -321,6 +335,7 @@ function eventItem($e)
             } else {
                 $('#registerEvent').hide();
             }
+            $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
             $(".event-spinner").hide(300);
             myModal.toggle();
         })

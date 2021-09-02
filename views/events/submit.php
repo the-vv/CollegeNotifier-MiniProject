@@ -33,7 +33,11 @@ function upload_file()
 
 if (isset($_POST['eventContent'])) {
   $title = $_POST['title'];
-  $is_event = isset($_POST['isevent']) ? 1 : 0;
+  if(isset( $_POST['isevent'])) {
+    $is_event = 1;
+  } else {
+    $is_event = 0;
+  }
   $content = $_POST['eventContent'];
   $time = time();
   if (strlen($_POST['attatchement']) < 1) {
@@ -50,9 +54,9 @@ if (isset($_POST['eventContent'])) {
   }
   $result = array();
   if (isset($query_params['eid'])) {
-    $res = update_event_by_id($query_params['eid'], $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate);
+    $res = update_event_by_id($query_params['eid'], $title, $content, $time, $user['id'], $user['type'], $attatchement, $is_event, $sdate, $edate);
   } else {
-    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $attatchement, $is_event, $sdate, $edate, $rid);
+    $res = create_event($did, $cid, $bid, $clid, $title, $content, $time, $user['id'], $user['type'], $attatchement, $is_event, $sdate, $edate, $rid);
   }
   if (isset($res['error'])) {
     $error_mess = $res['message'];

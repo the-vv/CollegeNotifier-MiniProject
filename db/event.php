@@ -1,6 +1,8 @@
 <?php
 
 require_once 'connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 
 $event_table_name = 'events';
 
@@ -15,6 +17,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         content MEDIUMTEXT,
         sendtime INT(15) NOT NULL,
         from_id INT(6) NOT NULL,
+        from_user_type VARCHAR(50) NOT NULL,
         attatchement VARCHAR(500),
         is_event INT(1) NOT NULL,
         starttime VARCHAR(50),
@@ -30,17 +33,30 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0, $rid = 0)
+function get_owner_user($id, $type) {
+    if($type == 'admin') {
+        $user = get_admin($id)[0];
+        unset($user['admin_password']);
+        return $user;
+    }
+    else if($type == 'student') {
+        $user = get_student($id)[0];
+        unset($user['student_password']);
+        return $user;
+    }
+}
+
+function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $fromtype = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0, $rid = 0)
 {
     global $event_table_name, $connection;
     $query = "INSERT INTO $event_table_name (
-            dpt_id, college_id, batch_id, class_id, room_id, title, content, sendtime, from_id, attatchement, is_event, starttime, endtime
+            dpt_id, college_id, batch_id, class_id, room_id, title, content, sendtime, from_id, from_user_type, attatchement, is_event, starttime, endtime
         )
         VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $rid, $title, $content, $time, $fromid, $attatchement, $isevent, $st, $et)) {
+        if (!$safeQuery->bind_param('ssssssssssssss', $dpt_id, $college_id, $batch_id, $class_id, $rid, $title, $content, $time, $fromid, $fromtype, $attatchement, $isevent, $st, $et)) {
             echo "Error Creating event values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -72,6 +88,7 @@ function get_event($id)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -97,6 +114,7 @@ function get_events_by_param($cid = 0, $did = 0, $bid = 0, $clid = 0, $rid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -122,6 +140,7 @@ function get_events_by_class($cid = 0, $did = 0, $bid = 0, $clid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -147,6 +166,7 @@ function get_events_by_room($cid = 0, $rid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -172,6 +192,7 @@ function get_events_by_batch($cid = 0, $did = 0, $bid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -197,6 +218,7 @@ function get_events_by_dpt($cid = 0, $did = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -222,6 +244,7 @@ function get_events_by_college($cid)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
@@ -252,14 +275,14 @@ function delete_event($eid)
     return array("error" => true, "message" => mysqli_error($connection));
 }
 
-function update_event_by_id($eid = '', $title = '', $content = '', $time = '', $fromid = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0)
+function update_event_by_id($eid = '', $title = '', $content = '', $time = '', $fromid = '', $from_user_type = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0)
 {
     global $event_table_name, $connection;
     $query = "UPDATE $event_table_name SET
-            title = ?, content = ?, sendtime = ?, from_id = ?, attatchement = ?, is_event = ?, starttime = ?, endtime = ?
+            title = ?, content = ?, sendtime = ?, from_id = ?, attatchement = ?, is_event = ?, starttime = ?, endtime = ?, from_user_type = ?
             WHERE id= ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssssssss', $title, $content, $time, $fromid, $attatchement, $isevent, $st, $et, $eid)) {
+        if (!$safeQuery->bind_param('ssssssssss', $title, $content, $time, $fromid, $attatchement, $isevent, $st, $et, $from_user_type, $eid)) {
             echo "Error Updating event values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
