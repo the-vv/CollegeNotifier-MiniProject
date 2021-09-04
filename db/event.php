@@ -34,12 +34,12 @@ if (!mysqli_query($connection, $create_query)) {
 }
 
 function get_owner_user($id, $type) {
-    if($type == 'admin') {
+    if($type == UserTypes::admin) {
         $user = get_admin($id)[0];
         unset($user['admin_password']);
         return $user;
     }
-    else if($type == 'student') {
+    else if($type == UserTypes::student) {
         $user = get_student($id)[0];
         unset($user['student_password']);
         return $user;

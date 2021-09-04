@@ -4,7 +4,7 @@
 }
 body, html {
 	overflow-x: hidden!important;
-	overflow-y: auto!important
+	overflow-y: auto!important;
 }
 
 div#homeCards.card {

@@ -1,17 +1,22 @@
 <?php
+
+// Global Constant Variables
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
+
 date_default_timezone_set('Asia/Kolkata');
 
-function str_end_with_str( $haystack, $needle ) {
-    $length = strlen( $needle );
-    if( !$length ) {
+function str_end_with_str($haystack, $needle)
+{
+    $length = strlen($needle);
+    if (!$length) {
         return true;
     }
-    return substr( $haystack, -$length ) === $needle;
+    return substr($haystack, -$length) === $needle;
 }
 
-if ( $_SERVER['REQUEST_METHOD']=='GET' && str_end_with_str($_SERVER['REQUEST_URI'], '.php') ) {
-    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
-    die( header( 'location: 404' ) );
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && str_end_with_str($_SERVER['REQUEST_URI'], '.php')) {
+    header('HTTP/1.0 403 Forbidden', TRUE, 403);
+    die(header('location: 404'));
 }
 
 $request = $_SERVER['REQUEST_URI'];
@@ -161,8 +166,8 @@ switch ($request) {
     case '/rooms/submit':
         require_once __DIR__ . '/views/rooms/submit.php';
         break;
-        
-    //Student User Routing Section
+
+        //Student User Routing Section
     case '/student':
         require_once __DIR__ . '/views/students/home.php';
         break;

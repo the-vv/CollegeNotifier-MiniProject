@@ -84,7 +84,7 @@ function eventItem($e)
         <button class="nav-link" id="nav-events-tab" data-bs-toggle="tab" data-bs-target="#nav-events" type="button" role="tab" aria-controls="nav-events" aria-selected="false">All Events</button>
     </div>
 </nav>
-<div class="tab-content" id="nav-tabContent">
+<div class="tab-content" id="nav-tabContent" id="evants-view">
     <div class="tab-pane fade" id="nav-notifications" role="tabpanel" aria-labelledby="nav-notifications-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
@@ -152,7 +152,7 @@ function eventItem($e)
                 </span>
             </div>
         </div>
-        <ul class="list-group">
+        <ul class="list-group" id="all_events_view">
             <?php foreach ($events as $e) {
                 eventItem($e);
             } ?>
