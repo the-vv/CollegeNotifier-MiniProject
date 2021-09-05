@@ -33,8 +33,8 @@ if (isset($query_params['eid'])) {
                 </div>
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Mode of this Nofitication</label>
-                    <div class="form-checkr">
-                        <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value="event"
+                    <div class="fform-check form-switch">
+                        <input class="form-check-input " type="checkbox" value="event"
                         <?php if($event && isset($event['is_event']) && $event['is_event'] == 1) { echo "checked"; } ?> id="isEventSwitch" name="isevent">
                         <label class="form-check-label " for="isEventSwitch">This is an Event</label>
                     </div>
@@ -162,5 +162,7 @@ $("#eventForm").submit((e) => {
         $('#attatchement').val('<?php if($event && strlen($event['attatchement'])){ echo $event['attatchement']; } ?>')
     }
     document.getElementById("eventForm").submit();
+    $("#publishEvent").attr("disabled", true);
+    $("#publishEvent").text('Publishing...')
 })
 </script>

@@ -5,9 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 
-if (!isset($_COOKIE['studentUser'])) {
+if (!isset($_COOKIE[CookieNames::student])) {
     header('Location:student/login');
 } else {
     $student = get_current_logged_user();
@@ -27,6 +28,7 @@ $college = array();
 $department = array();
 $batch = array();
 $class = array();
+$rooms = array();
 // $student = array();
 
 
@@ -87,6 +89,9 @@ foreach($rids as $r) {
     foreach($sts as $s) {
         array_push($students, $s);
     }
+    $Room = new Rooms();
+    $tmp_room = $Room->get_one($r)[0];
+    array_push($rooms, $tmp_room);
 }
 $tempIds = array();
 $students = array_filter($students, function($s) {
@@ -104,7 +109,7 @@ $students = array_filter($students, function($s) {
 // echo "<br>";
 // print_r($department);
 // echo "<br>";
-// print_r($batch);
+// print_r($rooms);
 // echo "<br>";
 // print_r($class);
 ?>
@@ -165,11 +170,11 @@ $students = array_filter($students, function($s) {
                     <div class="row p-1 align-items-end">
                         <div class="col-12 d-flex justify-content-between align-items-center">
                             <h5 class="p-0 m-0">Faculties Here</h5>
-                            <span>
+                            <!-- <span>
                                 <a href="batch/create?<?php echo $url_with_query_params ?>" class="btn btn-outline-primary rounded rounded-pill btn-sm" class="btn btn-info strong">
                                     Create <i class="bi bi-plus-lg"></i>
                                 </a>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                     <ul class="list-group">

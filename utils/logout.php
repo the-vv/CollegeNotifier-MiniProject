@@ -1,7 +1,7 @@
 <?php
-setcookie('adminUser', '', time()-3600, '/');
-unset($_COOKIE['adminUser']);
-setcookie('studentUser', '', time()-3600, '/');
-unset($_COOKIE['studentUser']);
+setcookie(CookieNames::admin, '', time()-3600, '/');
+unset($_COOKIE[CookieNames::admin]);
+setcookie(CookieNames::student, '', time()-3600, '/');
+unset($_COOKIE[CookieNames::student]);
 header('Location:/');
 // echo "<script>location.href='/'</script>";

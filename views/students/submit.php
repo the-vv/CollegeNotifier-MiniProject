@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
         if (password_verify($lpassword, $user[0]['student_password'])) {
             require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
             $token = encrypt($user[0]['email']);
-            setcookie('studentUser', $token, time() + (86400 * 30), '/');
+            setcookie(CookieNames::student, $token, time() + (86400 * 30), '/');
             header("Location:/student");
             // echo "<script>location.href='../admin'</script>";
         } else {

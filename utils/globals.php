@@ -12,3 +12,11 @@ abstract class eventTypes
     const event = 'event';
     const notification = 'notification';
 }
+
+abstract class CookieNames
+{
+    const admin = 'admin_user';
+    const parent = 'parent_user';
+    const faculty = 'faculty_user';
+    const student = 'student_user';
+}

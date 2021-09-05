@@ -68,7 +68,7 @@ function eventItem($e)
                 <?php echo date('d/m/y h:i:s', $e['sendtime']); ?>
             </p>
         </div>
-        <div class="me-2 d-block text-truncate">
+        <div class="me-2 d-block text-truncate text-end">
             <span class="h6">
                 <?php echo $e['user']['name']; ?>
             </span> |
@@ -147,12 +147,6 @@ function eventItem($e)
                         </div>
                     </h5>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button"
-                        class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
         </div>
         <ul class="list-group">
@@ -175,12 +169,6 @@ function eventItem($e)
                         </div>
                     </h5>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button"
-                        class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
         </div>
         <ul class="list-group">
@@ -203,12 +191,6 @@ function eventItem($e)
                         </div>
                     </h5>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button"
-                        class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
         </div>
         <ul class="list-group">
@@ -231,12 +213,6 @@ function eventItem($e)
                         </div>
                     </h5>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button"
-                        class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
         </div>
         <ul class="list-group">
@@ -259,12 +235,6 @@ function eventItem($e)
                         </div>
                     </h5>
                 </div>
-                <span>
-                    <a href="events/create?<?php echo $url_with_query_params ?>" type="button"
-                        class="btn btn-outline-primary rounded rounded-pill btn-sm">
-                        Create <i class="bi bi-plus-lg"></i>
-                    </a>
-                </span>
             </div>
         </div>
         <ul class="list-group">
@@ -337,8 +307,8 @@ function showEvent(id) {
         });
         quill.root.innerHTML = res.content;
         quill.disable();
-        $('.ql-toolbar').hide();
-        $('.ql-container.ql-snow').css('border', 'none');
+        $('#eventDisplay .ql-toolbar').hide();
+        $('#eventDisplay .ql-container.ql-snow').css('border', 'none');
         $('#attatchementlink').empty();
         if (res.attatchement.length > 0) {
             let fileLink = document.createElement('a');

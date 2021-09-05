@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
         if (password_verify($lpassword, $user[0]['admin_password'])) {
             unset($user[0]['admin_password']);
             $token = encrypt($user[0]['email']);
-            setcookie('adminUser', $token, time() + (86400 * 30), '/');
+            setcookie(CookieNames::admin, $token, time() + (86400 * 30), '/');
             header('Location:../admin');
             // echo "<script>location.href='../admin'</script>";
         } else {
@@ -100,7 +100,7 @@ if (isset($_POST['signup'])) {
     } elseif (count($user) > 0) {
         unset($user[0]['admin_password']);
         $token = encrypt($user[0]['email']);
-        setcookie('adminUser', $token, time() + (86400 * 30), '/');
+        setcookie(CookieNames::admin, $token, time() + (86400 * 30), '/');
         header('Location:../../admin');
         // echo "<script>location.href='../admin'</script>";
     }

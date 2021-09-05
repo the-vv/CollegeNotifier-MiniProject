@@ -1,15 +1,16 @@
 # Pending Changes
 - Verify login using cookie on main index, otherwise redirect
 - My Profile edit features
-- preview who created event
-- resolve multiple user cookie conflict issue
+- Preview Source of event/notification
 
 ## Student Home
-- Render class mates, room mates and faculties for each room and classes - Done
-- Verify students action permissions - Done
+- Render class mates, room mates and faculties for each room and classes
+- Verify students action permissions
 - Add change password
 - List Faculty
+- Divide each room into sections
 
 ## Required Additions
 - Add Faculty Login
 - Add Parents Login
+- Profile Forms

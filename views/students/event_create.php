@@ -1,5 +1,4 @@
-<h2 class="text-center"> Create an Event/Notification now </h2>
-<form id="eventForm" class="mt-4 row d-flex align-items-center" method="POST" enctype="multipart/form-data">
+<form id="eventForm" class="mt-1 row d-flex align-items-center" method="POST" enctype="multipart/form-data">
     <div class="form-group col-md-9 text-start">
         <label for="">Title of the Notification</label>
         <input type="text" class="form-control" name="title" id="title" aria-describedby="" placeholder="Enter Title"
@@ -7,8 +6,8 @@
     </div>
     <div class="col-md-3 mb-3">
         <label class="form-label">Mode of this Nofitication</label>
-        <div class="form-checkr">
-            <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value="event"
+        <div class="form-check form-switch">
+            <input class="form-check-input " type="checkbox" value="event"
                 id="isEventSwitch" name="isevent">
             <label class="form-check-label " for="isEventSwitch">This is an Event</label>
         </div>
@@ -31,21 +30,23 @@
     </div>
     <div class="mb-4 col-6">
         <label for="for_where" class="form-label">Create under</label>
-        <select class="form-select" aria-label="Default select example" name="for_where" required>
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select" id="create_under" aria-label="Default select example" name="for_where" required>
+            <option selected value="">Select one</option>
+            <?php if($college) { echo "<option value='cid={$college['id']}'>{$college['college_name']}</option>"; } ?>
+            <?php if($department) { echo "\n<option value='cid={$college['id']}&did={$department['id']}'>{$department['dpt_name']} Department</option>"; } ?>
+            <?php if($batch) { echo "\n<option value='cid={$college['id']}&did={$department['id']}&bid={$batch['id']}'>{$batch['start_year']} - {$batch['end_year']} Batch</option>"; } ?>
+            <?php if($class) { echo "\n<option value='cid={$college['id']}&did={$department['id']}&bid={$batch['id']}&clid={$class['id']}'>Class {$class['division']}</option>"; } ?>
+            <?php foreach($rooms as $room) { echo "\n<option value='cid={$college['id']}&rid={$room['id']}'>Room: {$room['room_name']}</option>"; }?>
         </select>
     </div>
     <div class="col-12 mb-xl-4 mb-5" style="min-height:100px">
         <div id="textEditor" class="bg-light" style="min-height:100px"></div>
     </div>
     <input type="hidden" name="referer"
-        value="<?php echo isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/student' ?>">
+        value="<?php echo "http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}" ?>">
     <input type="hidden" name="attatchement" id="attatchement" value="">
     <input type="hidden" name="eventContent" id="eventContent">
-    <div class="text-center mt-5">
+    <div class="text-center mt-2">
         <button type="submit" class="btn btn-primary px-5" name="publish" id="publishEvent">Publish</button>
     </div>
 </form>
@@ -115,7 +116,7 @@ let toolbarOptions = [
     }]
 ];
 
-var quill = new Quill('#textEditor', {
+var quill = new Quill('#eventForm #textEditor', {
     placeholder: 'Compose an Event/Notification...',
     modules: {
         imageResize: {
@@ -127,8 +128,10 @@ var quill = new Quill('#textEditor', {
 });
 $("#eventForm").submit((e) => {
     e.preventDefault();
-    console.log(quill.root.innerHTML);
     $("#eventContent").val(quill.root.innerHTML);
+    $('#eventForm').attr('action', `events/submit?${$('#create_under').val()}`);
     document.getElementById("eventForm").submit();
+    $("#publishEvent").attr("disabled", true);
+    $("#publishEvent").text('Publishing...')
 })
 </script>

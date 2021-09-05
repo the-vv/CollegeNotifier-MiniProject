@@ -5,35 +5,35 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/hashing.php';
 function get_current_logged_user()
 {
-    if (isset($_COOKIE['adminUser'])) {
-        $email = decrypt($_COOKIE['adminUser']);
+    if (isset($_COOKIE[CookieNames::admin])) {
+        $email = decrypt($_COOKIE[CookieNames::admin]);
         $res = find_admin_user($email);
         if (!isset($res[0])) {
             header('Location:/logout');
         }
         if (!isset($res[0]['error'])) {
             unset($res[0]['admin_password']);
-            $res[0]['type'] = 'admin';
+            $res[0]['type'] = UserTypes::admin;
             return $res[0];
         }
         return $res;
-    } elseif (isset($_COOKIE['facultyUser'])) {
+    } elseif (isset($_COOKIE[CookieNames::faculty])) {
         $user = array();
-        $user['type'] = 'faculty';
+        $user['type'] = UserTypes::faculty;
         return $user;
-    } elseif (isset($_COOKIE['parentUser'])) {
+    } elseif (isset($_COOKIE[CookieNames::parent])) {
         $user = array();
-        $user['type'] = 'parent';
+        $user['type'] = UserTypes::parent;
         return $user;
-    } elseif (isset($_COOKIE['studentUser'])) {
-        $email = decrypt($_COOKIE['studentUser']);
+    } elseif (isset($_COOKIE[CookieNames::student])) {
+        $email = decrypt($_COOKIE[CookieNames::student]);
         $res = find_student_by_email($email);
         if (!isset($res[0])) {
             header('Location:/logout');
         }
         if (!isset($res[0]['error'])) {
             unset($res[0]['admin_password']);
-            $res[0]['type'] = 'student';
+            $res[0]['type'] = UserTypes::student;
             return $res[0];
         }
         return $res;
