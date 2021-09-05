@@ -36,7 +36,7 @@ if (isset($query_params['eid'])) {
                     <div class="form-checkr">
                         <input class="form-check-input " style="border-radius: 5px;" type="checkbox" value="event"
                         <?php if($event && isset($event['is_event']) && $event['is_event'] == 1) { echo "checked"; } ?> id="isEventSwitch" name="isevent">
-                        <label class="form-check-label " for="isEventSwitch">Mark this as an Event</label>
+                        <label class="form-check-label " for="isEventSwitch">This is an Event</label>
                     </div>
                 </div>
                 <div id="dateselection" class="col-12 mb-3">
@@ -105,6 +105,7 @@ let toolbarOptions = [
     }, {
         'header': 2
     }],
+    ['formula', 'clean', 'image', 'video'],
     [{
         'list': 'ordered'
     }, {
@@ -139,8 +140,7 @@ let toolbarOptions = [
     }],
     [{
         'align': []
-    }],
-    ['formula', 'clean', 'image', 'video'] 
+    }]
 ];
 
 var quill = new Quill('#textEditor', {

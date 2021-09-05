@@ -20,35 +20,35 @@ function send_email($event_title, $user, $event_type)
   if ($rid) {
     $mapper = new RoomStudentMap();
     $students = $mapper->get_all_students_in_room($cid, $rid);
-  } elseif($clid) {
+  } elseif ($clid) {
     $students = get_students_from_class($clid);
-  } elseif($bid) {
+  } elseif ($bid) {
     $students = get_students_from_batch($bid);
-  } elseif($did) {
+  } elseif ($did) {
     $students = get_students_from_dpt($did);
-  } elseif($cid) {
+  } elseif ($cid) {
     $students = get_students_from_college($cid);
   }
-  $to_mails = array_map(function($item) {
+  $to_mails = array_map(function ($item) {
     return $item['email'];
   }, $students);
   $body = array(
     "mail" => true,
     "subject" => "New " . ($event_type ? 'Event ' : 'Notification ') . "has been published, College Notifier",
     "to" => $to_mails,
-    "body" => "<h1>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h1><h3><a href='http://localhost:3000/student'>Click here to view</a></h3>"
+    "body" => "<h1>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h1><h2><a href='http://localhost:3000/student'>Click here to view</a></h2>"
   );
   $result = httpPost("http://localhost/mailer/", $body);
   $res = json_decode($result);
-  if(is_object($res)) {
+  if (is_object($res)) {
     $res = get_object_vars($res);
   }
-  if(!isset($res['success'])) {
+  if (!isset($res['success'])) {
     $error_mess = "Error Sending Email";
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     return;
   }
-  if($res['success']) {
+  if ($res['success']) {
     $success_mess = $res['message'];
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
   } else {
@@ -113,7 +113,7 @@ if (isset($_POST['eventContent'])) {
   } else {
     $success_mess = $res['message'];
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_success.php';
-    if($create) {
+    if ($create) {
       send_email($title, $user, $is_event);
     }
   }
