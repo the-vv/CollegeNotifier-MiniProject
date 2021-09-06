@@ -7,24 +7,24 @@ $cid = 0;
 if (isset($query_params['cid'])) {
     $cid = $query_params['cid'];
 } else {
-    $error_mes = 'College Id is invalid please try again.';
-    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    $error_mess = 'College Id is invalid please try again.';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     die();
 }
 $did = 0;
 if (isset($query_params['did'])) {
     $did = $query_params['did'];
 } else {
-    $error_mes = 'Department Id is invalid please try again.';
-    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    $error_mess = 'Department Id is invalid please try again.';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     die();
 }
 $bid = 0;
 if (isset($query_params['bid'])) {
     $bid = $query_params['bid'];
 } else {
-    $error_mes = 'Batch Id is invalid please try again.';
-    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show-error.php';
+    $error_mess = 'Batch Id is invalid please try again.';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
     die();
 }
 

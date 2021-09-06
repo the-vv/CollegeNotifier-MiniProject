@@ -163,4 +163,5 @@ $all_students = get_all_students_bi_cid($cid);
             }
         })
     }
+$('#studnetslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
 </script>

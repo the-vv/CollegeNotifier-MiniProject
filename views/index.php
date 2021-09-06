@@ -23,7 +23,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Parent/ Guardian</h5>
                                 <p class="card-text">Login as a parent and monitor your associated children's status</p>
-                                <a href="#" class="btn btn-primary">Explore</a>
+                                <a href="#" class="btn btn-primary">Coming Soon...</a>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Employee</h5>
                                 <p class="card-text">Login as a teaching or a non-teaching staff in college and manage your rooms</p>
-                                <a href="#" class="btn btn-primary">Explore</a>
+                                <a href="#" class="btn btn-primary">Coming Soon...</a>
                             </div>
                         </div>
                     </div>

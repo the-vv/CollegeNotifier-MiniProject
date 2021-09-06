@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 
 if (!isset($_COOKIE[CookieNames::student])) {
-    header('Location:student/login');
+   die( header('Location:student/login'));
 } else {
     $student = get_current_logged_user();
     if (!(isset($student['type']) && $student['type'] == 'student')) {

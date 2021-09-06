@@ -20,3 +20,8 @@ abstract class CookieNames
     const faculty = 'faculty_user';
     const student = 'student_user';
 }
+
+abstract class TableNames
+{
+    const admin = 'tbl_admin';
+}

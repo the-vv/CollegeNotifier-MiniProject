@@ -15,7 +15,7 @@ if (!$connection) {
 
 // Verifying Database
 if (!mysqli_query($connection, "CREATE DATABASE IF NOT EXISTS $databaseName")) {
-    echo "Error Creating Database: $databaseName" . mysqli_error($connection);
+    echo "Error Creating Database: $databaseName<br>" . mysqli_error($connection);
     die();
 }
 

@@ -320,12 +320,12 @@ function update_student_by_id($sid, $name = '', $email = '', $phone = '', $gende
             return array("error" => true, "message" => $safeQuery->error);
         }
         $safeQuery->close();
-        return array("success" => true, "message" => "Student created Successfully");
+        return array("success" => true, "message" => "Student Updated Successfully");
     } else {
         // echo "Error Creating student Error: " . mysqli_error($connection);
         return array("error" => true, "message" => mysqli_error($connection));
     }
-    return array("success" => true, "message" => "Student created Successfully");
+    return array("success" => true, "message" => "Student Updated Successfully");
 }
 
 function map_students($sids, $college_id = 0, $dpt_id = 0, $batch_id = 0, $class_id = 0)

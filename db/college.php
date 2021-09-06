@@ -5,7 +5,7 @@ require_once 'connection.php';
 $college_table = 'college';
 $create_query = "CREATE TABLE IF NOT EXISTS $college_table (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    owner_id INT(6) NOT NULL,
+    owner_id INT(6) UNSIGNED NOT NULL,
     college_name VARCHAR(200) NOT NULL,
     college_address VARCHAR(200) NOT NULL,
     website VARCHAR(200),

@@ -1,5 +1,7 @@
 <?php
 
+ob_start();
+
 // Global Constant Variables
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
 
@@ -63,123 +65,131 @@ $request = explode('?', $request)[0];
 if (strpos($request, 'services') == 1) {
     switch ($request) {
         case '/services/students/deleteone':
-            require_once __DIR__ . '/api/delete_student.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_student.php';
             break;
         case '/services/events/getone':
-            require_once __DIR__ . '/api/get_event.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/get_event.php';
             break;
         case '/services/events/deleteone':
-            require_once __DIR__ . '/api/delete_event.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_event.php';
             break;
     }
     die();
 }
 
 
-require_once __DIR__ . './public/header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/public/header.php';
 
 // Normal Routing Begins Here
 switch ($request) {
     case '':
     case '/':
     case '/index.php':
-        require_once __DIR__ . '/views/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/index.php';
         break;
     case '/admin':
-        require_once __DIR__ . '/views/admin/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/index.php';
         break;
     case '/admin/login':
-        require_once __DIR__ . '/views/admin/login.html';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/login.html';
         break;
     case '/admin/signup':
-        require_once __DIR__ . '/views/admin/signup.html';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/signup.html';
         break;
     case '/admin/submit':
-        require_once __DIR__ . '/views/admin/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/submit.php';
         break;
     case '/college':
-        require_once __DIR__ . '/views/college/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/index.php';
         break;
     case '/college/create':
-        require_once __DIR__ . '/views/college/create.html';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/create.html';
         break;
     case '/college/submit':
-        require_once __DIR__ . '/views/college/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/submit.php';
         break;
     case '/department':
-        require_once __DIR__ . '/views/departments/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/index.php';
         break;
     case '/department/create':
-        require_once __DIR__ . '/views/departments/create.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/create.php';
         break;
     case '/department/submit':
-        require_once __DIR__ . '/views/departments/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/submit.php';
+        break;
+    case '/departments/edit':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/edit.php';
         break;
     case '/batch':
-        require_once __DIR__ . '/views/batch/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/index.php';
         break;
     case '/batch/create':
-        require_once __DIR__ . '/views/batch/create.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/create.php';
         break;
     case '/batch/submit':
-        require_once __DIR__ . '/views/batch/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/submit.php';
         break;
     case '/class':
-        require_once __DIR__ . '/views/classes/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/index.php';
         break;
     case '/class/create':
-        require_once __DIR__ . '/views/classes/create.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/create.php';
         break;
     case '/class/submit':
-        require_once __DIR__ . '/views/classes/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/submit.php';
         break;
     case '/logout':
-        require_once __DIR__ . '/utils/logout.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/logout.php';
         break;
     case '/students/submit':
-        require_once __DIR__ . '/views/students/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/submit.php';
         break;
     case '/students/edit':
-        require_once __DIR__ . '/views/students/edit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/edit.php';
         break;
     case '/students/map':
-        require_once __DIR__ . '/views/students/map.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/map.php';
         break;
     case '/students/map-room':
-        require_once __DIR__ . '/views/students/map_room.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/map_room.php';
         break;
     case '/administration/students':
-        require_once __DIR__ . '/views/admininstration/students.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/students.php';
+        break;
+    case '/administration/departments':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/departments.php';
         break;
     case '/events/create':
-        require_once __DIR__ . '/views/events/create.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/create.php';
         break;
     case '/events/submit':
-        require_once __DIR__ . '/views/events/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/submit.php';
         break;
     case '/rooms':
-        require_once __DIR__ . '/views/rooms/index.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/index.php';
         break;
     case '/rooms/create':
-        require_once __DIR__ . '/views/rooms/create.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/create.php';
         break;
     case '/rooms/submit':
-        require_once __DIR__ . '/views/rooms/submit.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/submit.php';
         break;
 
         //Student User Routing Section
     case '/student':
-        require_once __DIR__ . '/views/students/home.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/home.php';
         break;
     case '/student/login':
-        require_once __DIR__ . '/views/students/login.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/login.php';
         break;
     case '/404':
-        require_once __DIR__ . '/views/404.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
     default:
         http_response_code(404);
-        require_once __DIR__ . '/views/404.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
         break;
 }
 
-require_once __DIR__ . './public/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/public/footer.php';
+
+ob_end_flush();
