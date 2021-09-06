@@ -73,6 +73,9 @@ if (strpos($request, 'services') == 1) {
         case '/services/events/deleteone':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_event.php';
             break;
+        case '/services/department/deleteone':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_dpt.php.php';
+            break;
     }
     die();
 }
