@@ -19,6 +19,7 @@ $departments = get_dpts($query_params['cid']);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 ?>
 
 <div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
@@ -42,6 +43,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
                     <th scope="col">Total Classes</th>
                     <th scope="col">Total Faculties</th>
                     <th scope="col">Total Students</th>
+                    <th scope="col">Total Events</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -57,6 +59,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
                     }
                     $students_count = count(get_students_from_dpt($dpt['id']));
                     $category_name = strlen($dpt['category']) ? $dpt['category'] : '-';
+                    $events_count = count(get_events_by_dpt( $query_params['cid'], $dpt['id']));
                     echo "<tr>
                         <td scope='row'>{$dpt['id']}</td>
                         <td scope='row'>{$count}</td>
@@ -66,6 +69,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
                         <td>{$classes_count}</td>
                         <td>-</td>
                         <td>{$students_count}</td>
+                        <td>{$events_count}</td>
                     </tr>";
                     $count++;
                 } ?>
@@ -93,10 +97,13 @@ let gridOptions = {
             editable: false
         },
         {
-            editable: true
+            editable: false
         },
         {
-            editable: true
+            editable: false
+        },
+        {
+            editable: false
         },
         {
             editable: false
@@ -115,12 +122,12 @@ let gridOptions = {
             editable: false,
             html: (item) => {
                 return `
-                        <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
-                            onclick="deleteDpt('${[item[0]]}', '${[item[2]]}')">
-                        <i class='bi bi-trash-fill'></i></button>
-                        <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                        <i class='bi bi-pencil-square'></i></a>                        
-                    `
+                    <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
+                        onclick="deleteDpt('${[item[0]]}', '${[item[2]]}')">
+                    <i class='bi bi-trash-fill'></i></button>
+                    <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                    <i class='bi bi-pencil-square'></i></a>                        
+                `;
             }
         },
     ]
@@ -141,7 +148,7 @@ function deleteDpt(id, name, email) {
             confirm: {
                 btnClass: 'btn btn-danger',
                 action: () => {
-                    $.getJSON(`/services/departments/deleteone?sid=${id}`, (res) => {
+                    $.getJSON(`/services/department/deleteone?cid=<?php echo $query_params['cid']; ?>&did=${id}`, (res) => {
                         if (res.success) {
                             myDataTable.getData().forEach((el, index) => {
                                 if (el[0] == id) {
@@ -164,6 +171,14 @@ function deleteDpt(id, name, email) {
                                 position: 'bottom-right',
                             })
                         }
+                    }).fail(err => {
+                        $.toast({
+                                heading: 'Error',
+                                text: "Error occured while deleting Department",
+                                showHideTransition: 'slide',
+                                icon: 'error',
+                                position: 'bottom-right',
+                            })
                     });
                 }
             },

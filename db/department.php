@@ -36,7 +36,7 @@ function create_dpt($cid = '', $name = '', $category = '')
     } else {
         echo "Error Creating department Error: " . mysqli_error($connection);
         return array("error" => true, "message" => "Unknown Error occurred");
-    }    
+    }
     return array("success" => true, "message" => "Department created successfully");
 }
 
@@ -87,7 +87,8 @@ function get_dpts($cid)
     }
     return array("error" => true, "message" => "Unknown Error occured " . mysqli_error($connection));
 }
-function update_dpt($did, $name, $category) {    
+function update_dpt($did, $name, $category)
+{
     global $department_table_name, $connection;
     $query = "UPDATE $department_table_name SET dpt_name = ?, category = ? WHERE id = ?";
     $results = array();
@@ -99,9 +100,29 @@ function update_dpt($did, $name, $category) {
         if (!$safeQuery->execute()) {
             echo "Error getting department Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
-        }        
+        }
         $safeQuery->close();
         return  array("success" => true, "message" => "Department Updated Successfully");
     }
     return  array("success" => true, "message" => "Department Updated Successfully");
+}
+
+function delete_dpt($did)
+{
+    global $department_table_name, $connection;
+    $query = "DELETE FROM $department_table_name WHERE id = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $did)) {
+            // echo "Error deleting department values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error deleting department Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return  array("success" => true, "message" => "Department deleted Successfully");
+    }
+    return  array("success" => true, "message" => "Department deleted Successfully");
 }

@@ -30,7 +30,7 @@ if (isset($_POST['create'])) {
                     Department $name created successfully
                 </div>
             </div>
-            <span>Go to <a href='../college?cid=$cid'>Go to Departments</a></span>
+            <span><a class='btn btn-light shadow border px-5 py-1' href='../college?cid=$cid'>Continue</a></span>
         </div>
         ";
         die();
@@ -48,7 +48,6 @@ if (isset($_POST['create'])) {
                     An error occured: {$res['message']}
                 </div>
             </div>
-            <span>Please Retry <a href='../'>Go back</a></span>
         </div>
         ";
         die();
@@ -79,7 +78,7 @@ if (isset($_POST['create'])) {
                     Department $name created successfully
                 </div>
             </div>
-            <span>Go to <a href='$referer'>Go to Departments</a></span>
+            <span><a class='btn btn-light shadow border px-5 py-1' href='$referer'>Continue</a></span>
         </div>
         ";
         die();
@@ -97,7 +96,6 @@ if (isset($_POST['create'])) {
                     An error occured: {$res['message']}
                 </div>
             </div>
-            <span>Please Retry <a href='$referer'>Go back</a></span>
         </div>
         ";
         die();
@@ -107,7 +105,7 @@ if (isset($_POST['create'])) {
 <div class="row">
     <div class="col-12 text-center mt-2">
         <span>
-            <a class="btn btn-light shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">Continue</a>
+            <a class="btn btn-light shadow border px-5 py-1" href="<?php echo $_SERVER['HTTP_REFERER'] ?? '/' ?>">Continue</a>
         </span>
     </div>
 </div>

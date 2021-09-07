@@ -74,8 +74,11 @@ if (strpos($request, 'services') == 1) {
             require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_event.php';
             break;
         case '/services/department/deleteone':
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_dpt.php.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_dpt.php';
             break;
+        default:
+        http_response_code(404);
+            echo json_encode(array('error' => true, 'message' =>"Service Not found"));
     }
     die();
 }
