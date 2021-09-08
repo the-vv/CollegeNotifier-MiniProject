@@ -6,7 +6,8 @@ require_once 'connection.php';
 
 class RoomStudentMap
 {
-    public $table_name = 'room_student_mapping';
+    public $table_name = TableNames::room_student_map;
+
     function __construct()
     {
         global $connection;

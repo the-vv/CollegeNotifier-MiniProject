@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$class_table_name = 'classes';
+$class_table_name = TableNames::classes;
 // TODO: add Reference to tutor id
 $create_query = "CREATE TABLE IF NOT EXISTS $class_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

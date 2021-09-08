@@ -4,7 +4,7 @@ require_once 'connection.php';
 
 class Rooms
 {
-    public $table_name = 'rooms';
+    public $table_name = TableNames::rooms;
 
     function __construct()
     {

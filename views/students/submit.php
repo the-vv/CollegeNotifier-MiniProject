@@ -191,7 +191,6 @@ if (isset($_POST['login'])) {
         }
     }
 } else {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $email = $_POST['email'];
     $name = $_POST['name'];
     $phone = isset($_POST['phone']) ? $_POST['phone'] : 0;

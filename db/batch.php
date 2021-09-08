@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$table_batch_name = 'batches';
+$table_batch_name = TableNames::batch;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $table_batch_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -47,6 +47,29 @@ function create_batch($dpt = '', $clg = '', $syear = '', $smonth = '', $eyear = 
 }
 
 function get_batch($id)
+{
+    global $table_batch_name, $connection;
+    $query = "SELECT * from $table_batch_name WHERE id = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('i', $id)) {
+            echo "Error getting batch values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting batch Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("error" => true, "message" => "Unknown error occurred");
+}
+function get_all_batches($cid)
 {
     global $table_batch_name, $connection;
     $query = "SELECT * from $table_batch_name WHERE id = ?";

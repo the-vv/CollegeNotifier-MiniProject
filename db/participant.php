@@ -2,8 +2,9 @@
 
 require_once 'connection.php';
 
-$TableName = 'participants';
-$create_query = "CREATE TABLE IF NOT EXISTS $TableName (
+$participant_table_name = TableNames::participants;
+
+$create_query = "CREATE TABLE IF NOT EXISTS $participant_table_name (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     event_id INT(6) UNSIGNED NOT NULL,
     student_id INT(6) UNSIGNED NOT NULL,
@@ -11,14 +12,14 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
     FOREIGN KEY (student_id) REFERENCES students(id)
 )";
 if (!mysqli_query($connection, $create_query)) {
-    echo "Error creating Table $TableName" . mysqli_error($connection);
+    echo "Error creating Table $participant_table_name" . mysqli_error($connection);
     die();
 }
 
 function create_participant($eid = '', $sid = '')
 {
-    global $TableName, $connection;
-    $query = "INSERT INTO $TableName (
+    global $participant_table_name, $connection;
+    $query = "INSERT INTO $participant_table_name (
             event_id, student_id
         )
         VALUES (
@@ -43,8 +44,8 @@ function create_participant($eid = '', $sid = '')
 
 function get_participant($id)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE id = ?";
+    global $participant_table_name, $connection;
+    $query = "SELECT * from $participant_table_name WHERE id = ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
             echo "Error getting participant values Error: " . $safeQuery->error;

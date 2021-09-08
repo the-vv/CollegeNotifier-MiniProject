@@ -4,7 +4,7 @@ require_once 'connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 
-$event_table_name = 'events';
+$event_table_name = TableNames::event;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

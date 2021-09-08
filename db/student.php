@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 
-$student_table_name = 'students';
+$student_table_name = TableNames::students;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $student_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

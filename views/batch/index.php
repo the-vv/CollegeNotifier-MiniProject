@@ -5,6 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 $user = get_current_logged_user();
+// print_r($user);
 if (isset($query_params['bid'])) {    
     if (!isset($query_params['cid'])) {
         $error_mess = 'College Id not provided';

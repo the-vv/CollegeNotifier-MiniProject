@@ -2,7 +2,8 @@
 
 require_once 'connection.php';
 
-$department_table_name = 'departments';
+$department_table_name = TableNames::department;
+
 $create_query = "CREATE TABLE IF NOT EXISTS $department_table_name (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     college_id INT(6) UNSIGNED NOT NULL REFERENCES college(id),

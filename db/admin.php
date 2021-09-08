@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$TableName = 'admins';
+$TableName = TableNames::admin;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/clear_cookie.php';
     $email = $_POST['email'];
     $lpassword = $_POST['password'];
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';    
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
     $user = find_admin_user($email);
     if (isset($user['error'])) {
         echo "
@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
                 <span>Please go back to <a href='admin/signup'>Sign Up/ Login</a></span>
             </div>
         ";
-    } elseif (count($user) > 0) {        
+    } elseif (count($user) > 0) {
         if (password_verify($lpassword, $user[0]['admin_password'])) {
             unset($user[0]['admin_password']);
             $token = encrypt($user[0]['email']);
@@ -101,7 +101,7 @@ if (isset($_POST['signup'])) {
         unset($user[0]['admin_password']);
         $token = encrypt($user[0]['email']);
         setcookie(CookieNames::admin, $token, time() + (86400 * 30), '/');
-        header('Location:../../admin');
+        header('Location:../admin');
         // echo "<script>location.href='../admin'</script>";
     }
 }

@@ -2,8 +2,9 @@
 
 require_once 'connection.php';
 
-$TableName = 'parents';
-$create_query = "CREATE TABLE IF NOT EXISTS $TableName (
+$parent_table_name = tableNames::parents;
+
+$create_query = "CREATE TABLE IF NOT EXISTS $parent_table_name (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
@@ -11,14 +12,14 @@ $create_query = "CREATE TABLE IF NOT EXISTS $TableName (
     password VARCHAR(255) NOT NULL
 )";
 if (!mysqli_query($connection, $create_query)) {
-    echo "Error creating Table $TableName" . mysqli_error($connection);
+    echo "Error creating Table $parent_table_name" . mysqli_error($connection);
     die();
 }
 
 function create_parent($name, $email, $phone, $password)
 {
-    global $TableName, $connection;
-    $query = "INSERT INTO $TableName (
+    global $parent_table_name, $connection;
+    $query = "INSERT INTO $parent_table_name (
             name, email, phone, password
         )
         VALUES (
@@ -43,8 +44,8 @@ function create_parent($name, $email, $phone, $password)
 
 function get_parent($id)
 {
-    global $TableName, $connection;
-    $query = "SELECT * from $TableName WHERE id = ?";
+    global $parent_table_name, $connection;
+    $query = "SELECT * from $parent_table_name WHERE id = ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
             echo "Error getting parent values Error: " . $safeQuery->error;

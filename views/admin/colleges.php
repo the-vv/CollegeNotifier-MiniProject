@@ -32,6 +32,7 @@ $colleges = get_colleges($user['id']);
                     </span>
                 </div>
             </div>
+            <hr class="pt-0 mt-0">
             <ul class="list-group">
                 <?php foreach ($colleges as $college) {
                     echo "

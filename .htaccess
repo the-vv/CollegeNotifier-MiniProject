@@ -1,8 +1,4 @@
 
-<Files ~ "^.*">
-  Deny from all
-</Files>
-
 <Files ~ "^index\.css|js|.*\.png|.*\.jpg|.*\.gif">
   Allow from all
 </Files>

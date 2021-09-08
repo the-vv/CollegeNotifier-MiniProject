@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$tbl_faculty_name = 'faculties';
+$tbl_faculty_name = TableNames::faculty;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $tbl_faculty_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
