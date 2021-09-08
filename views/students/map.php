@@ -22,12 +22,16 @@
             } else {
                 $students_all = get_students_from_college($query_param_values['cid']);
                 $room_to_add = '';
+                $current_id = '';
                 if ($query_param_values['clid'] != 0) {
                     $room_to_add = 'class_id';
+                    $current_id = get_a_class($query_params['clid'])[0]['id'];
                 } elseif ($query_param_values['bid'] != 0) {
                     $room_to_add = 'batch_id';
+                    $current_id = get_batch($query_params['bid'])[0]['id'];
                 } elseif ($query_param_values['did'] != 0) {
                     $room_to_add = 'dpt_id';
+                    $current_id = get_dpt($query_params['did'])[0]['id'];
                 }
                 else {
                     $error_mess = "Required parameters not provided or mapping not allowed here.";
@@ -37,8 +41,8 @@
                 // TODO: implement parent room match checking
                 // $students = $students_all;
                 $students = array_filter($students_all, function ($stud) {
-                    global $room_to_add;
-                    if($stud[$room_to_add] != 0) {
+                    global $room_to_add, $current_id;
+                    if($stud[$room_to_add] == $current_id) {
                         return false;
                     }
                     return true;
