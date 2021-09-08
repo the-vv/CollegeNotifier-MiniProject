@@ -69,8 +69,45 @@ function get_a_class($id)
     }
     return array("error" => true, "message" => "Unknown error occurred");
 } 
-
-
+function delete_class($id)
+{
+    global $class_table_name, $connection;
+    $query = "DELETE from $class_table_name WHERE id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $id)) {
+            echo "Error getting class values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting class Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Class deleted successfully");
+    }
+    return array("success" => true, "message" => "Class deleted successfully");
+} 
+function delete_class_multiple($ids)
+{
+    global $class_table_name, $connection;
+    $query = "DELETE from $class_table_name WHERE id IN (?)";
+    $id_string = implode(',', $ids);
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $id_string)) {
+            // echo "Error getting class values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error getting class Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Classes deleted successfully");
+    } else {
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("success" => true, "message" => "Classes deleted successfully");
+} 
 function get_classes($dpt_id, $college_id, $batch_id)
 {
     global $class_table_name, $connection;

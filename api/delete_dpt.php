@@ -9,8 +9,7 @@ $cid = $query_params['cid'] ?? 0;
 
 if ($did == 0) {
     echo json_encode(array('error' => true, 'message' => "DID not provided"));
-}
-if ($cid == 0) {
+} else if ($cid == 0) {
     echo json_encode(array('error' => true, 'message' => "CID not provided"));
 } else {
     $batches = get_batches($cid, $did);
@@ -22,6 +21,7 @@ if ($cid == 0) {
         }
     }
     $events = get_events_by_dpt($cid, $did);
+    $students = get_students_from_dpt($did);
 
     $batch_ids = array_map(function ($batch) {
         return $batch['id'];
@@ -32,8 +32,23 @@ if ($cid == 0) {
     $event_ids = array_map(function ($event) {
         return $event['id'];
     }, $events);
-    // TODO implement remaining delete funcitonality
+    $student_ids = array_map(function ($student) {
+        return $student['id'];
+    }, $students);
 
-
-    // $res = delete_dpt($did);
+    $event_res = delete_event_multiple($event_ids);
+    $batch_res = delete_batch_multiple($batch_ids);
+    $class_res = delete_class_multiple($class_ids);
+    $students_res = map_students($student_ids, $cid);
+    if (isset($event_res['success']) && isset($batch_res['success']) && isset($class_res['success']) && isset($students_res['success'])) {
+        $res = delete_dpt($did);
+        echo json_encode($res);
+    } else {
+        json_encode(array(
+            'error' => true,
+            "result" => array(
+                "event" => $event_res, "batch" => $batch_res, "class" => $class_res, "students" => $students_res
+            )
+        ));
+    }
 }

@@ -274,6 +274,27 @@ function delete_event($eid)
     }
     return array("error" => true, "message" => mysqli_error($connection));
 }
+function delete_event_multiple($eids)
+{
+    global $event_table_name, $connection;
+    $query = "DELETE FROM $event_table_name WHERE id IN (?)";
+    $id_string = implode(",", $eids);
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $id_string)) {
+            // echo "Error deleting event values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error deleting event Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Event deleted Successfully");
+    } else {
+        return array("error" => true, "message" => mysqli_error($connection));
+    }
+    return array("success" => true, "message" => "Event deleted Successfully");
+}
 
 function update_event_by_id($eid = '', $title = '', $content = '', $time = '', $fromid = '', $from_user_type = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0)
 {

@@ -69,6 +69,43 @@ function get_batch($id)
     }
     return array("error" => true, "message" => "Unknown error occurred");
 }
+function delete_batch($id)
+{
+    global $table_batch_name, $connection;
+    $query = "DELETE from $table_batch_name WHERE id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('i', $id)) {
+            echo "Error deleting batch values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error deleting batch Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Batch deleted successfully");
+    }
+    return array("success" => true, "message" => "Batch deleted successfully");
+}
+function delete_batch_multiple($ids)
+{
+    global $table_batch_name, $connection;
+    $query = "DELETE from $table_batch_name WHERE id IN (?)";
+    $id_string = implode(',', $ids);
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $id_string)) {
+            // echo "Error deleting batch values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            // echo "Error deleting batch Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Batch deleted successfully");
+    }
+    return array("success" => true, "message" => "Batch deleted successfully");
+}
 
 function get_batches($cid, $did)
 {
@@ -77,11 +114,11 @@ function get_batches($cid, $did)
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('ii', $did, $cid)) {
-            echo "Error getting batch values Error: " . $safeQuery->error;
+            // echo "Error getting batch values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         if (!$safeQuery->execute()) {
-            echo "Error getting batch Error: " . $safeQuery->error;
+            // echo "Error getting batch Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         $res = $safeQuery->get_result();
