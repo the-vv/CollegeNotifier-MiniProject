@@ -8,6 +8,7 @@ $user = get_current_logged_user();
 $college = get_college($query_params['cid'])[0];
 $RoomMapper = new RoomStudentMap();
 $students = $RoomMapper->get_all_students_in_room($query_params['cid'], $query_params['rid']);
+// var_dump($students);
 ?>
 
 

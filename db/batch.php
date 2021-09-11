@@ -45,6 +45,31 @@ function create_batch($dpt = '', $clg = '', $syear = '', $smonth = '', $eyear = 
     }
     return array("success" => true, "message" => "Batch created successfully");
 }
+function update_batch($dpt = '', $clg = '', $syear = '', $smonth = '', $eyear = '', $emonth = '')
+{
+    global $table_batch_name, $connection;
+    $query = "INSERT INTO $table_batch_name (
+            dpt_id, college_id, start_year, start_month, end_year, end_month
+        )
+        VALUES (
+            ?, ?, ?, ?, ?, ?
+        )";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('ssssss', $dpt, $clg, $syear, $smonth, $eyear, $emonth)) {
+            echo "Error Creating batch values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error Creating batch Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+    } else {
+        echo "Error Creating batch Error: " . mysqli_error($connection);
+        return array("error" => true, "message" => $safeQuery->error);
+    }
+    return array("success" => true, "message" => "Batch created successfully");
+}
 
 function get_batch($id)
 {
@@ -72,10 +97,16 @@ function get_batch($id)
 function get_all_batches($cid)
 {
     global $table_batch_name, $connection;
-    $query = "SELECT * from $table_batch_name WHERE id = ?";
+    $tbl_dpt = TableNames::department;
+    $query = "SELECT
+        $table_batch_name.start_year, $table_batch_name.start_month, $table_batch_name.end_year, $table_batch_name.end_month, $table_batch_name.id,
+        $tbl_dpt.dpt_name, $tbl_dpt.category as dpt_category, $tbl_dpt.id as dpt_id
+        from $table_batch_name
+        LEFT JOIN $tbl_dpt ON $tbl_dpt.id = $table_batch_name.dpt_id
+        WHERE $table_batch_name.college_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('i', $id)) {
+        if (!$safeQuery->bind_param('i', $cid)) {
             echo "Error getting batch values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -90,7 +121,8 @@ function get_all_batches($cid)
         $safeQuery->close();
         return $results;
     }
-    return array("error" => true, "message" => "Unknown error occurred");
+
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
 function delete_batch($id)
 {

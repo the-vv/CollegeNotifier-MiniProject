@@ -140,7 +140,7 @@ function deleteDpt(id, name, email) {
         containerFluid: true,
         backgroundDismiss: true,
         title: 'Confirm Delete!',
-        content: `Are you sure want to delete the Department:<br><strong class="h4">${name}</strong><br><i class="text-danger">All the batches, classes and events under ${name} department will be deleted!</i>`,
+        content: `Are you sure want to delete the Department:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the batches, classes and events under ${name} department will be deleted and the students under the ${name} department will be unmapped!</i>`,
         type: 'red',
         icon: 'bi bi-trash-fill',
         bgOpacity: 0.8,

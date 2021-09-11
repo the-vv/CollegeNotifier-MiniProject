@@ -238,15 +238,15 @@ function get_all_students_bi_cid($cid)
 {
     global $student_table_name, $connection, $department_table_name, $table_batch_name, $class_table_name;
     $query = "SELECT
-    $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.phone, $student_table_name.gender,
-    $department_table_name.dpt_name, 
-    $table_batch_name.start_year, $table_batch_name.end_year,
-    $class_table_name.division
-    FROM $student_table_name
-    LEFT JOIN $department_table_name ON $student_table_name.dpt_id = $department_table_name.id
-    LEFT JOIN $table_batch_name ON $student_table_name.batch_id = $table_batch_name.id
-    LEFT JOIN $class_table_name ON $student_table_name.class_id = $class_table_name.id
-    WHERE $student_table_name.college_id = ?
+        $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.phone, $student_table_name.gender,
+        $department_table_name.dpt_name, 
+        $table_batch_name.start_year, $table_batch_name.end_year,
+        $class_table_name.division
+        FROM $student_table_name
+        LEFT JOIN $department_table_name ON $student_table_name.dpt_id = $department_table_name.id
+        LEFT JOIN $table_batch_name ON $student_table_name.batch_id = $table_batch_name.id
+        LEFT JOIN $class_table_name ON $student_table_name.class_id = $class_table_name.id
+        WHERE $student_table_name.college_id = ?
     ";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {

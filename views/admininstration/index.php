@@ -11,10 +11,9 @@
                 </a>
             </div>
             <div class="col-4">
-                <button class="btn btn-light shadow rounded rounded-pill w-100"><i
-                        class='fas fa-graduation-cap me-1'></i>
+                <a href="administration/batches?<?php echo $url_with_query_params ?>"  class="btn btn-light shadow rounded rounded-pill w-100"><i class='fas fa-graduation-cap me-1'></i>
                     Batches
-                </button>
+                </a>
             </div>
             <div class="col-4">
                 <button class="btn btn-light shadow rounded rounded-pill w-100"><i

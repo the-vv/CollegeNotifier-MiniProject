@@ -76,8 +76,11 @@ if (strpos($request, 'services') == 1) {
         case '/services/department/deleteone':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_dpt.php';
             break;
+        case '/services/batch/deleteone':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_batch.php';
+            break;
         default:
-        http_response_code(404);
+            http_response_code(404);
             echo json_encode(array('error' => true, 'message' =>"Service Not found"));
     }
     die();
@@ -164,6 +167,9 @@ switch ($request) {
         break;
     case '/administration/departments':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/departments.php';
+        break;
+    case '/administration/batches':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
         break;
     case '/events/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/create.php';

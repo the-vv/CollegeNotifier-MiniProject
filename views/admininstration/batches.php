@@ -1,4 +1,3 @@
-
 <!-- JavaScript Data Table Plugin -->
 <script src="/js-vendor/jsPDF/dist/jspdf.min.js"></script>
 <script type="text/javascript" src="/js-vendor/FathGrid-master/dist/FathGrid.js"></script>
@@ -13,9 +12,12 @@ if ($cid == 0) {
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 $college = get_college($cid)[0];
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
-$departments = get_dpts($query_params['cid']);
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
+$batches = get_all_batches($query_params['cid']);
+// echo "<pre>";
+// print_r($batches);
+// echo "</pre>";
+// die();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
@@ -29,17 +31,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
         <li class="breadcrumb-item">Departments</li>
     </ol>
     <div class="row pt-4">
-        <h3 class="text-center">Departments Management</h3>
+        <h3 class="text-center">Batches Management</h3>
     </div>
     <div class="row pb-5 overflow-auto">
         <table class="table table-success table-striped table-bordered rounded" id="departmentslist">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">DPT_ID</th>
                     <th scope="col">No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Total Batches</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Department</th>
                     <th scope="col">Total Classes</th>
                     <th scope="col">Total Faculties</th>
                     <th scope="col">Total Students</th>
@@ -48,24 +51,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                 </tr>
             </thead>
             <tbody>
-                <?php $count = 1;
-                foreach ($departments as $dpt) {
-                    $batches = get_batches($query_params['cid'], $dpt['id']);
-                    $batches_count = count($batches);
-                    $classes_count = 0;
-                    foreach ($batches as $b) {
-                        $c_count = count(get_classes($dpt['id'], $query_params['cid'], $b['id']));
-                        $classes_count += $c_count;
-                    }
-                    $students_count = count(get_students_from_dpt($dpt['id']));
-                    $category_name = strlen($dpt['category']) ? $dpt['category'] : '-';
-                    $events_count = count(get_events_by_dpt( $query_params['cid'], $dpt['id']));
+                <?php
+                $count = 1;
+                foreach ($batches as $batch) {
+                    $classes_count =  count(get_classes($batch['dpt_id'], $query_params['cid'], $batch['id']));
+                    $students_count = count(get_students_from_batch($batch['id']));
+                    $events_count = count(get_events_by_batch($query_params['cid'], $batch['dpt_id'], $batch['id']));
+                    $start_date_obj = DateTime::createFromFormat('!m', $batch['start_month']);
+                    $start_month = $start_date_obj->format('F');
+                    $end_date_obj = DateTime::createFromFormat('!m', $batch['end_month']);
+                    $end_month = $end_date_obj->format('F');
                     echo "<tr>
-                        <td scope='row'>{$dpt['id']}</td>
+                        <td scope='row'>{$batch['id']}</td>
+                        <td scope='row'>{$batch['dpt_id']}</td>
                         <td scope='row'>{$count}</td>
-                        <td>{$dpt['dpt_name']}</td>
-                        <td>$category_name</td>
-                        <td>{$batches_count}</td>
+                        <td>" . $start_month . '-' . $batch['end_year'] . "</td>
+                        <td>" . $end_month . '-' . $batch['end_year'] . "</td>
+                        <td>{$batch['dpt_name']}({$batch['dpt_category']})</td>
                         <td>{$classes_count}</td>
                         <td>-</td>
                         <td>{$students_count}</td>
@@ -78,113 +80,117 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     </div>
 </div>
 <script type="text/javascript">
-'use strict';
+    'use strict';
 
-let gridOptions = {
-    onChange: function(data, col, old, value) {
-        console.log(data);
-    },
-    size: 10,
-    editable: false,
-    showFooter: true,
-    showTableTotal: true,
-    showGraph: false,
-    columns: [{
-            editable: false,
-            visible: false
+    let gridOptions = {
+        onChange: function(data, col, old, value) {
+            console.log(data);
         },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            editable: false
-        },
-        {
-            printable: false,
-            editable: false,
-            html: (item) => {
-                return `
+        size: 10,
+        editable: false,
+        showFooter: true,
+        showTableTotal: true,
+        showGraph: false,
+        columns: [{
+                editable: false,
+                visible: false
+            },
+            {
+                editable: false,
+                visible: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false
+            },
+            {
+                editable: false,
+            },
+            {
+                printable: false,
+                editable: false,
+                html: (item) => {
+                    return `
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
-                        onclick="deleteDpt('${[item[0]]}', '${[item[2]]}')">
+                        onclick="deleteDpt('${[item[0]]}', '${[item[3]]} ${[item[4]]}', '${[item[1]]}')">
                     <i class='bi bi-trash-fill'></i></button>
                     <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-pencil-square'></i></a>                        
                 `;
-            }
-        },
-    ]
-}
-let myDataTable = FathGrid("departmentslist", gridOptions);
+                }
+            },
+        ]
+    }
+    let myDataTable = FathGrid("departmentslist", gridOptions);
 
-function deleteDpt(id, name, email) {
-    $.confirm({
-        theme: 'material',
-        containerFluid: true,
-        backgroundDismiss: true,
-        title: 'Confirm Delete!',
-        content: `Are you sure want to delete the Department:<br><strong class="h4">${name}</strong><br><i class="text-danger">All the batches, classes and events under ${name} department will be deleted!</i>`,
-        type: 'red',
-        icon: 'bi bi-trash-fill',
-        bgOpacity: 0.8,
-        buttons: {
-            confirm: {
-                btnClass: 'btn btn-danger',
-                action: () => {
-                    $.getJSON(`/services/department/deleteone?cid=<?php echo $query_params['cid']; ?>&did=${id}`, (res) => {
-                        if (res.success) {
-                            myDataTable.getData().forEach((el, index) => {
-                                if (el[0] == id) {
-                                    myDataTable.deleteRow(index + 1);
-                                }
-                            })
+    function deleteDpt(id, name, did) {
+        $.confirm({
+            theme: 'material',
+            containerFluid: true,
+            backgroundDismiss: true,
+            title: 'Confirm Delete!',
+            content: `Are you sure want to delete the Batch:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the classes and events under ${name} batch will be deleted and the students under the ${name} Batch will be unmapped!</i>`,
+            type: 'red',
+            icon: 'bi bi-trash-fill',
+            bgOpacity: 0.8,
+            buttons: {
+                confirm: {
+                    btnClass: 'btn btn-danger',
+                    action: () => {
+                        $.getJSON(`/services/batch/deleteone?cid=<?php echo $query_params['cid']; ?>&bid=${id}&did=${did}`, (res) => {
+                            if (res.success) {
+                                myDataTable.getData().forEach((el, index) => {
+                                    if (el[0] == id) {
+                                        myDataTable.deleteRow(index + 1);
+                                    }
+                                })
+                                $.toast({
+                                    heading: 'Success',
+                                    text: res.message,
+                                    showHideTransition: 'slide',
+                                    icon: 'success',
+                                    position: 'bottom-right',
+                                })
+                            } else {
+                                $.toast({
+                                    heading: 'Error',
+                                    text: res.message,
+                                    showHideTransition: 'slide',
+                                    icon: 'error',
+                                    position: 'bottom-right',
+                                })
+                            }
+                        }).fail(err => {
                             $.toast({
-                                heading: 'Success',
-                                text: res.message,
-                                showHideTransition: 'slide',
-                                icon: 'success',
-                                position: 'bottom-right',
-                            })
-                        } else {
-                            $.toast({
-                                heading: 'Error',
-                                text: res.message,
-                                showHideTransition: 'slide',
-                                icon: 'error',
-                                position: 'bottom-right',
-                            })
-                        }
-                    }).fail(err => {
-                        $.toast({
                                 heading: 'Error',
                                 text: "Error occured while deleting Department",
                                 showHideTransition: 'slide',
                                 icon: 'error',
                                 position: 'bottom-right',
                             })
-                    });
-                }
-            },
-            cancel: () => {}
-        }
-    })
-}
-$('#departmentslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
+                        });
+                    }
+                },
+                cancel: () => {}
+            }
+        })
+    }
+    $('#departmentslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
 </script>

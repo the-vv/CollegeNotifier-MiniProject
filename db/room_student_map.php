@@ -71,7 +71,7 @@ class RoomStudentMap
     {
         global $connection, $Rooms;
         $Rooms = new Rooms();
-        $student_table_name = 'students';
+        $student_table_name = TableNames::students;
         $query = "SELECT
             $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.college_id
             FROM {$this->table_name}
@@ -109,7 +109,7 @@ class RoomStudentMap
     {
         global $connection, $Rooms;
         $Rooms = new Rooms();
-        $student_table_name = 'students';
+        $student_table_name = TableNames::students;
         $query = "SELECT
             $student_table_name.id, $student_table_name.name, $student_table_name.email, $student_table_name.college_id
             FROM {$this->table_name}
