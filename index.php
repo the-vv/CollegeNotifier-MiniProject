@@ -135,6 +135,9 @@ switch ($request) {
     case '/batch/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/create.php';
         break;
+    case '/batch/edit':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/edit.php';
+        break;
     case '/batch/submit':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/submit.php';
         break;

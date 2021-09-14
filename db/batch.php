@@ -45,30 +45,28 @@ function create_batch($dpt = '', $clg = '', $syear = '', $smonth = '', $eyear = 
     }
     return array("success" => true, "message" => "Batch created successfully");
 }
-function update_batch($dpt = '', $clg = '', $syear = '', $smonth = '', $eyear = '', $emonth = '')
+function update_batch($id, $syear = '', $smonth = '', $eyear = '', $emonth = '')
 {
     global $table_batch_name, $connection;
-    $query = "INSERT INTO $table_batch_name (
-            dpt_id, college_id, start_year, start_month, end_year, end_month
-        )
-        VALUES (
-            ?, ?, ?, ?, ?, ?
-        )";
+    $query = "UPDATE $table_batch_name SET
+            start_year = ?, start_month = ?, end_year = ?, end_month = ?
+            WHERE id = ?
+        ";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssss', $dpt, $clg, $syear, $smonth, $eyear, $emonth)) {
-            echo "Error Creating batch values Error: " . $safeQuery->error;
+        if (!$safeQuery->bind_param('sssss', $syear, $smonth, $eyear, $emonth, $id)) {
+            echo "Error Updating batch values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         if (!$safeQuery->execute()) {
-            echo "Error Creating batch Error: " . $safeQuery->error;
+            echo "Error Updating batch Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         $safeQuery->close();
     } else {
-        echo "Error Creating batch Error: " . mysqli_error($connection);
+        echo "Error Updating batch Error: " . mysqli_error($connection);
         return array("error" => true, "message" => $safeQuery->error);
     }
-    return array("success" => true, "message" => "Batch created successfully");
+    return array("success" => true, "message" => "Batch Updated successfully");
 }
 
 function get_batch($id)

@@ -26,6 +26,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
+        <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
         <li class="breadcrumb-item">Departments</li>
     </ol>
     <div class="row pt-4">
@@ -122,11 +123,13 @@ let gridOptions = {
             editable: false,
             html: (item) => {
                 return `
+                    <a href='/department?cid=<?php echo $cid ?>&did=${item[1]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
+                    <i class='bi bi-eye'></i></a>       
+                    <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                    <i class='bi bi-pencil-square'></i></a>                        
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
                         onclick="deleteDpt('${[item[0]]}', '${[item[2]]}')">
                     <i class='bi bi-trash-fill'></i></button>
-                    <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                    <i class='bi bi-pencil-square'></i></a>                        
                 `;
             }
         },

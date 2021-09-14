@@ -28,7 +28,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
-        <li class="breadcrumb-item">Departments</li>
+        <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
+        <li class="breadcrumb-item">Batches</li>
     </ol>
     <div class="row pt-4">
         <h3 class="text-center">Batches Management</h3>
@@ -65,7 +66,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                         <td scope='row'>{$batch['id']}</td>
                         <td scope='row'>{$batch['dpt_id']}</td>
                         <td scope='row'>{$count}</td>
-                        <td>" . $start_month . '-' . $batch['end_year'] . "</td>
+                        <td>" . $start_month . '-' . $batch['start_year'] . "</td>
                         <td>" . $end_month . '-' . $batch['end_year'] . "</td>
                         <td>{$batch['dpt_name']}({$batch['dpt_category']})</td>
                         <td>{$classes_count}</td>
@@ -128,11 +129,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                 editable: false,
                 html: (item) => {
                     return `
+                    <a href='/batch?cid=<?php echo $cid ?>&bid=${item[0]}&did=${item[1]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
+                    <i class='bi bi-eye'></i></a>                        
+                    <a href='/batch/edit?cid=<?php echo $cid ?>&bid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                    <i class='bi bi-pencil-square'></i></a>                        
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
                         onclick="deleteDpt('${[item[0]]}', '${[item[3]]} ${[item[4]]}', '${[item[1]]}')">
                     <i class='bi bi-trash-fill'></i></button>
-                    <a href='/departments/edit?cid=<?php echo $cid ?>&did=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                    <i class='bi bi-pencil-square'></i></a>                        
                 `;
                 }
             },
