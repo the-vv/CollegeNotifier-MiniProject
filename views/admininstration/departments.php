@@ -22,14 +22,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
 ?>
 
-<div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
         <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
         <li class="breadcrumb-item">Departments</li>
     </ol>
-    <div class="row pt-4">
+    <div class="row pt-2">
         <h3 class="text-center">Departments Management</h3>
     </div>
     <div class="row pb-5 overflow-auto">

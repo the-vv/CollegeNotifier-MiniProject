@@ -27,7 +27,6 @@ $students = get_students_from_dpt($query_params['did']);
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
     }?>
-    <hr class="mb-0 p-0">
     <div class="row mb-5">
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">

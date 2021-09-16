@@ -67,7 +67,56 @@ function get_a_class($id)
         $safeQuery->close();
         return $results;
     }
-    return array("error" => true, "message" => "Unknown error occurred");
+    return array("error" => true, "message" => "Unknown error occurred" . mysqli_error($connection));
+} 
+function get_all_classes($cid)
+{
+    global $class_table_name, $connection;
+    $dpt_table = TableNames::department;
+    $batch_table = TableNames::batch;
+    $query = "SELECT
+        $class_table_name.id as id, $class_table_name.division as division, $class_table_name.tutor_id,
+        $dpt_table.id as dpt_id, $dpt_table.dpt_name, $dpt_table.category as dpt_category,
+        $batch_table.id as batch_id, $batch_table.start_year, $batch_table.end_year, $batch_table.start_month, $batch_table.end_month
+        LEFT JOIN $dpt_table ON $dpt_table.id = $class_table_name.id
+        LEFT JOIN $batch_table ON $batch_table.id = $class_table_name.id
+        from $class_table_name WHERE $class_table_name.college_id = ?";
+    $results = array();
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('s', $cid)) {
+            echo "Error getting classes values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting classes Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
+} 
+function update_class($id, $division)
+{
+    global $class_table_name, $connection;
+    $query = "UPDATE from $class_table_name SET division = ? WHERE id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('ss', $division, $id)) {
+            echo "Error updating class values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error updating class Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return array("success" => true, "message" => "Class updating successfully");
+    }
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 } 
 function delete_class($id)
 {
@@ -75,17 +124,17 @@ function delete_class($id)
     $query = "DELETE from $class_table_name WHERE id = ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $id)) {
-            echo "Error getting class values Error: " . $safeQuery->error;
+            echo "Error deleting class values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         if (!$safeQuery->execute()) {
-            echo "Error getting class Error: " . $safeQuery->error;
+            echo "Error deleting class Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         $safeQuery->close();
         return array("success" => true, "message" => "Class deleted successfully");
     }
-    return array("success" => true, "message" => "Class deleted successfully");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 } 
 function delete_class_multiple($ids)
 {
@@ -106,7 +155,7 @@ function delete_class_multiple($ids)
     } else {
         return array("error" => true, "message" => mysqli_error($connection));
     }
-    return array("success" => true, "message" => "Classes deleted successfully");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 } 
 function get_classes($dpt_id, $college_id, $batch_id)
 {
@@ -129,5 +178,5 @@ function get_classes($dpt_id, $college_id, $batch_id)
         $safeQuery->close();
         return $results;
     }
-    return array("error" => true, "message" => "Unknown error occurred");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }

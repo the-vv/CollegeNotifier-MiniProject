@@ -29,10 +29,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
         <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
-        <li class="breadcrumb-item">Batches</li>
+        <li class="breadcrumb-item">Classes</li>
     </ol>
     <div class="row pt-2">
-        <h3 class="text-center">Batches Management</h3>
+        <h3 class="text-center">Classes Management</h3>
     </div>
     <div class="row pb-5 overflow-auto">
         <table class="table table-success table-striped table-bordered rounded" id="departmentslist">

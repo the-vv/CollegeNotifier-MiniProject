@@ -15,8 +15,7 @@ function str_end_with_str($haystack, $needle)
     }
     return substr($haystack, -$length) === $needle;
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && str_end_with_str($_SERVER['REQUEST_URI'], '.php')) {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_SERVER['REQUEST_URI'] != '/index.php' && str_end_with_str($_SERVER['REQUEST_URI'], '.php')) {
     header('HTTP/1.0 403 Forbidden', TRUE, 403);
     die(header('location: 404'));
 }
@@ -172,6 +171,9 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/departments.php';
         break;
     case '/administration/batches':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
+        break;
+    case '/administration/classes':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
         break;
     case '/events/create':

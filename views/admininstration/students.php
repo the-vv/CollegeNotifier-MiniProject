@@ -16,13 +16,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 $all_students = get_all_students_bi_cid($cid);
 ?>
 
-<div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
+        <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
         <li class="breadcrumb-item">Students</li>
     </ol>
-    <div class="row pt-4">
+    <div class="row pt-2">
         <h3 class="text-center">Students Management</h3>
     </div>
     <div class="row pb-5 overflow-auto">
@@ -107,11 +108,11 @@ $all_students = get_all_students_bi_cid($cid);
                 editable: false,
                 html: (item) => {
                     return `
+                        <a href='/students/edit?cid=<?php echo $cid ?>&sid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                        <i class='bi bi-pencil-square'></i></a>                        
                         <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
                             onclick="deleteStudent('${[item[0]]}', '${[item[2]]}', '${[item[4]]}')">
                         <i class='bi bi-trash-fill'></i></button>
-                        <a href='/students/edit?cid=<?php echo $cid ?>&sid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
-                        <i class='bi bi-pencil-square'></i></a>                        
                     `
                 }
             },
@@ -150,7 +151,7 @@ $all_students = get_all_students_bi_cid($cid);
                             } else {
                                 $.toast({
                                     heading: 'Error',
-                                    text: res.message,
+                                    text: res.message,                                    
                                     showHideTransition: 'slide',
                                     icon: 'error',
                                     position: 'bottom-right',

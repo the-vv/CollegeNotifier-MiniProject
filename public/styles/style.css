@@ -211,3 +211,8 @@ a {
 tfoot {
 	display: none;
 }
+
+.administration .admin-button a, .administration .admin-button button {
+	min-width: 180px!important;
+	margin-bottom: 5px;
+}

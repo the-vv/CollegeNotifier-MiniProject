@@ -13,7 +13,7 @@ $room = new Rooms();
 $rooms = $room->get_all_by_college($query_params['cid']);
 ?>
 
-<div class="container-fluid bg-light mx-md-4 pt-2 shadow rounded " id="departments" style="min-height: 85vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded " id="departments" style="min-height: 85vh">
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
@@ -23,9 +23,9 @@ $rooms = $room->get_all_by_college($query_params['cid']);
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
     } ?>
     <!-- <hr class="p-0 mb-0"> -->
-    <div class="row mb-5 mt-3">
+    <div class="row mb-5 pt-1">
         <div class="col-12">
-            <div class="h4 text-center mb-3 mt-3">
+            <div class="h4 text-center mb-3 mt-2">
                 <?php echo $college['college_name'] ?> Dashboard
             </div>
         </div>

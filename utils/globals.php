@@ -44,3 +44,9 @@ abstract class DatabaseConfig
     const password = '';
     const databaseName = 'db_college_notifier';
 }
+
+abstract class GlobalConfig
+{
+    const hashing_iv = '1234567891011121';
+    const hashing_key = 'VVsCollegeNotifier';
+}

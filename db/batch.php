@@ -90,7 +90,7 @@ function get_batch($id)
         $safeQuery->close();
         return $results;
     }
-    return array("error" => true, "message" => "Unknown error occurred");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
 function get_all_batches($cid)
 {
@@ -119,7 +119,6 @@ function get_all_batches($cid)
         $safeQuery->close();
         return $results;
     }
-
     return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
 function delete_batch($id)
@@ -138,7 +137,7 @@ function delete_batch($id)
         $safeQuery->close();
         return array("success" => true, "message" => "Batch deleted successfully");
     }
-    return array("success" => true, "message" => "Batch deleted successfully");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
 function delete_batch_multiple($ids)
 {
@@ -157,7 +156,7 @@ function delete_batch_multiple($ids)
         $safeQuery->close();
         return array("success" => true, "message" => "Batch deleted successfully");
     }
-    return array("success" => true, "message" => "Batch deleted successfully");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
 
 function get_batches($cid, $did)
@@ -181,5 +180,5 @@ function get_batches($cid, $did)
         $safeQuery->close();
         return $results;
     }
-    return array("error" => true, "message" => "Unknown error occurred");
+    return array("error" => true, "message" => "Unknown error occurred: " . mysqli_error($connection));
 }
