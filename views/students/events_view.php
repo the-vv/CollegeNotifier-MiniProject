@@ -243,7 +243,7 @@ function eventItem($e)
                 } ?>
         </ul>
     </div>
-    <?php } ?>    
+    <?php } ?>
     <div class="tab-pane fade" id="nav-create" role="tabpanel" aria-labelledby="nav-create-tab">
         <div class="row p-1">
             <div class="col-12 d-flex justify-content-between align-items-center">
@@ -278,7 +278,9 @@ function eventItem($e)
                 <div id="eventcontent"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="registerEvent">Register Now</button>
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Coming Soon...!">
+                    <button type="button" class="btn btn-primary" id="registerEvent" disabled>Register Now</button>
+                </span>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>

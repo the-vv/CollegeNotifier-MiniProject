@@ -134,7 +134,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                     <a href='/batch/edit?cid=<?php echo $cid ?>&bid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-pencil-square'></i></a>                        
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
-                        onclick="deleteDpt('${[item[0]]}', '${[item[3]]} ${[item[4]]}', '${[item[1]]}')">
+                        onclick="deleteBatch('${[item[0]]}', '${[item[3]]} ${[item[4]]}', '${[item[1]]}')">
                     <i class='bi bi-trash-fill'></i></button>
                 `;
                 }
@@ -143,7 +143,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     }
     let myDataTable = FathGrid("departmentslist", gridOptions);
 
-    function deleteDpt(id, name, did) {
+    function deleteBatch(id, name, did) {
         $.confirm({
             theme: 'material',
             containerFluid: true,
@@ -183,7 +183,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                         }).fail(err => {
                             $.toast({
                                 heading: 'Error',
-                                text: "Error occured while deleting Department",
+                                text: "Error occured while deleting Batch",
                                 showHideTransition: 'slide',
                                 icon: 'error',
                                 position: 'bottom-right',

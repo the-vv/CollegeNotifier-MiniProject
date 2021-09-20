@@ -1,5 +1,10 @@
 <?php
 
+// function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+//     echo "new error occurred";
+// }
+// set_error_handler("exception_error_handler");
+
 ob_start();
 
 // Global Constant Variables
@@ -78,6 +83,9 @@ if (strpos($request, 'services') == 1) {
         case '/services/batch/deleteone':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_batch.php';
             break;
+        case '/services/class/deleteone':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_class.php';
+            break;
         default:
             http_response_code(404);
             echo json_encode(array('error' => true, 'message' =>"Service Not found"));
@@ -146,6 +154,9 @@ switch ($request) {
     case '/class/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/create.php';
         break;
+    case '/class/edit':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/edit.php';
+        break;
     case '/class/submit':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/submit.php';
         break;
@@ -174,7 +185,7 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
         break;
     case '/administration/classes':
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/classes.php';
         break;
     case '/events/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/create.php';

@@ -30,7 +30,7 @@ if ($room_to_add == 'College') {
 
 function eventItem($e)
 { ?>
-<li class='list-group-item d-flex justify-content-between align-items-center'>
+<li class='list-group-item d-flex justify-content-between align-items-center eid-<?php echo $e['id'] ?>'>
     <a onclick="showEvent('<?php echo $e['id'] ?>')" class="d-inline-block text-truncate h6 text-decoration-none">
         <div class="row">
             <div class="col-auto d-flex align-items-center">
@@ -187,7 +187,9 @@ function eventItem($e)
                 <div id="eventcontent"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="registerEvent">Register Now</button>
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Coming Soon...!">
+                    <button type="button" class="btn btn-primary" id="registerEvent" disabled>Register Now</button>
+                </span>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -232,7 +234,11 @@ function showEvent(id) {
             $('#registerEvent').hide();
         }
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
-        $(".event-spinner").hide(300);
+        document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
+            $(".event-spinner").hide(300);
+        }, {
+            once: true
+        })
         myModal.toggle();
     })
 }
@@ -255,7 +261,14 @@ function deleteEvent(eid, title, isEvent) {
                 action: () => {
                     $.getJSON(`/services/events/deleteone?eid=${eid}`, (res) => {
                         if (res.success) {
-                            location.reload();
+                            $(`.eid-${eid}`).remove();
+                            $.toast({
+                                heading: 'Success',
+                                text: res.message,
+                                showHideTransition: 'slide',
+                                icon: 'success',
+                                position: 'bottom-right',
+                            })
                         } else {
                             $.toast({
                                 heading: 'Error',

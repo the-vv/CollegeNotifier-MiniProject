@@ -74,13 +74,14 @@ function get_all_classes($cid)
     global $class_table_name, $connection;
     $dpt_table = TableNames::department;
     $batch_table = TableNames::batch;
-    $query = "SELECT
+    $query = "SELECT 
         $class_table_name.id as id, $class_table_name.division as division, $class_table_name.tutor_id,
         $dpt_table.id as dpt_id, $dpt_table.dpt_name, $dpt_table.category as dpt_category,
         $batch_table.id as batch_id, $batch_table.start_year, $batch_table.end_year, $batch_table.start_month, $batch_table.end_month
-        LEFT JOIN $dpt_table ON $dpt_table.id = $class_table_name.id
-        LEFT JOIN $batch_table ON $batch_table.id = $class_table_name.id
-        from $class_table_name WHERE $class_table_name.college_id = ?";
+        FROM $class_table_name
+        LEFT JOIN $dpt_table ON $dpt_table.id = $class_table_name.dpt_id
+        LEFT JOIN $batch_table ON $batch_table.id = $class_table_name.batch_id
+        WHERE $class_table_name.college_id = ?";
     $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $cid)) {
@@ -103,7 +104,7 @@ function get_all_classes($cid)
 function update_class($id, $division)
 {
     global $class_table_name, $connection;
-    $query = "UPDATE from $class_table_name SET division = ? WHERE id = ?";
+    $query = "UPDATE $class_table_name SET division = ? WHERE id = ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('ss', $division, $id)) {
             echo "Error updating class values Error: " . $safeQuery->error;

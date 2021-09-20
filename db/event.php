@@ -257,7 +257,6 @@ function delete_event($eid)
 {
     global $event_table_name, $connection;
     $query = "DELETE FROM $event_table_name WHERE id = ?";
-    $results = array();
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('s', $eid)) {
             // echo "Error deleting event values Error: " . $safeQuery->error;

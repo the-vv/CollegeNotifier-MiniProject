@@ -28,7 +28,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $student_table_name (
         FOREIGN KEY (class_id) REFERENCES classes(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
-    // echo "Error creating Table $student_table_name " . mysqli_error($connection);
+    echo "Error creating Table $student_table_name " . mysqli_error($connection);
     die();
 }
 
