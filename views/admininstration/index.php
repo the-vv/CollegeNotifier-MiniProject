@@ -11,28 +11,37 @@
                 </a>
             </div>
             <div class="col-auto admin-button">
-                <a href="administration/batches?<?php echo $url_with_query_params ?>"  class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i class='fas fa-graduation-cap me-1'></i>
+                <a href="administration/batches?<?php echo $url_with_query_params ?>"
+                    class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
+                        class='fas fa-graduation-cap me-1'></i>
                     Batches
                 </a>
             </div>
             <div class="col-auto admin-button">
-                <a  href="administration/classes?<?php echo $url_with_query_params ?>" class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
+                <a href="administration/classes?<?php echo $url_with_query_params ?>"
+                    class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
                         class="fas fa-chalkboard-teacher"></i>
                     Classes
                 </a>
             </div>
             <div class="col-auto admin-button">
-                <button class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i class="bi bi-house-door-fill"></i>
+                <a href="administration/rooms?<?php echo $url_with_query_params ?>"
+                    class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
+                        class="bi bi-house-door-fill"></i>
                     Rooms
-                </button>
+                </a>
             </div>
-            <div class="col-auto admin-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming Soon...!">
-                <button  disabled class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i class="fas fa-user-friends"></i>
+            <div class="col-auto admin-button d-none" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                title="Coming Soon...!">
+                <button disabled class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
+                        class="fas fa-user-friends"></i>
                     Faculties
                 </button>
             </div>
-            <div class="col-auto admin-button"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming Soon...!">
-                <button disabled class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i class="fas fa-child"></i>
+            <div class="col-auto admin-button d-none" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                title="Coming Soon...!">
+                <button disabled class="btn btn-light shadow rounded rounded-pill w-100 py-2"><i
+                        class="fas fa-child"></i>
                     Parents
                 </button>
             </div>

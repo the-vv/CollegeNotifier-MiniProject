@@ -151,7 +151,9 @@ function deleteDpt(id, name, email) {
             confirm: {
                 btnClass: 'btn btn-danger',
                 action: () => {
+                    HoldOn.open({ theme: 'sk-fading-circle', message: 'Please wait...' });
                     $.getJSON(`/services/department/deleteone?cid=<?php echo $query_params['cid']; ?>&did=${id}`, (res) => {
+                        HoldOn.close();
                         if (res.success) {
                             myDataTable.getData().forEach((el, index) => {
                                 if (el[0] == id) {
@@ -175,6 +177,7 @@ function deleteDpt(id, name, email) {
                             })
                         }
                     }).fail(err => {
+                        HoldOn.close();
                         $.toast({
                                 heading: 'Error',
                                 text: "Error occured while deleting Department",

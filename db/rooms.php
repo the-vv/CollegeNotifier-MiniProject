@@ -93,4 +93,48 @@ class Rooms
         }
         return array("error" => true, "message" => "Unknown Error occured " . mysqli_error($connection));
     }
+    function update_one()
+    {
+        global $connection;
+        $query = "UPDATE {$this->table_name}
+            SET room_name = ?, description = ?
+            WHERE college_id = ?
+            ";
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('sss', $cid, $name, $description)) {
+                echo "Error Updating Room values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error Updating Room Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            $safeQuery->close();
+        } else {
+            echo "Error Updating Room Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "Room updated successfully");
+    }
+    function delete_one() {
+        global $connection;
+        $query = "DELETE from {$this->table_name}
+            WHERE id = ?
+            ";
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('sss', $cid, $name, $description)) {
+                echo "Error Deleting Room values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error Deleting Room Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            $safeQuery->close();
+        } else {
+            echo "Error Deleting Room Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "Room deleted successfully");
+    }
 }

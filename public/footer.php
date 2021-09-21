@@ -14,6 +14,8 @@
   })
 </script>
 
+<script src="/libs/HoldOnSpinner/HoldOn.min.js"></script>
+
 </body>
 
 </html>

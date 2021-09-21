@@ -51,6 +51,8 @@ $user = get_current_logged_user();
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    <!-- Jquery Spinner -->
+    <link rel="stylesheet" href="/libs/HoldOnSpinner/HoldOn.min.css"/>
 </head>
 
 <body class="bg-primary">

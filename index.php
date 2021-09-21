@@ -187,6 +187,9 @@ switch ($request) {
     case '/administration/classes':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/classes.php';
         break;
+    case '/administration/rooms':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/rooms.php';
+        break;
     case '/events/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/create.php';
         break;

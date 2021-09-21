@@ -213,6 +213,14 @@ tfoot {
 }
 
 .administration .admin-button a, .administration .admin-button button {
-	min-width: 180px!important;
+	min-width: 200px!important;
 	margin-bottom: 5px;
+}
+
+.admin-button a.btn {	
+	transition: all 0.3s;
+}
+.admin-button a.btn:hover {
+	transform: scale(1.01)!important;
+	background-color: #4c2df817;
 }

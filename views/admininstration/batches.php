@@ -81,54 +81,54 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
     </div>
 </div>
 <script type="text/javascript">
-    'use strict';
+'use strict';
 
-    let gridOptions = {
-        onChange: function(data, col, old, value) {
-            console.log(data);
+let gridOptions = {
+    onChange: function(data, col, old, value) {
+        console.log(data);
+    },
+    size: 10,
+    editable: false,
+    showFooter: true,
+    showTableTotal: true,
+    showGraph: false,
+    columns: [{
+            editable: false,
+            visible: false
         },
-        size: 10,
-        editable: false,
-        showFooter: true,
-        showTableTotal: true,
-        showGraph: false,
-        columns: [{
-                editable: false,
-                visible: false
-            },
-            {
-                editable: false,
-                visible: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false
-            },
-            {
-                editable: false,
-            },
-            {
-                printable: false,
-                editable: false,
-                html: (item) => {
-                    return `
+        {
+            editable: false,
+            visible: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false
+        },
+        {
+            editable: false,
+        },
+        {
+            printable: false,
+            editable: false,
+            html: (item) => {
+                return `
                     <a href='/batch?cid=<?php echo $cid ?>&bid=${item[0]}&did=${item[1]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-eye'></i></a>                        
                     <a href='/batch/edit?cid=<?php echo $cid ?>&bid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
@@ -137,27 +137,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                         onclick="deleteBatch('${[item[0]]}', '${[item[3]]} ${[item[4]]}', '${[item[1]]}')">
                     <i class='bi bi-trash-fill'></i></button>
                 `;
-                }
-            },
-        ]
-    }
-    let myDataTable = FathGrid("departmentslist", gridOptions);
+            }
+        },
+    ]
+}
+let myDataTable = FathGrid("departmentslist", gridOptions);
 
-    function deleteBatch(id, name, did) {
-        $.confirm({
-            theme: 'material',
-            containerFluid: true,
-            backgroundDismiss: true,
-            title: 'Confirm Delete!',
-            content: `Are you sure want to delete the Batch:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the classes and events under ${name} batch will be deleted and the students under the ${name} Batch will be unmapped!</i>`,
-            type: 'red',
-            icon: 'bi bi-trash-fill',
-            bgOpacity: 0.8,
-            buttons: {
-                confirm: {
-                    btnClass: 'btn btn-danger',
-                    action: () => {
-                        $.getJSON(`/services/batch/deleteone?cid=<?php echo $query_params['cid']; ?>&bid=${id}&did=${did}`, (res) => {
+function deleteBatch(id, name, did) {
+    $.confirm({
+        theme: 'material',
+        containerFluid: true,
+        backgroundDismiss: true,
+        title: 'Confirm Delete!',
+        content: `Are you sure want to delete the Batch:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the classes and events under ${name} batch will be deleted and the students under the ${name} Batch will be unmapped!</i>`,
+        type: 'red',
+        icon: 'bi bi-trash-fill',
+        bgOpacity: 0.8,
+        buttons: {
+            confirm: {
+                btnClass: 'btn btn-danger',
+                action: () => {
+                    HoldOn.open({ theme: 'sk-fading-circle', message: 'Please wait...' });
+                    $.getJSON(
+                        `/services/batch/deleteone?cid=<?php echo $query_params['cid']; ?>&bid=${id}&did=${did}`,
+                        (res) => {
+                            HoldOn.close();
                             if (res.success) {
                                 myDataTable.getData().forEach((el, index) => {
                                     if (el[0] == id) {
@@ -181,19 +185,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
                                 })
                             }
                         }).fail(err => {
-                            $.toast({
-                                heading: 'Error',
-                                text: "Error occured while deleting Batch",
-                                showHideTransition: 'slide',
-                                icon: 'error',
-                                position: 'bottom-right',
-                            })
-                        });
-                    }
-                },
-                cancel: () => {}
-            }
-        })
-    }
-    $('#departmentslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
+                        HoldOn.close();
+                        $.toast({
+                            heading: 'Error',
+                            text: "Error occured while deleting Batch",
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            position: 'bottom-right',
+                        })
+                    });
+                }
+            },
+            cancel: () => {}
+        }
+    })
+}
+$('#departmentslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
 </script>

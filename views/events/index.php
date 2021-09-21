@@ -259,7 +259,9 @@ function deleteEvent(eid, title, isEvent) {
             confirm: {
                 btnClass: 'btn btn-danger',
                 action: () => {
+                    HoldOn.open({ theme: 'sk-fading-circle', message: 'Please wait...' });
                     $.getJSON(`/services/events/deleteone?eid=${eid}`, (res) => {
+                        HoldOn.close();
                         if (res.success) {
                             $(`.eid-${eid}`).remove();
                             $.toast({
@@ -279,6 +281,7 @@ function deleteEvent(eid, title, isEvent) {
                             })
                         }
                     }).fail((e) => {
+                        HoldOn.close();
                         // console.log(e);
                         $.toast({
                             heading: 'Error',

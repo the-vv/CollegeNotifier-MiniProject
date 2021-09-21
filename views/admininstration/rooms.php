@@ -12,10 +12,13 @@ if ($cid == 0) {
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 $college = get_college($cid)[0];
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
-$classes = get_all_classes($query_params['cid']);
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
+$Room = new Rooms();
+$rooms = $Room->get_all_by_college($query_params['cid']);
+// $classes = get_all_classes($query_params['cid']);
 // echo "<pre>";
-// print_r($classes);
+// print_r($rooms);
 // echo "</pre>";
 // die();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
@@ -27,22 +30,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/admin"><?php echo $college['college_name'] ?></a></li>
         <li class="breadcrumb-item"><a href="/college?cid=<?php echo $cid; ?>">Administration</a></li>
-        <li class="breadcrumb-item">Classes</li>
+        <li class="breadcrumb-item">Rooms</li>
     </ol>
     <div class="row pt-2">
-        <h3 class="text-center">Classes Management</h3>
+        <h3 class="text-center">Rooms Management</h3>
     </div>
     <div class="row pb-5 overflow-auto">
-        <table class="table table-success table-striped table-bordered rounded" id="departmentslist">
+        <table class="table table-success table-striped table-bordered rounded" id="RoomList">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">DPT_ID</th>
-                    <th scope="col">BATCH_ID</th>
                     <th scope="col">No</th>
-                    <th scope="col">Division Name</th>
-                    <th scope="col">Batch</th>
-                    <th scope="col">Department</th>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Total Faculties</th>
                     <th scope="col">Total Students</th>
                     <th scope="col">Total Events</th>
@@ -52,20 +52,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/event.php';
             <tbody>
                 <?php
                 $count = 1;
-                foreach ($classes as $class) {
-                    $students_count = count(get_students_from_class($class['id']));
-                    $events_count = count(get_events_by_class($query_params['cid'], $class['dpt_id'], $class['batch_id'], $class['id']));
+                foreach ($rooms as $room) {
+                    $RoomMapper = new RoomStudentMap();
+                    $students_count = count($RoomMapper->get_all_students_in_room($college['id'], $room['id']));
+                    $events_count = count(get_events_by_param($college['id'], 0, 0, 0, $room['id']));
                     echo "<tr>
-                        <td scope='row'>{$class['id']}</td>
-                        <td scope='row'>{$class['dpt_id']}</td>
-                        <td scope='row'>{$class['batch_id']}</td>
+                        <td scope='row'>{$room['id']}</td>
                         <td scope='row'>{$count}</td>
-                        <td>{$class['division']}</td>
-                        <td>{$class['start_year']} - {$class['end_year']}</td>
-                        <td>{$class['dpt_name']}({$class['dpt_category']})</td>
+                        <td>{$room['room_name']}</td>
+                        <td>{$room['description']}</td>
                         <td>-</td>
                         <td>{$students_count}</td>
                         <td>{$events_count}</td>
+                        <td></td>
                     </tr>";
                     $count++;
                 } ?>
@@ -90,14 +89,6 @@ let gridOptions = {
             visible: false
         },
         {
-            editable: false,
-            visible: false
-        },
-        {
-            editable: false,
-            visible: false
-        },
-        {
             editable: false
         },
         {
@@ -114,36 +105,33 @@ let gridOptions = {
         },
         {
             editable: false
-        },
-        {
-            editable: false,
         },
         {
             printable: false,
             editable: false,
             html: (item) => {
                 return `
-                    <a href='/class?cid=<?php echo $cid ?>&clid=${item[0]}&did=${item[1]}&bid=${item[2]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
+                    <a href='/rooms?cid=<?php echo $cid ?>&rid=${item[0]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-eye'></i></a>                        
-                    <a href='/class/edit?cid=<?php echo $cid ?>&clid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                    <a href='/rooms/edit?cid=<?php echo $cid ?>&rd=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-pencil-square'></i></a>                        
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
-                        onclick="deleteClass('${item[0]}', '${item[4]}', '${item[1]}', '${item[2]}')">
+                        onclick="deleteRoom('${item[0]}', '${item[2]}')">
                     <i class='bi bi-trash-fill'></i></button>
                 `;
             }
         },
     ]
 }
-let myDataTable = FathGrid("departmentslist", gridOptions);
+let myDataTable = FathGrid("RoomList", gridOptions);
 
-function deleteClass(id, name, did, bid) {
+function deleteRoom(id, name) {
     $.confirm({
         theme: 'material',
         containerFluid: true,
         backgroundDismiss: true,
         title: 'Confirm Delete!',
-        content: `Are you sure want to delete the Class:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the events under ${name} class will be deleted and the students under the ${name} class will be unmapped!</i>`,
+        content: `Are you sure want to delete the Room:<br><strong class="h4 d-block">${name}</strong><br><i class="text-danger"><strong>Warning:</strong> All the events under the Room ${name} will be deleted and the students under the Room ${name} will be unmapped!</i>`,
         type: 'red',
         icon: 'bi bi-trash-fill',
         bgOpacity: 0.8,
@@ -152,10 +140,9 @@ function deleteClass(id, name, did, bid) {
                 btnClass: 'btn btn-danger',
                 action: () => {
                     HoldOn.open({ theme: 'sk-fading-circle', message: 'Please wait...' });
-                    $.getJSON(
-                        `/services/class/deleteone?cid=<?php echo $query_params['cid']; ?>&bid=${bid}&did=${did}&clid=${id}`,
+                    $.getJSON(`/services/room/deleteone?cid=<?php echo $query_params['cid']; ?>&rid=${id}`,
                         (res) => {
-                        HoldOn.close();
+                            HoldOn.close();
                             if (res.success) {
                                 myDataTable.getData().forEach((el, index) => {
                                     if (el[0] == id) {
@@ -182,7 +169,7 @@ function deleteClass(id, name, did, bid) {
                         HoldOn.close();
                         $.toast({
                             heading: 'Error',
-                            text: "Error occured while deleting Class",
+                            text: "Error occured while deleting Room",
                             showHideTransition: 'slide',
                             icon: 'error',
                             position: 'bottom-right',
@@ -194,5 +181,5 @@ function deleteClass(id, name, did, bid) {
         }
     })
 }
-$('#departmentslist thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
+$('#RoomList thead tr.filter th input').attr('placeholder', 'Search').addClass('form-control py-0');
 </script>
