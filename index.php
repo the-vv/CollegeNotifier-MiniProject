@@ -219,6 +219,11 @@ switch ($request) {
     case '/student/login':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/login.php';
         break;
+    
+    // Comon Routes
+    case '/my-profile':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/common/my_profile.php';
+        break;
 
     // Routing Ends with 404 here
     case '/404':

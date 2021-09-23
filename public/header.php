@@ -72,7 +72,7 @@ $user = get_current_logged_user();
                     <?php
                     if ($user) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/edit-<?php if($user) { echo $user['type']; } ?>">My Profile</a>
+                            <a class="nav-link" href="my-profile">My Profile</a>
                         </li>
                     <?php } ?>
                     <?php
