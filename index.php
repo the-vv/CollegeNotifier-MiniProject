@@ -86,9 +86,12 @@ if (strpos($request, 'services') == 1) {
         case '/services/class/deleteone':
             require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_class.php';
             break;
+        case '/services/room/deleteone':
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/api/delete_room.php';
+            break;
         default:
             http_response_code(404);
-            echo json_encode(array('error' => true, 'message' =>"Service Not found"));
+            echo json_encode(array('error' => true, 'message' => "Service Not found"));
     }
     die();
 }
@@ -202,6 +205,9 @@ switch ($request) {
     case '/rooms/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/create.php';
         break;
+    case '/rooms/edit':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/edit.php';
+        break;
     case '/rooms/submit':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/submit.php';
         break;
@@ -213,6 +219,8 @@ switch ($request) {
     case '/student/login':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/login.php';
         break;
+
+    // Routing Ends with 404 here
     case '/404':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
     default:

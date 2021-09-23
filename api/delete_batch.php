@@ -40,7 +40,7 @@ if ($did == 0) {
         $res = delete_batch($bid);
         echo json_encode($res);
     } else {
-        json_encode(
+        echo json_encode(
             array(
                 'error' => true,
                 "result" => array(

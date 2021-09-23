@@ -93,15 +93,15 @@ class Rooms
         }
         return array("error" => true, "message" => "Unknown Error occured " . mysqli_error($connection));
     }
-    function update_one()
+    function update_one($name, $desc, $rid)
     {
         global $connection;
         $query = "UPDATE {$this->table_name}
             SET room_name = ?, description = ?
-            WHERE college_id = ?
+            WHERE id = ?
             ";
         if ($safeQuery = mysqli_prepare($connection, $query)) {
-            if (!$safeQuery->bind_param('sss', $cid, $name, $description)) {
+            if (!$safeQuery->bind_param('sss', $name, $desc, $rid)) {
                 echo "Error Updating Room values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
@@ -116,13 +116,13 @@ class Rooms
         }
         return array("success" => true, "message" => "Room updated successfully");
     }
-    function delete_one() {
+    function delete_one($id) {
         global $connection;
         $query = "DELETE from {$this->table_name}
             WHERE id = ?
             ";
         if ($safeQuery = mysqli_prepare($connection, $query)) {
-            if (!$safeQuery->bind_param('sss', $cid, $name, $description)) {
+            if (!$safeQuery->bind_param('s', $id)) {
                 echo "Error Deleting Room values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }

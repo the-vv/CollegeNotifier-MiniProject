@@ -1,6 +1,6 @@
 <!-- JavaScript Data Table Plugin -->
-<script src="/js-vendor/jsPDF/dist/jspdf.min.js"></script>
-<script type="text/javascript" src="/js-vendor/FathGrid-master/dist/FathGrid.js"></script>
+<script src="/jsLibs/jsPDF/dist/jspdf.min.js"></script>
+<script type="text/javascript" src="/jsLibs/FathGrid-master/dist/FathGrid.js"></script>
 
 <?php
 $cid = $query_param_values['cid'];

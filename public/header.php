@@ -33,15 +33,15 @@ $user = get_current_logged_user();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- JQuery Toasts plugin  -->
-    <link rel="stylesheet" href="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.css">
-    <script src="/js-vendor/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
+    <link rel="stylesheet" href="/jsLibs/jquery-toast-plugin-master/dist/jquery.toast.min.css">
+    <script src="/jsLibs/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
 
     <!-- JQuery Dialog Plugin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- Jquery List Pager Plugin -->
-    <script type="text/javascript" src="/js-vendor/list-pager/paging.min.js"></script>
+    <script type="text/javascript" src="/jsLibs/list-pager/paging.min.js"></script>
 
     <!-- Quill Rich Text Editor Plugin-->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -52,7 +52,7 @@ $user = get_current_logged_user();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- Jquery Spinner -->
-    <link rel="stylesheet" href="/libs/HoldOnSpinner/HoldOn.min.css"/>
+    <link rel="stylesheet" href="/jsLibs/HoldOnSpinner/HoldOn.min.css"/>
 </head>
 
 <body class="bg-primary">

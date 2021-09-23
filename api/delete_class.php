@@ -33,7 +33,7 @@ if ($did == 0) {
         $res = delete_class($clid);
         echo json_encode($res);
     } else {
-        json_encode(
+        echo json_encode(
             array(
                 'error' => true,
                 "result" => array(

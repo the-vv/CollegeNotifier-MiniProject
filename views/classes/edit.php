@@ -32,7 +32,7 @@ if($clid) {
 <div class="container shadow border rounded rounded-lg">
     <div class="row">
         <div class="col-12 p-5">
-            <h2 class="text-center"> Create Class now </h2>
+            <h2 class="text-center"> Edit Class now </h2>
             <form class="mt-4"
                 action="class/submit?<?php echo $url_with_query_params ?>"
                 method="POST">

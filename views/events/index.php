@@ -239,6 +239,13 @@ function showEvent(id) {
         }, {
             once: true
         })
+        document.getElementById('eventDisplay').addEventListener('hidden.bs.modal', () => {
+            quill.root.innerHTML = '';
+            $('#eventtime').html('');
+            $('#eventtitle').html('');
+        }, {
+            once: true
+        })
         myModal.toggle();
     })
 }
@@ -259,7 +266,10 @@ function deleteEvent(eid, title, isEvent) {
             confirm: {
                 btnClass: 'btn btn-danger',
                 action: () => {
-                    HoldOn.open({ theme: 'sk-fading-circle', message: 'Please wait...' });
+                    HoldOn.open({
+                        theme: 'sk-fading-circle',
+                        message: 'Please wait...'
+                    });
                     $.getJSON(`/services/events/deleteone?eid=${eid}`, (res) => {
                         HoldOn.close();
                         if (res.success) {

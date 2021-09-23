@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js-vendor/multiselect/multiselect.js"></script>
+<script type="text/javascript" src="/jsLibs/multiselect/multiselect.js"></script>
 <script>
     let values = [];
     let checkMapping = () => {

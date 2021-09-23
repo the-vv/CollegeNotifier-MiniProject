@@ -1,6 +1,6 @@
 <!-- JavaScript Data Table Plugin -->
-<script src="/js-vendor/jsPDF/dist/jspdf.min.js"></script>
-<script type="text/javascript" src="/js-vendor/FathGrid-master/dist/FathGrid.js"></script>
+<script src="/jsLibs/jsPDF/dist/jspdf.min.js"></script>
+<script type="text/javascript" src="/jsLibs/FathGrid-master/dist/FathGrid.js"></script>
 
 <?php
 $cid = $query_param_values['cid'];
@@ -113,7 +113,7 @@ let gridOptions = {
                 return `
                     <a href='/rooms?cid=<?php echo $cid ?>&rid=${item[0]}' type='button' class='btn btn-sm btn-primary p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-eye'></i></a>                        
-                    <a href='/rooms/edit?cid=<?php echo $cid ?>&rd=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
+                    <a href='/rooms/edit?cid=<?php echo $cid ?>&rid=${item[0]}' type='button' class='btn btn-sm btn-warning p-1 px-xl-2 m-0 border border-dark'>
                     <i class='bi bi-pencil-square'></i></a>                        
                     <button type='button' class='btn btn-sm btn-danger p-1 px-xl-2 m-0 border border-dark'
                         onclick="deleteRoom('${item[0]}', '${item[2]}')">

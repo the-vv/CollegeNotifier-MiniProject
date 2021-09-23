@@ -53,19 +53,59 @@ class RoomStudentMap
         $query = "DELETE FROM {$this->table_name} WHERE rid = ? AND student_id = ?";
         if ($safeQuery = mysqli_prepare($connection, $query)) {
             if (!$safeQuery->bind_param('ss', $rid, $sid)) {
-                echo "Error Creating Room map values Error: " . $safeQuery->error;
+                echo "Error Removing Room map values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
             if (!$safeQuery->execute()) {
-                echo "Error Creating Room map Error: " . $safeQuery->error;
+                echo "Error Removing Room map Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
             $safeQuery->close();
         } else {
-            echo "Error Creating room map Error: " . mysqli_error($connection);
+            echo "Error Removing room map Error: " . mysqli_error($connection);
             return array("error" => true, "message" => "Unknown Error occurred");
         }
-        return array("success" => true, "message" => "room map created successfully");
+        return array("success" => true, "message" => "room map removed successfully");
+    }
+    function remove_one_by_room($rid = '')
+    {
+        global $connection;
+        $query = "DELETE FROM {$this->table_name} WHERE room_id = ?";
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('s', $rid)) {
+                echo "Error Deleting Room map values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error Deleting Room map Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            $safeQuery->close();
+        } else {
+            echo "Error Deleting room map Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "room map deleted successfully");
+    }
+    function remove_one_by_student($sid = '')
+    {
+        global $connection;
+        $query = "DELETE FROM {$this->table_name} WHERE students_id = ?";
+        if ($safeQuery = mysqli_prepare($connection, $query)) {
+            if (!$safeQuery->bind_param('s', $sid)) {
+                echo "Error Deleting Room map values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            if (!$safeQuery->execute()) {
+                echo "Error Deleting Room map Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+            $safeQuery->close();
+        } else {
+            echo "Error Deleting room map Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occurred");
+        }
+        return array("success" => true, "message" => "room map deleted successfully");
     }
     function get_students_to_map($cid, $rid)
     {
