@@ -72,7 +72,9 @@ if ($bid) {
     }
 }
 if ($clid) {
-    $class = get_a_class($did);
+    // echo $clid;
+    $class = get_a_class($clid);
+    // print_r($class);
     if (count($class) > 0) {
         $class = $class[0];
     } else {
