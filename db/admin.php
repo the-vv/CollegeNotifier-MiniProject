@@ -19,7 +19,7 @@ if (!mysqli_query($connection, $create_query)) {
 function create_admin($name = '', $email = '', $phone = '', $admin_password)
 {
     global $TableName, $connection;
-    if(count(find_admin_user($email))) {
+    if (count(find_admin_user($email))) {
         return array("error" => true, "message" => "User Already Exists, Please Login");
     }
     $query = "INSERT INTO $TableName (
@@ -29,7 +29,7 @@ function create_admin($name = '', $email = '', $phone = '', $admin_password)
             ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssss',$name, $email, $phone, $admin_password)) {
+        if (!$safeQuery->bind_param('ssss', $name, $email, $phone, $admin_password)) {
             echo "Error Creating Admin values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -41,6 +41,42 @@ function create_admin($name = '', $email = '', $phone = '', $admin_password)
         return find_admin_user($email);
     } else {
         echo "Error Creating Admin Error: " . mysqli_error($connection);
+        return array("error" => true, "message" => "Unknown Error Occured");
+    }
+    return true;
+}
+function update_admin($name = '', $email = '', $phone = '', $admin_password)
+{
+    global $TableName, $connection;
+    if ($admin_password) {
+        $query = "UPDATE $TableName SET
+            name = ?, email = ?, phone = ?, admin_password = ?
+            ";
+    } else {
+        $query = "UPDATE $TableName SET
+            name = ?, email = ?, phone = ?
+            ";
+    }
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if ($admin_password) {
+            if (!$safeQuery->bind_param('ssss', $name, $email, $phone, $admin_password)) {
+                echo "Error Updating Admin values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+        } else {
+            if (!$safeQuery->bind_param('sss', $name, $email, $phone)) {
+                echo "Error Updating Admin values Error: " . $safeQuery->error;
+                return array("error" => true, "message" => $safeQuery->error);
+            }
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error Updating Admin Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $safeQuery->close();
+        return find_admin_user($email);
+    } else {
+        echo "Error Updating Admin Error: " . mysqli_error($connection);
         return array("error" => true, "message" => "Unknown Error Occured");
     }
     return true;
@@ -66,8 +102,9 @@ function get_admin($id)
         }
         $safeQuery->close();
         return $results;
+    } else {
+        return array("error" => true, "message" => "Unknown Error occured: " . mysqli_error($connection));
     }
-    return array("error" => true, "message" => "Unknown Error occured");
 }
 
 function find_admin_user($email)
@@ -90,6 +127,7 @@ function find_admin_user($email)
         }
         $safeQuery->close();
         return $results;
+    } else {
+        return array("error" => true, "message" => "Unknown Error occured: " . mysqli_error($connection));
     }
-    return array("error" => true, "message" => "Unknown Error occured");
 }

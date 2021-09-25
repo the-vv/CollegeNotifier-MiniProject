@@ -41,11 +41,15 @@ $user = get_current_logged_user();
         <div class="tab-pane fade show active" id="edit" role="tabpanel" aria-labelledby="edit-tab">
             <div class="row">
                 <?php if($user['type'] === UserTypes::student) {
-            $student = $user;
-            $sid = $user['id'];
-            $cid = $user['college_id'];
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/edit.php';
-        } ?>
+                    $student = $user;
+                    $sid = $user['id'];
+                    $cid = $user['college_id'];
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/edit.php';
+                } ?>
+                <?php if($user['type'] === UserTypes::admin) {
+                    $admin = $user;
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/edit.php';
+                } ?>
             </div>
         </div>
         <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
