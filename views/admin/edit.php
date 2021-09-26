@@ -29,7 +29,7 @@ if (!isset($admin)) {
                         placeholder="Leave blank to keep old password">
                 </div>
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary px-5" name="update" id="submit">Submit</button>
+                    <button type="submit" class="btn btn-primary px-5" name="update" id="submit">Save Changes</button>
                 </div>
             </form>
         </div>

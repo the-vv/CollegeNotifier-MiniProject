@@ -3,6 +3,11 @@
 require_once 'connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/department.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/batch.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 
 $event_table_name = TableNames::event;
 
@@ -33,17 +38,46 @@ if (!mysqli_query($connection, $create_query)) {
     die();
 }
 
-function get_owner_user($id, $type) {
-    if($type == UserTypes::admin) {
+function get_owner_user($id, $type)
+{
+    if ($type == UserTypes::admin) {
         $user = get_admin($id)[0];
         unset($user['admin_password']);
         return $user;
-    }
-    else if($type == UserTypes::student) {
+    } else if ($type == UserTypes::student) {
         $user = get_student($id)[0];
         unset($user['student_password']);
         return $user;
     }
+}
+
+function get_level_details($event)
+{
+    $result = array();
+    if ($event['room_id'] !== 0) {
+        $rooms = new Rooms();
+        $level = $rooms->get_one($event['room_id']);
+        $result['type'] = LevelTypes::room;
+        $result['name'] = $level[0]['room_name'];
+    } elseif ($event['class_id'] !== 0) {
+        $level = get_a_class($event['class_id']);
+        $result['type'] = LevelTypes::classes;
+        $result['name'] = $level[0]['division'];
+    } elseif ($event['batch_id'] !== 0) {
+        $level = get_batch($event['batch_id']);
+        $result['type'] = LevelTypes::batch;
+        $result['name'] = $level[0]['start_year'] . " - " . $level[0]['end_year'];
+    } elseif ($event['dpt_id'] !== 0) {
+        $level = get_dpt($event['dpt_id']);
+        $result['type'] = LevelTypes::department;
+        $result['name'] = $level[0]['dpt_name'];
+    } elseif ($event['college_id'] !== 0) {
+        $level = get_college($event['college_id']);
+        $result['type'] = LevelTypes::college;
+        $result['name'] = $level[0]['college_name'];
+    }
+    $result['details'] = $level[0];
+    return $result;
 }
 
 function create_event($dpt_id = '', $college_id = '', $batch_id = '', $class_id = '', $title = '', $content = '', $time = '', $fromid = '', $fromtype = '', $attatchement = '', $isevent = 0, $st = 0, $et = 0, $rid = 0)
@@ -88,6 +122,7 @@ function get_event($id)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -114,6 +149,7 @@ function get_events_by_param($cid = 0, $did = 0, $bid = 0, $clid = 0, $rid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -140,6 +176,7 @@ function get_events_by_class($cid = 0, $did = 0, $bid = 0, $clid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -166,6 +203,7 @@ function get_events_by_room($cid = 0, $rid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -192,6 +230,7 @@ function get_events_by_batch($cid = 0, $did = 0, $bid = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -218,6 +257,7 @@ function get_events_by_dpt($cid = 0, $did = 0)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }
@@ -244,6 +284,7 @@ function get_events_by_college($cid)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            $row['level'] = get_level_details($row);
             $row['user'] = get_owner_user($row['from_id'], $row['from_user_type']);
             array_push($results, $row);
         }

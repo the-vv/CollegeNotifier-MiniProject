@@ -27,9 +27,9 @@ if (!isset($student)) {
 <div class="container-fluid bg-light mx-md-4 shadow rounded border" id="departments" style="min-height: 85vh">
     <?php
 } ?>
-    <div class="row <?php if(!isset($student)) { echo "pt-5"; } else { echo "pb-5"; }?>">
+    <div class="row <?php if(!isset($student)) { echo "pt-5"; } else { echo "pb-5 pt-3"; }?>">
         <div class="col-12">
-            <p class="h3 text-center mb-3">Edit student</p>
+        <?php if(!isset($student)) { ?><p class="h3 text-center mb-3">Edit student</p><?php }?>
             <form class="row px-md-5 align-items-end" action="students/submit?<?php echo $url_with_query_params ?>"
                 method="POST" id="singleForm">
                 <div class="form-group col-12 col-md-6 offset-md-3 text-start">

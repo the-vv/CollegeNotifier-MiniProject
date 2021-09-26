@@ -45,8 +45,17 @@ abstract class DatabaseConfig
     const databaseName = 'db_college_notifier';
 }
 
-abstract class GlobalConfig
+abstract class HashingConfig
 {
     const hashing_iv = '1234567891011121';
     const hashing_key = 'VVsCollegeNotifier';
+}
+
+abstract class LevelTypes
+{
+    const college = 'college';
+    const department = 'department';
+    const batch = 'batch';
+    const classes = 'class';
+    const room = 'room';
 }

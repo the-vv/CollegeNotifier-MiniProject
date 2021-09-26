@@ -161,14 +161,14 @@ $students = array_filter($students, function($s) {
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch" type="button" role="tab" aria-controls="batch" aria-selected="true">Faculties</button>
+                    <button class="nav-link active" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
+                    <button class="nav-link" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch" type="button" role="tab" aria-controls="batch" aria-selected="true">Faculties</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="batch" role="tabpanel" aria-labelledby="batch-tab">
+                <div class="tab-pane fade" id="batch" role="tabpanel" aria-labelledby="batch-tab">
                     <div class="row p-1 align-items-end">
                         <div class="col-12 d-flex justify-content-between align-items-center">
                             <h5 class="p-0 m-0">Faculties Here</h5>
@@ -191,7 +191,7 @@ $students = array_filter($students, function($s) {
                                 } ?> -->
                     </ul>
                 </div>
-                <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
             </div>

@@ -35,9 +35,9 @@ function eventItem($e)
         <div class="row">
             <div class="col-auto d-flex align-items-center">
                 <?php if ($e['is_event'] == 0) { ?>
-                <i class="bi bi-app-indicator text-primary d-inline" style="font-size:1.5rem"></i>
+                <i class="bi bi-app-indicator text-primary d-inline" style="font-size:2rem"></i>
                 <?php } else { ?>
-                <i class="bi bi-calendar2-event text-primary d-inline" style="font-size:1.5rem"></i>
+                <i class="bi bi-calendar2-event text-primary d-inline" style="font-size:2rem"></i>
                 <?php } ?>
             </div>
             <div class="col-auto">
@@ -48,8 +48,20 @@ function eventItem($e)
                     <?php } ?>
                 </p>
                 <small class="text-muted">
-                    <?php echo substr(htmlentities(strip_tags($e['content'])), 0, 200) ?>...
+                <?php
+                        echo substr(htmlentities(strip_tags($e['content'])), 0, 50);
+                        if(strlen(htmlentities(strip_tags($e['content']))) > 50) {
+                            echo "...";
+                        } 
+                        if($e['content'] == '<p><br></p>') {
+                            echo "<i>Empty Content</i>";
+                        }
+                        elseif(strlen(htmlentities(strip_tags($e['content']))) == 0 && strlen($e['content']) > 0) {
+                            echo "<i>Click to view Content</i>";
+                        }
+                    ?>
                 </small>
+                <small class="text-muted mt-2 text-dark d-block"><strong>From: </strong><?php echo $e['level']['name']; ?> (<span class="text-capitalize"><?php echo $e['level']['type']?></span>)</small>
             </div>
         </div>
     </a>
@@ -178,6 +190,7 @@ function eventItem($e)
                 <div>
                     <h5 class="modal-title" id="eventtitle">Modal title</h5>
                     <div id="ownerInfo" class="text-muted"></div>
+                    <div id="fromLevel" class="text-muted"></div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -234,6 +247,7 @@ function showEvent(id) {
             $('#registerEvent').hide();
         }
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
+        $('#fromLevel').html(`<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`);
         document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
             $(".event-spinner").hide(300);
         }, {
