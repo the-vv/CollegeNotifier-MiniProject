@@ -33,10 +33,6 @@ $user = get_current_logged_user();
                 role="tab" aria-controls="edit" aria-selected="true">Edit Profile</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button"
-                role="tab" aria-controls="events" aria-selected="false">Your Events</button>
-        </li>
-        <li class="nav-item" role="presentation">
             <button class="nav-link" id="forms-tab" data-bs-toggle="tab" data-bs-target="#forms" type="button"
                 role="tab" aria-controls="forms" aria-selected="false">Profile Forms</button>
         </li>
@@ -55,9 +51,6 @@ $user = get_current_logged_user();
                     require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/edit.php';
                 } ?>
             </div>
-        </div>
-        <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
-            Your Events
         </div>
         <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
             Profile Forms

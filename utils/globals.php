@@ -35,6 +35,8 @@ abstract class TableNames
     const room_student_map = 'tbl_room_student_map';
     const rooms = 'tbl_rooms';
     const students = 'tbl_students';
+    const forms = 'tbl_forms';
+    const submissions = 'tbl_submissions';
 }
 
 abstract class DatabaseConfig

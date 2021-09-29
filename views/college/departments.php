@@ -46,6 +46,10 @@ $rooms = $room->get_all_by_college($query_params['cid']);
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#students"
                         type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms"
+                        type="button" role="tab" aria-controls="forms" aria-selected="false">Forms</button>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active show" id="rooms" role="tabpanel" aria-labelledby="rooms-tab" id="rooms">
@@ -114,6 +118,9 @@ $rooms = $room->get_all_by_college($query_params['cid']);
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
+                </div>
+                <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/index.php'; ?>
                 </div>
             </div>
         </div>

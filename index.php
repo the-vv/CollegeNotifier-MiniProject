@@ -211,6 +211,12 @@ switch ($request) {
     case '/rooms/submit':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/submit.php';
         break;
+    case '/forms/submit':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/submit.php';
+        break;
+    case '/forms/create':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/create.php';
+        break;
 
         //Student User Routing Section
     case '/student':
@@ -219,13 +225,13 @@ switch ($request) {
     case '/student/login':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/login.php';
         break;
-    
-    // Comon Routes
+
+        // Comon Routes
     case '/my-profile':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/common/my_profile.php';
         break;
 
-    // Routing Ends with 404 here
+        // Routing Ends with 404 here
     case '/404':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
     default:

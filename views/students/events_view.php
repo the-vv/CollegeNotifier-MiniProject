@@ -37,7 +37,9 @@ $allEvents = array_merge($collegeEvents, $dptEvents, $batchEvents, $classEvents,
 // print_r($allEvents);
 // echo "</pre>";
 function eventItem($e)
-{ ?>
+{ 
+    global $student;
+    ?>
 
 <li class='list-group-item d-flex justify-content-between align-items-center'>
     <a onclick="showEvent('<?php echo $e['id'] ?>')" class="d-inline-block text-truncate h6 text-decoration-none">
@@ -70,14 +72,24 @@ function eventItem($e)
                         }
                     ?>
                 </small>
-                <small class="text-muted mt-2 text-dark d-block"><strong>From: </strong><?php echo $e['level']['name']; ?> (<span class="text-capitalize"><?php echo $e['level']['type']?></span>)</small>
+                <small class="text-muted mt-2 text-dark d-block"><strong>From:
+                    </strong><?php echo $e['level']['name']; ?> (<span
+                        class="text-capitalize"><?php echo $e['level']['type']?></span>)</small>
             </div>
         </div>
     </a>
-    <span class="d-flex align-items-center event-actions flex-column justify-content-end">
+    <span class="">
         <div class="me-2 ms-auto">
             <p class="m-0 p-0 text-end">
-                <?php echo date('d/m/y h:i:s', $e['sendtime']); ?>
+                <?php echo date('d/m/y h:i:s', $e['sendtime']);
+                if($e['from_user_type'] == UserTypes::student && $e['from_id'] == $student['id']) { ?>
+                <button type='button' class='btn btn-sm btn-danger m-0 border border-dark'
+                    onclick="deleteEvent('<?php echo $e['id'] ?>', '<?php echo $e['title'] ?>', <?php echo $e['is_event'] ?>)">
+                    <i class='bi bi-trash-fill'></i></button>
+                <a href="/events/create?eid=<?php echo $e['id'] ?>" type='button'
+                    class='btn btn-sm btn-warning m-0 border border-dark ms-1'>
+                    <i class='bi bi-pencil-square'></i></a>
+                <?php } ?>
             </p>
         </div>
         <div class="me-2 d-block text-truncate text-end">
@@ -338,7 +350,9 @@ function showEvent(id) {
             $('#registerEvent').hide();
         }
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
-        $('#fromLevel').html(`<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`);
+        $('#fromLevel').html(
+            `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
+            );
         document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
             $(".event-spinner").hide(300);
         }, {
