@@ -53,7 +53,9 @@ $user = get_current_logged_user();
             </div>
         </div>
         <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
-            Profile Forms
+        <?php if($user['type'] === UserTypes::student) {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/profile_forms.php';
+        } ?>
         </div>
     </div>
 

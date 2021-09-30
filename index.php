@@ -36,10 +36,11 @@ $query_param_values = array(
     'rid' => $query_params['rid'] ?? 0
 );
 
-
 $url_with_query_params = "";
-foreach ($query_params as $param => $val) {
-    $url_with_query_params = $url_with_query_params . "&$param=$val";
+if (isset($query_params)) {
+    foreach ($query_params as $param => $val) {
+        $url_with_query_params = $url_with_query_params . "&$param=$val";
+    }
 }
 // if ($query_param_values['cid'] != 0) {
 //     $url_with_query_params = $url_with_query_params . "&cid=" . $query_param_values['cid'];
@@ -214,6 +215,9 @@ switch ($request) {
         break;
     case '/forms/create':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/create.php';
+        break;
+    case '/forms/render':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/renderer.php';
         break;
 
         //Student User Routing Section

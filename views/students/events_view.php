@@ -368,4 +368,62 @@ function showEvent(id) {
         myModal.toggle();
     })
 }
+
+function deleteEvent(eid, title, isEvent) {
+    console.log(isEvent);
+    let type = isEvent ? 'event' : 'notification';
+    $.confirm({
+        theme: 'material',
+        containerFluid: true,
+        backgroundDismiss: true,
+        title: 'Confirm Delete!',
+        content: `Are you sure want to delete the ${type}:<br><strong>${title}</strong>`,
+        type: 'red',
+        icon: 'bi bi-trash-fill',
+        bgOpacity: 0.8,
+        buttons: {
+            confirm: {
+                btnClass: 'btn btn-danger',
+                action: () => {
+                    HoldOn.open({
+                        theme: 'sk-fading-circle',
+                        message: 'Please wait...'
+                    });
+                    $.getJSON(`/services/events/deleteone?eid=${eid}`, (res) => {
+                        HoldOn.close();
+                        if (res.success) {
+                            $(`.eid-${eid}`).remove();
+                            $.toast({
+                                heading: 'Success',
+                                text: res.message,
+                                showHideTransition: 'slide',
+                                icon: 'success',
+                                position: 'bottom-right',
+                            })
+                        } else {
+                            $.toast({
+                                heading: 'Error',
+                                text: res.message,
+                                showHideTransition: 'slide',
+                                icon: 'error',
+                                position: 'bottom-right',
+                            })
+                        }
+                    }).fail((e) => {
+                        HoldOn.close();
+                        // console.log(e);
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Error Deleting Event, Try again later',
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            position: 'bottom-right',
+                        })
+                    });
+                }
+            },
+            cancel: () => {}
+        }
+    })
+}
 </script>
