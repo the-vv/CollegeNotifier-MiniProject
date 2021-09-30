@@ -1,10 +1,5 @@
 <?php
 
-// function exception_error_handler($errno, $errstr, $errfile, $errline ) {
-//     echo "new error occurred";
-// }
-// set_error_handler("exception_error_handler");
-
 ob_start();
 
 // Global Constant Variables
@@ -43,21 +38,24 @@ $query_param_values = array(
 
 
 $url_with_query_params = "";
-if ($query_param_values['cid'] != 0) {
-    $url_with_query_params = $url_with_query_params . "&cid=" . $query_param_values['cid'];
+foreach ($query_params as $param => $val) {
+    $url_with_query_params = $url_with_query_params . "&$param=$val";
 }
-if ($query_param_values['did'] != 0) {
-    $url_with_query_params = $url_with_query_params . "&did=" . $query_param_values['did'];
-}
-if ($query_param_values['bid'] != 0) {
-    $url_with_query_params = $url_with_query_params . "&bid=" . $query_param_values['bid'];
-}
-if ($query_param_values['clid'] != 0) {
-    $url_with_query_params = $url_with_query_params . "&clid=" . $query_param_values['clid'];
-}
-if ($query_param_values['rid'] != 0) {
-    $url_with_query_params = $url_with_query_params . "&rid=" . $query_param_values['rid'];
-}
+// if ($query_param_values['cid'] != 0) {
+//     $url_with_query_params = $url_with_query_params . "&cid=" . $query_param_values['cid'];
+// }
+// if ($query_param_values['did'] != 0) {
+//     $url_with_query_params = $url_with_query_params . "&did=" . $query_param_values['did'];
+// }
+// if ($query_param_values['bid'] != 0) {
+//     $url_with_query_params = $url_with_query_params . "&bid=" . $query_param_values['bid'];
+// }
+// if ($query_param_values['clid'] != 0) {
+//     $url_with_query_params = $url_with_query_params . "&clid=" . $query_param_values['clid'];
+// }
+// if ($query_param_values['rid'] != 0) {
+//     $url_with_query_params = $url_with_query_params . "&rid=" . $query_param_values['rid'];
+// }
 if (strlen($url_with_query_params) > 1) {
     $url_with_query_params = substr($url_with_query_params, 1);
 }
@@ -226,7 +224,7 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/login.php';
         break;
 
-        // Comon Routes
+        // Common Routes
     case '/my-profile':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/common/my_profile.php';
         break;

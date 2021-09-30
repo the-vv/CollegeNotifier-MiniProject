@@ -1,7 +1,14 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/form.php';
+if (isset($query_params['fid'])) {
+    $formdata = get_form($query_params['fid'])[0];
+}
+?>
+
 <script src=" https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script src="/jsLibs/form-builder/form-builder.min.js"></script>
 
-<div class="container-fluid bg-light mx-md-4 shadow rounded" id="departments" style="min-height: 85vh">
+<div class="container-fluid bg-light mx-md-4 shadow rounded mb-4" id="departments" style="min-height: 85vh">
     <div class="row">
         <div class="col-12">
             <p class="h3 text-center">Create a Form</p>
@@ -10,17 +17,25 @@
             <form id="builder" action="forms/submit?<?php echo $url_with_query_params ?>" method="POST">
                 <div class="row">
                     <div class="col-12">
-                        <label for="title" onchange="checkTitle()"> Form Title</label>
+                        <label for="title"> Form Title</label>
                         <input type="text" name="title" id="formTitleControl" class="form-control mb-3"
-                            placeholder="Type something" required>
+                            placeholder="Type something" required
+                            value="<?php if (isset($formdata)) { echo $formdata['title']; }?>">
                     </div>
                 </div>
                 <input type="hidden" name="referer" value="<?php echo ($_SERVER['HTTP_REFERER'] ?? 'college') ?>">
                 <input type="hidden" name="formContent" id="formContent">
             </form>
+            <div class="row" id="formError">
+                <div class="col-12 mt-2 text-center">
+                    <P class="text-center text-danger">Please add some form controls before submiting</P>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12 text-center mt-3">
-                    <button type="submit" class="btn btn-primary px-4" id="submitButton">Submit Form</button>
+                    <button type="submit" class="btn btn-primary px-4" id="submitButton">
+                        <?php if (isset($query_params['fid'])) { echo "Update Form"; } else { echo "Submit Form"; }?>
+                    </button>
                 </div>
             </div>
         </div>
@@ -32,9 +47,14 @@
     </div>
 </div>
 <script>
-$('#submitButton').attr('disabled', true);
+$('#formError').hide()
+console.log(!!$('#formTitleControl').val().length)
+if ($('#formTitleControl').val().length) {
+    $('#submitButton').attr('disabled', false);
+} else {
+    $('#submitButton').attr('disabled', true)
+}
 $('#formTitleControl').on('input', () => {
-    console.log('event')
     if ($('#formTitleControl').val().length > 0) {
         $('#submitButton').attr('disabled', false);
     } else {
@@ -43,19 +63,19 @@ $('#formTitleControl').on('input', () => {
 })
 
 let options = {
-    onSave: function(evt, formData) {
-        $('.formeo-wrap').formRender({
-            formData
-        });
-        // console.log(formData);
-    },
-    showActionButtons: false
+    showActionButtons: false,
+    defaultFields: <?php if (isset($formdata)) { echo $formdata['content']; } else { echo "[]"; }?>
 };
 let builder = $(document.getElementById('builder')).formBuilder(options);
 $('#submitButton').click((e) => {
-    console.log(builder.formData)
-    $("#formContent").val(builder.formData);
-    console.log( $("#formContent").val())
-    document.getElementById('builder').submit()
+    let form = JSON.parse(builder.formData)
+    // console.log(form)
+    if (form && Array.isArray(form) && form.length) {
+        $('#formError').hide()
+        $("#formContent").val(builder.formData);
+        document.getElementById('builder').submit()
+    } else {
+        $('#formError').show()
+    }
 });
 </script>

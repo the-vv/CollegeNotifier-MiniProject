@@ -45,7 +45,7 @@ if ($room_to_add == 'College') {
         echo "
         <li class='list-group-item d-flex justify-content-between align-items-center'>
             <a href='forms/create?fid={$form['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link d-flex align-items-center'>
-                <div class='h6 d-block text-truncate d-flex align-items-center'><i class='bi bi-input-cursor-text me-2' style='font-size:1.5em;'></i>{$form['title']} Form</div>
+                <div class='h6 d-block text-truncate d-flex align-items-center'><i class='bi bi-input-cursor-text me-2' style='font-size:1.5em;'></i>{$form['title']}</div>
             </a>
         </li>
         ";

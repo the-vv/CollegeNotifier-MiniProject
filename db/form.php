@@ -331,14 +331,14 @@ function delete_form_multiple($fids)
     return array("success" => true, "message" => "form deleted Successfully");
 }
 
-function update_form_by_id($fid = '', $title = '', $content = '', $time = '', $fromid = '', $from_user_type = '', $attatchement = '', $isform = 0, $st = 0, $et = 0)
+function update_form_by_id($fid = '', $title = '', $content = '', $time = '', $fromid = '', $from_user_type = '')
 {
     global $form_table_name, $connection;
     $query = "UPDATE $form_table_name SET
-            title = ?, content = ?, sendtime = ?, from_id = ?, attatchement = ?, is_form = ?, starttime = ?, endtime = ?, from_user_type = ?
+            title = ?, content = ?, sendtime = ?, from_id = ?, from_user_type = ?
             WHERE id= ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssssssss', $title, $content, $time, $fromid, $attatchement, $isform, $st, $et, $from_user_type, $fid)) {
+        if (!$safeQuery->bind_param('ssssss', $title, $content, $time, $fromid, $from_user_type, $fid)) {
             echo "Error Updating form values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
