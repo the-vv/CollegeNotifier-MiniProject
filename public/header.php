@@ -93,4 +93,4 @@ $user = get_current_logged_user();
         </div>
     </nav>
 
-    <div class="d-flex align-items-center flex-column px-4 pt-4" style="min-height: calc(100vh - 56px);">
+    <div class="d-flex align-items-center flex-column px-4 pt-2 pb-4" style="min-height: calc(100vh - 56px);">

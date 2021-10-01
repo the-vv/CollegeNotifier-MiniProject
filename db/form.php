@@ -20,7 +20,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $form_table_name (
         room_id INT(6) UNSIGNED,
         title VARCHAR(200) NOT NULL,
         content MEDIUMTEXT,
-        sendtime INT(15) NOT NULL,
+        publish_time INT(15) NOT NULL,
         from_id INT(6) NOT NULL,
         from_user_type VARCHAR(50) NOT NULL,
         FOREIGN KEY (dpt_id) REFERENCES departments(id),
@@ -79,7 +79,7 @@ function create_form($dpt_id = '', $college_id = '', $batch_id = '', $class_id =
 {
     global $form_table_name, $connection;
     $query = "INSERT INTO $form_table_name (
-            dpt_id, college_id, batch_id, class_id, room_id, title, content, sendtime, from_id, from_user_type
+            dpt_id, college_id, batch_id, class_id, room_id, title, content, publish_time, from_id, from_user_type
         )
         VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
@@ -335,7 +335,7 @@ function update_form_by_id($fid = '', $title = '', $content = '', $time = '', $f
 {
     global $form_table_name, $connection;
     $query = "UPDATE $form_table_name SET
-            title = ?, content = ?, sendtime = ?, from_id = ?, from_user_type = ?
+            title = ?, content = ?, publish_time = ?, from_id = ?, from_user_type = ?
             WHERE id= ?";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if (!$safeQuery->bind_param('ssssss', $title, $content, $time, $fromid, $from_user_type, $fid)) {

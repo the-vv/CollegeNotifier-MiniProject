@@ -15,7 +15,7 @@
 </script>
 
 <script src="/jsLibs/HoldOnSpinner/HoldOn.min.js"></script>
-
+<script src="/public/js/isMobile.js"></script>
 </body>
 
 </html>
