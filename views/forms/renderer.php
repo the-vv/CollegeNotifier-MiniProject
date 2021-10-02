@@ -73,14 +73,14 @@ let options = {
 const formRender = $('#render_wrap').formRender(options);
 
 $('#submitButton').click((e) => {
-    console.log(formRender.userData)
+    // console.log(formRender.userData)
     let data = JSON.stringify(formRender.userData)
-    console.log(data)
+    // console.log(data)
     $('#formError').hide()
     $("#formContent").val(data);
-    console.log(checkValidity())
+    // console.log(checkValidity())
     if (checkValidity()) {
-        console.log($("#formContent").val())
+        // console.log($("#formContent").val())
         document.getElementById('render-container').submit()
     } else {
         $('#formError').show()
