@@ -6,12 +6,12 @@ $submission_table = TableNames::form_submissions;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $submission_table (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) UNSIGNED NOT NULL,
-    user_data MEDIUMTEXT NOT NULL,
-    form_id INT(6) UNSIGNED,
-    from_user_id VARCHAR(200) NOT NULL,
-    from_user_type VARCHAR(200),
-)"; 
+    title VARCHAR(200) NOT NULL,
+    user_data MEDIUMTEXT,
+    form_id INT(6) UNSIGNED NOT NULL,
+    from_user_id INT(6) UNSIGNED NOT NULL,
+    from_user_type VARCHAR(200) NOT NULL
+    )"; 
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $submission_table" . mysqli_error($connection);
     die();
@@ -124,6 +124,29 @@ function get_submissions_by_user($from_user_id, $from_type)
         }
         if (!$safeQuery->execute()) {
             echo "Error getting submissions Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("success" => true, "message" => "Error getting submission " . mysqli_error($connection));
+}
+function get_submissions_by_user_and_formid($from_user_id, $from_type, $form_id)
+{
+    global $submission_table, $connection;
+    $results = array();
+    $query = "SELECT * from $submission_table WHERE from_user_id = ? AND from_user_type = ? AND form_id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('iss', $from_user_id, $from_type, $form_id)) {
+            echo "Error getting submission values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting submission Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
         $res = $safeQuery->get_result();
