@@ -44,9 +44,16 @@ if ($room_to_add == 'College') {
     <?php foreach ($forms as $form) {
         echo "
         <li class='list-group-item d-flex justify-content-between align-items-center'>
-            <a href='forms/create?fid={$form['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link d-flex align-items-center'>
-                <div class='h6 d-block text-truncate d-flex align-items-center'><i class='bi bi-input-cursor-text me-2' style='font-size:1.5em;'></i>{$form['title']}</div>
+            <a href='forms/create?fid={$form['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong d-flex justify-content-between align-items-center'>
+                <div class='text-truncate d-flex align-items-center justify-content-between'>
+                    <span class='h6 text-truncate d-flex align-items-center'><i class='bi bi-input-cursor-text me-2' style='font-size:1.7em;'></i>{$form['title']}</span>
+                </div>
             </a>
+            <span>
+            <a href='/forms/submissions?fid={$form['id']}' type='button'
+                    class='btn btn-sm btn-primary m-0 border border-dark ms-1'>
+                <i class='bi bi-list-ul me-2' style='font-size:1.1rem;vertical-align: middle'></i>Submissions</a>
+            </span>
         </li>
         ";
     } ?>

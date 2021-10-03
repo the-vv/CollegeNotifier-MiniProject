@@ -219,6 +219,9 @@ switch ($request) {
     case '/forms/render':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/renderer.php';
         break;
+    case '/forms/submissions':
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/submissions.php';
+        break;
 
         //Student User Routing Section
     case '/student':

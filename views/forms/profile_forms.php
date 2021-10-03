@@ -31,7 +31,7 @@ $user = get_current_logged_user();
         echo "
         <li class='list-group-item d-flex justify-content-between align-items-center'>
             <a href='forms/render?fid={$form['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link d-flex align-items-center'>
-                <div class='text-truncate d-flex align-items-centerd-inline-block me-2'>
+                <div class='text-truncate d-flex align-items-centerd-inline-block me-3 ms-1'>
                     <i class='bi bi-input-cursor-text me-2' style='font-size:2em;'></i>
                 </div>
                 <div class='d-inline-block'>
@@ -46,7 +46,7 @@ $user = get_current_logged_user();
             </a>
             ";
             if ($submission) {
-                echo "<span title='Form is submitted'><i class='bi bi-check-circle-fill text-success' style='font-size: 1.5em'></i></span>";
+                echo "<span title='Form is submitted'><i class='bi bi-check-circle-fill text-success' style='font-size: 2em'></i></span>";
             }
         echo "
         </li>

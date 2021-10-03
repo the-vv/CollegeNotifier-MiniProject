@@ -95,8 +95,8 @@ if ($show_counters) {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link <?php if ($request == '/') {
-                                                echo 'active';
-                                            } ?>" aria-current="page" href="/">Home</a>
+                            echo 'active';
+                        } ?>" aria-current="page" href="/">Home</a>
                     </li>
                     <?php
                     if ($user) { ?>
@@ -106,9 +106,8 @@ if ($show_counters) {
                                 My Profile
                                 <?php if ($show_counters && $unsubmitted_count) { ?>
                                 <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    <?php echo $unsubmitted_count ?>
-                                    <span class="visually-hidden">unread messages</span>
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?><span
+                                        class="visually-hidden">unread messages</span>
                                 </span>
                                 <?php } ?>
                             </span>

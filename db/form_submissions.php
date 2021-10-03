@@ -1,6 +1,8 @@
 <?php
 
 require_once 'connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 
 $submission_table = TableNames::form_submissions;
 
@@ -15,6 +17,19 @@ $create_query = "CREATE TABLE IF NOT EXISTS $submission_table (
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $submission_table" . mysqli_error($connection);
     die();
+}
+
+function get_owner_user_submission($id, $type)
+{
+    if ($type == UserTypes::admin) {
+        $user = get_admin($id)[0];
+        unset($user['admin_password']);
+        return $user;
+    } else if ($type == UserTypes::student) {
+        $user = get_student($id)[0];
+        unset($user['student_password']);
+        return $user;
+    }
 }
 
 function create_submission($title = '', $data = '', $form_id = '', $from = '', $from_type = '')
@@ -151,6 +166,30 @@ function get_submissions_by_user_and_formid($from_user_id, $from_type, $form_id)
         }
         $res = $safeQuery->get_result();
         while ($row = $res->fetch_assoc()) {
+            array_push($results, $row);
+        }
+        $safeQuery->close();
+        return $results;
+    }
+    return array("success" => true, "message" => "Error getting submission " . mysqli_error($connection));
+}
+function get_submissions_by_formid($form_id)
+{
+    global $submission_table, $connection;
+    $results = array();
+    $query = "SELECT * from $submission_table WHERE form_id = ?";
+    if ($safeQuery = mysqli_prepare($connection, $query)) {
+        if (!$safeQuery->bind_param('i', $form_id)) {
+            echo "Error getting submission values Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        if (!$safeQuery->execute()) {
+            echo "Error getting submission Error: " . $safeQuery->error;
+            return array("error" => true, "message" => $safeQuery->error);
+        }
+        $res = $safeQuery->get_result();
+        while ($row = $res->fetch_assoc()) {
+            $row['user'] = get_owner_user_submission($row['from_user_id'], $row['from_user_type']);
             array_push($results, $row);
         }
         $safeQuery->close();
