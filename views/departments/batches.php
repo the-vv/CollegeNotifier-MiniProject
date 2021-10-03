@@ -46,6 +46,10 @@ $students = get_students_from_dpt($query_params['did']);
                     <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
                         type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms"
+                        type="button" role="tab" aria-controls="forms" aria-selected="false">Forms</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="batch" role="tabpanel" aria-labelledby="batch-tab">
@@ -63,18 +67,21 @@ $students = get_students_from_dpt($query_params['did']);
                     </div>
                     <ul class="list-group">
                         <?php foreach ($batches as $batch) {
-    echo "
-                        <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
-                                <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
-                            </a>
-                        </li>
-                        ";
-}?>
+                            echo "
+                            <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
+                                    <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
+                                </a>
+                            </li>
+                            ";
+                        }?>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                </div>
+                <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/index.php'; ?>
                 </div>
             </div>
         </div>

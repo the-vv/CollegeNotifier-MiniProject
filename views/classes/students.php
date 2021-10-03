@@ -19,11 +19,14 @@ $students = get_students_from_class($current_class['id']);
     <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="admin"><?php echo $college['college_name'] ?></a></li>
-        <li class="breadcrumb-item"><a href="college?cid=<?php echo $query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
+        <li class="breadcrumb-item"><a
+                href="college?cid=<?php echo $query_params['cid'] ?>"><?php echo $department['dpt_name'] ?></a>
         </li>
-        <li class="breadcrumb-item"><a href="department?did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
+        <li class="breadcrumb-item"><a
+                href="department?did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>"><?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?></a>
         </li>
-        <li class="breadcrumb-item"><a href="batch?bid=<?php echo $query_params['bid'] ?>&did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>">Division
+        <li class="breadcrumb-item"><a
+                href="batch?bid=<?php echo $query_params['bid'] ?>&did=<?php echo $query_params['did'] ?>&cid=<?php echo $query_params['cid'] ?>">Division
                 <?php echo $class['division'] ?></a></li>
         <li class="breadcrumb-item"><a href="#">Students</a></li>
     </ol>
@@ -42,7 +45,24 @@ $students = get_students_from_class($current_class['id']);
             <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php' ?>
         </div>
         <div class="col-md-4">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
+                        type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms" type="button"
+                        role="tab" aria-controls="forms" aria-selected="false">Forms</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane show active fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                </div>
+                <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/index.php'; ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

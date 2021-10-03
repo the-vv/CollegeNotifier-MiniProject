@@ -1,13 +1,13 @@
 <?php
 
+$user = get_current_logged_user();
 $show_counters = true;
-if($user['type'] !== UserTypes::student) {
+if(!$user || $user['type'] !== UserTypes::student) {
     $show_counters = false;
     return;
 }
 
 $student = null;
-$user = get_current_logged_user();
 if($user['type'] === UserTypes::student) {
     $student = $user;
 }
@@ -77,3 +77,4 @@ if ($clid) {
 }
 
 $allforms = array_merge($collegeforms, $dptforms, $batchforms, $classforms, $roomforms);
+//  print_r($allforms);

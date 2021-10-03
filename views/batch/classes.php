@@ -48,6 +48,10 @@ $students = get_students_from_batch($batch['id'])
                     <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
                         type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms"
+                        type="button" role="tab" aria-controls="forms" aria-selected="false">Forms</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="class" role="tabpanel" aria-labelledby="class-tab">
@@ -76,6 +80,9 @@ $students = get_students_from_batch($batch['id'])
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                </div>
+                <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/index.php'; ?>
                 </div>
             </div>
         </div>
