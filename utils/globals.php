@@ -61,3 +61,9 @@ abstract class LevelTypes
     const classes = 'class';
     const room = 'room';
 }
+
+abstract class FeatureConfigurations {
+    const allow_multiple_colleges = false;
+    const send_event_create_emails = false;
+    const production_mode = false;    
+}

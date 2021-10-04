@@ -4,6 +4,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/college.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 $user = get_current_logged_user();
 $colleges = get_colleges($user['id']);
+if(!FeatureConfigurations::allow_multiple_colleges && count($colleges)) {
+    die(header("Location: college?cid={$colleges[0]['id']}"));
+}
 ?>
 
 <div class="container-fluid bg-light mx-md-4 shadow rounded border pt-2" id="departments" style="min-height: 85vh">
