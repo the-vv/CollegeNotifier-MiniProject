@@ -29,7 +29,7 @@ $students = get_students_from_batch($batch['id'])
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
     }?>
-    <div class="row mb-5" style="max-height: 90vh">
+    <div class="row mb-5" >
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">
                 <?php echo "{$batch['start_year']} - {$batch['end_year']} Batch" ?> Dashboard

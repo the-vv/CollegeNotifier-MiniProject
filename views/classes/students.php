@@ -33,7 +33,7 @@ $students = get_students_from_class($current_class['id']);
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
     } ?>
-    <div class="row mt-3" style="max-height: 90vh">
+    <div class="row mt-3">
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">
                 Division <?php echo $class['division'] ?> Dashboard

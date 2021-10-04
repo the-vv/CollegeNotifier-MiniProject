@@ -42,26 +42,33 @@ function eventItem($e)
             </div>
             <div class="col-auto">
                 <p class="h6 p-0 m-0">
-                    <?php echo $e['title'];
+                    <?php echo "<span class='fw-bold' style='font-size:1.2em'>{$e['title']}</span>";
+                    
                         if (strlen($e['attatchement']) > 0) { ?>
                     <i class="bi bi-paperclip text-primary" title="Has Attatchement"></i>
-                    <?php } ?>
+                    <?php } ?>                    
                 </p>
                 <small class="text-muted">
-                <?php
+                    <?php
                         echo substr(htmlentities(strip_tags($e['content'])), 0, 50);
-                        if(strlen(htmlentities(strip_tags($e['content']))) > 50) {
+                        if (strlen(htmlentities(strip_tags($e['content']))) > 50) {
                             echo "...";
-                        } 
-                        if($e['content'] == '<p><br></p>') {
-                            echo "<i>Empty Content</i>";
                         }
-                        elseif(strlen(htmlentities(strip_tags($e['content']))) == 0 && strlen($e['content']) > 0) {
+                        if ($e['content'] == '<p><br></p>') {
+                            echo "<i>Empty Content</i>";
+                        } elseif (strlen(htmlentities(strip_tags($e['content']))) == 0 && strlen($e['content']) > 0) {
                             echo "<i>Click to view Content</i>";
                         }
-                    ?>
+                        ?>
                 </small>
-                <small class="text-muted mt-2 text-dark d-block"><strong>From: </strong><?php echo $e['level']['name']; ?> (<span class="text-capitalize"><?php echo $e['level']['type']?></span>)</small>
+                <small class="text-muted mt-2 text-dark d-block"><strong>From:
+                    </strong><?php echo $e['level']['name']; ?> (<span
+                        class="text-capitalize"><?php echo $e['level']['type'] ?></span>)</small>
+                        <?php if ($e['is_event'] == 1) { ?>
+                <span class="mt-1 d-block text-muted">
+                    <?php echo "<span class='satetime_value'>{$e['starttime']}</span> - <span class='satetime_value'>{$e['endtime']}</span>"?>
+                    <?php } ?>
+                </span>                
             </div>
         </div>
     </a>
@@ -189,6 +196,7 @@ function eventItem($e)
             <div class="modal-header">
                 <div>
                     <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                    <div id="event_timing" class="fw-bold text-muted" class="text-muted"></div>
                     <div id="ownerInfo" class="text-muted"></div>
                     <div id="fromLevel" class="text-muted"></div>
                 </div>
@@ -247,7 +255,10 @@ function showEvent(id) {
             $('#registerEvent').hide();
         }
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
-        $('#fromLevel').html(`<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`);
+        $('#fromLevel').html(
+            `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
+            );
+        $('#event_timing').html(`<span class='satetime_value'>${formatDateByClass(res['starttime'])}</span> - <span class='satetime_value'>${formatDateByClass(res['endtime'])}</span>`)
         document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
             $(".event-spinner").hide(300);
         }, {
@@ -321,4 +332,12 @@ function deleteEvent(eid, title, isEvent) {
         }
     })
 }
+function formatDateByClass(dateString) {
+    return new Date(dateString).toLocaleTimeString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
+}
+$('.satetime_value').each(function(index, element) {
+    // console.log($(this).html())
+    let date = new Date($(this).html()).toLocaleTimeString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
+    $(this).html(date)
+})
 </script>

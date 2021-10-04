@@ -71,6 +71,9 @@ if ($bid) {
         die();
     }
 }
+
+$studentS = array();
+
 if ($clid) {
     // echo $clid;
     $class = get_a_class($clid);
@@ -82,9 +85,10 @@ if ($clid) {
         require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
         die();
     }
+    $students = get_students_from_class($clid);
 }
 
-$students = get_students_from_college($college['id']);
+// $students = get_students_from_college($college['id']);
 $RoomMapper = new RoomStudentMap();
 foreach($rids as $r) {
     $sts = $RoomMapper->get_all_students_in_room($college['id'], $r);
