@@ -30,6 +30,12 @@ if ($show_counters) {
 <html lang="en">
 
 <head>
+    <meta property="og:title" content="College Notifier">
+    <meta property="og:image" content="/public/assets/icon.png">
+    <meta property="og:description" content="Cipher Chat, a protoype of college events and notifications management system">
+    <!-- <meta property="og:url" content=""> -->
+    <meta name="twitter:card" content="Tired of managing multiple WhatsApp groups? You are in the right place">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,20 +46,16 @@ if ($show_counters) {
     <link rel="stylesheet" href="public/styles/style.css">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- Fonr-Awsome Icons  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- JQuery js -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- JQuery Toasts plugin  -->
     <link rel="stylesheet" href="/jsLibs/jquery-toast-plugin-master/dist/jquery.toast.min.css">
@@ -81,9 +83,11 @@ if ($show_counters) {
 <body class="bg-primary">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
-            <a class="navbar-brand" href="/">College Notifier</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/public/assets/icon.png" alt="" height="35px" style="vertical-align: middle;" class="me-2">
+                College Notifier
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
@@ -95,25 +99,25 @@ if ($show_counters) {
                     </li>
                     <?php
                     if ($user) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link  position-relative" href="my-profile">
-                            <span class="position-relative">
-                                My Profile
-                                <?php if ($show_counters && $unsubmitted_count) { ?>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?><span
-                                        class="visually-hidden">unread messages</span>
+                        <li class="nav-item">
+                            <a class="nav-link <?php if ($request == '/my-profile') {
+                                    echo 'active';
+                                } ?> position-relative" href="my-profile">
+                                <span class="position-relative">
+                                    My Profile
+                                    <?php if ($show_counters && $unsubmitted_count) { ?>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?><span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    <?php } ?>
                                 </span>
-                                <?php } ?>
-                            </span>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                     <?php } ?>
                     <?php
                     if ($user) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
                     <?php } ?>
                 </ul>
                 <span class="navbar-text text-white">
