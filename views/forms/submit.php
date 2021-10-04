@@ -53,9 +53,9 @@ if (isset($_POST['submissionContent'])) {
   $referer = $_POST['referer'];
   $result = array();
   if (isset($query_params['subid'])) {
-    $res = update_submission_by_id($query_params['subid'], $title, $content, $query_params['fid'], $user['id'], $user['type']);
+    $res = update_submission_by_id($query_params['subid'], $title, $content, $query_params['fid'], $user['id'], $user['type'], $time);
   } else {
-    $res = create_submission($title, $content, $query_params['fid'], $user['id'], $user['type']);
+    $res = create_submission($title, $content, $query_params['fid'], $user['id'], $user['type'], $time);
   }
   if (isset($res['error'])) {
     $error_mess = $res['message'];

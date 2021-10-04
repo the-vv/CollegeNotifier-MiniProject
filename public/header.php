@@ -76,8 +76,6 @@ if ($show_counters) {
     <!-- Jquery Spinner -->
     <link rel="stylesheet" href="/jsLibs/HoldOnSpinner/HoldOn.min.css" />
 
-    <!-- JQuery UI -->
-    <link href="/jsLibs/jquery-ui-accordian/jquery-ui.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-primary">

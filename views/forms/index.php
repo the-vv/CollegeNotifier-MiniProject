@@ -27,6 +27,7 @@ if ($room_to_add == 'College') {
 // echo "<pre>";
 // print_r($forms);
 // echo "</pre>";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db/form_submissions.php';
 ?>
 
 
@@ -42,6 +43,7 @@ if ($room_to_add == 'College') {
 </div>
 <ul class="list-group">
     <?php foreach ($forms as $form) {
+        $submissions_count = count(get_submissions_by_formid($form['id']));
         echo "
         <li class='list-group-item d-flex justify-content-between align-items-center'>
             <a href='forms/create?fid={$form['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong d-flex justify-content-between align-items-center'>
@@ -51,7 +53,10 @@ if ($room_to_add == 'College') {
             </a>
             <span>
             <a href='/forms/submissions?fid={$form['id']}' type='button'
-                    class='btn btn-sm btn-primary m-0 border border-dark ms-1'>
+                    class='btn btn-sm btn-primary m-0 border border-dark ms-1 position-relative'>
+            ";
+            if($submissions_count) { ?><span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $submissions_count ?? 0 ?><span class="visually-hidden">unread messages</span></span><?php }
+            echo "
                 <i class='bi bi-list-ul me-2' style='font-size:1.1rem;vertical-align: middle'></i>Submissions</a>
             </span>
         </li>

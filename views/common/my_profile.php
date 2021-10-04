@@ -79,8 +79,9 @@ if ($show_counters) {
         <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
             <?php if ($user['type'] === UserTypes::student) {
                 require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/profile_forms.php';
+            } else{
+                echo "<h3 class='text-center mt-5'>Currenty you don't have any forms assigned</h3>";
             } ?>
         </div>
     </div>
-
 </div>

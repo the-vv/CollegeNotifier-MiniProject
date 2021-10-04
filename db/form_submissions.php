@@ -12,7 +12,8 @@ $create_query = "CREATE TABLE IF NOT EXISTS $submission_table (
     user_data MEDIUMTEXT,
     form_id INT(6) UNSIGNED NOT NULL,
     from_user_id INT(6) UNSIGNED NOT NULL,
-    from_user_type VARCHAR(200) NOT NULL
+    from_user_type VARCHAR(200) NOT NULL,
+    submission_time INT(15) NOT NULL
     )"; 
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $submission_table" . mysqli_error($connection);
@@ -32,17 +33,17 @@ function get_owner_user_submission($id, $type)
     }
 }
 
-function create_submission($title = '', $data = '', $form_id = '', $from = '', $from_type = '')
+function create_submission($title = '', $data = '', $form_id = '', $from = '', $from_type = '', $time = '')
 {
     global $submission_table, $connection;
     $query = "INSERT INTO $submission_table (
-            title, user_data, form_id, from_user_id, from_user_type
+            title, user_data, form_id, from_user_id, from_user_type, submission_time
         )
         VALUES (
-            ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?
         )";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssss', $title, $data, $form_id, $from, $from_type)) {
+        if (!$safeQuery->bind_param('ssssss', $title, $data, $form_id, $from, $from_type, $time)) {
             echo "Error Creating submission values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -58,15 +59,15 @@ function create_submission($title = '', $data = '', $form_id = '', $from = '', $
     return array("success" => true, "message" => "submission created successfully");
 }
 
-function update_submission_by_id($subId = '',$title = '', $data = '', $form_id = '', $from = '', $from_type = '')
+function update_submission_by_id($subId = '',$title = '', $data = '', $form_id = '', $from = '', $from_type = '', $time)
 {
     global $submission_table, $connection;
     $query = "UPDATE $submission_table
-            SET title = ?, user_data = ?, form_id = ?, from_user_id = ?, from_user_type = ?
+            SET title = ?, user_data = ?, form_id = ?, from_user_id = ?, from_user_type = ?, submission_time = ?
             WHERE id= ?
         ";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('ssssss', $title, $data, $form_id, $from, $from_type, $subId)) {
+        if (!$safeQuery->bind_param('sssssss', $title, $data, $form_id, $from, $from_type, $subId, $time)) {
             echo "Error updating submission values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }

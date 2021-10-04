@@ -66,7 +66,6 @@ if (isset($query_params['fid'])) {
 </div>
 <script>
 $('#formError').hide()
-console.log(!!$('#formTitleControl').val().length)
 if ($('#formTitleControl').val().length) {
     $('#submitButton').attr('disabled', false);
 } else {
