@@ -51,18 +51,12 @@ if ($show_counters) {
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Bootstrap Js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
-
     <!-- JQuery js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- JQuery Toasts plugin  -->
     <link rel="stylesheet" href="/jsLibs/jquery-toast-plugin-master/dist/jquery.toast.min.css">
-    <script src="/jsLibs/jquery-toast-plugin-master/dist/jquery.toast.min.js"></script>
 
     <!-- JQuery Dialog Plugin -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -81,6 +75,9 @@ if ($show_counters) {
 
     <!-- Jquery Spinner -->
     <link rel="stylesheet" href="/jsLibs/HoldOnSpinner/HoldOn.min.css" />
+
+    <!-- JQuery UI -->
+    <link href="/jsLibs/jquery-ui-accordian/jquery-ui.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-primary">

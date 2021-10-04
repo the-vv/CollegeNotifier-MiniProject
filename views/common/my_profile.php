@@ -55,7 +55,7 @@ if ($show_counters) {
             <button class="nav-link position-relative" id="forms-tab" data-bs-toggle="tab" data-bs-target="#forms" type="button" role="tab" aria-controls="forms" aria-selected="false">
                 <span>Profile Forms</span>
                 <?php if($show_counters && $unsubmitted_count) {?>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?? 0 ?><span class="visually-hidden">unread messages</span>
+                <span class="animate__animated animate__flash animate__slow position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?? 0 ?><span class="visually-hidden">unread messages</span>
                 </span>
                 <?php } ?>
             </button>
