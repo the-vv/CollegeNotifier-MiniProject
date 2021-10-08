@@ -35,6 +35,7 @@ if ($show_counters) {
     <meta property="og:description" content="Cipher Chat, a protoype of college events and notifications management system">
     <!-- <meta property="og:url" content=""> -->
     <meta name="twitter:card" content="Tired of managing multiple WhatsApp groups? You are in the right place">
+    <link rel="icon" href="/public/assets/icon.webp">
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -84,7 +85,7 @@ if ($show_counters) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="/public/assets/icon.png" alt="" height="35px" style="vertical-align: middle;" class="me-2">
+                <img src="/public/assets/icon.webp" alt="" height="35px" style="vertical-align: middle;" class="me-2">
                 College Notifier
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

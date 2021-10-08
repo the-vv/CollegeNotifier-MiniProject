@@ -3,6 +3,9 @@
 require_once 'connection.php';
 
 $class_table_name = TableNames::classes;
+$batch_table_name = TableNames::batch;
+$dpt_table_name = TableNames::department;
+$college_table_name = TableNames::college;
 // TODO: add Reference to tutor id
 $create_query = "CREATE TABLE IF NOT EXISTS $class_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -11,9 +14,9 @@ $create_query = "CREATE TABLE IF NOT EXISTS $class_table_name (
         batch_id INT(6) UNSIGNED,
         division VARCHAR(10) NOT NULL,
         tutor_id INT(6) UNSIGNED,
-        FOREIGN KEY (dpt_id) REFERENCES departments(id),
-        FOREIGN KEY (college_id) REFERENCES college(id),
-        FOREIGN KEY (batch_id) REFERENCES batches(id)
+        FOREIGN KEY (dpt_id) REFERENCES $dpt_table_name(id),
+        FOREIGN KEY (college_id) REFERENCES $college_table_name(id),
+        FOREIGN KEY (batch_id) REFERENCES $batch_table_name(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $class_table_name " . mysqli_error($connection);

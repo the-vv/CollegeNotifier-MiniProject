@@ -3,6 +3,8 @@
 require_once 'connection.php';
 
 $table_batch_name = TableNames::batch;
+$dpt_table_name = TableNames::department;
+$college_tbl_name = TableNames::college;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $table_batch_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -12,8 +14,8 @@ $create_query = "CREATE TABLE IF NOT EXISTS $table_batch_name (
         start_month INT(2),
         end_year INT(4) NOT NULL,
         end_month INT(2),
-        FOREIGN KEY (dpt_id) REFERENCES departments(id),
-        FOREIGN KEY (college_id) REFERENCES college(id)
+        FOREIGN KEY (dpt_id) REFERENCES $dpt_table_name(id),
+        FOREIGN KEY (college_id) REFERENCES $college_tbl_name(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $table_batch_name " . mysqli_error($connection);

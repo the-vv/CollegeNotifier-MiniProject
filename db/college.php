@@ -3,6 +3,7 @@
 require_once 'connection.php';
 // TODO: add referemce to owner_id
 $college_table = TableNames::college;
+$admin_table = TableNames::admin;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $college_table (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

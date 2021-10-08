@@ -72,7 +72,7 @@ if ($bid) {
     }
 }
 
-$studentS = array();
+$students = array();
 
 if ($clid) {
     // echo $clid;

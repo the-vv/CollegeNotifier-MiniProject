@@ -258,7 +258,7 @@ function showEvent(id) {
         $('#fromLevel').html(
             `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
             );
-        $('#event_timing').html(`<span class='satetime_value'>${formatDateByClass(res['starttime'])}</span> - <span class='satetime_value'>${formatDateByClass(res['endtime'])}</span>`)
+        $('#event_timing').html(`<span class='satetime_value'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value'>${formatDateFromString(res['endtime'])}</span>`)
         document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
             $(".event-spinner").hide(300);
         }, {
@@ -332,12 +332,12 @@ function deleteEvent(eid, title, isEvent) {
         }
     })
 }
-function formatDateByClass(dateString) {
+function formatDateFromString(dateString) {
     return new Date(dateString).toLocaleTimeString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
 }
 $('.satetime_value').each(function(index, element) {
     // console.log($(this).html())
-    let date = new Date($(this).html()).toLocaleTimeString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
+    let date = formatDateFromString($(this).html())
     $(this).html(date)
 })
 </script>

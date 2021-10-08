@@ -10,6 +10,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/class.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/rooms.php';
 
 $event_table_name = TableNames::event;
+$batch_table_name = TableNames::batch;
+$dpt_table_name = TableNames::department;
+$college_table_name = TableNames::college;
+$class_table_name = TableNames::classes;
 
 $create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -28,10 +32,10 @@ $create_query = "CREATE TABLE IF NOT EXISTS $event_table_name (
         starttime VARCHAR(50),
         endtime VARCHAR(50),
         CHECK (is_event IN (1, 0)),
-        FOREIGN KEY (dpt_id) REFERENCES departments(id),
-        FOREIGN KEY (college_id) REFERENCES college(id),
-        FOREIGN KEY (batch_id) REFERENCES batches(id),
-        FOREIGN KEY (class_id) REFERENCES classes(id)
+        FOREIGN KEY (dpt_id) REFERENCES $dpt_table_name(id),
+        FOREIGN KEY (college_id) REFERENCES $college_table_name(id),
+        FOREIGN KEY (batch_id) REFERENCES $batch_table_name(id),
+        FOREIGN KEY (class_id) REFERENCES $class_table_name(id)
     )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $event_table_name " . mysqli_error($connection);
