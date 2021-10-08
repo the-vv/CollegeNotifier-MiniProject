@@ -7,6 +7,12 @@ if (!$connection) {
     die();
 }
 
+// Configuring database
+if (!mysqli_query($connection, "SET foreign_key_checks = 0")) {
+    echo "Error Seting up database Configuration" . mysqli_error($connection);
+    die();
+}
+
 // Verifying Database
 if (!mysqli_query($connection, "CREATE DATABASE IF NOT EXISTS " . DatabaseConfig::databaseName)) {
     echo "Error Creating Database: " . DatabaseConfig::databaseName . "<br>" . mysqli_error($connection);
