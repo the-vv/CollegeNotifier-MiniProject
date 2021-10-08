@@ -1,4 +1,4 @@
-<form id="eventForm" class="mt-1 row d-flex align-items-center" method="POST" enctype="multipart/form-data">
+<form id="eventForm" class="mt-1 row d-flex align-items-center justify-content-center" method="POST" enctype="multipart/form-data">
     <div class="form-group col-md-9 text-start">
         <label for="">Title of the Notification</label>
         <input type="text" class="form-control" name="title" id="title" aria-describedby="" placeholder="Enter Title"
@@ -56,11 +56,11 @@
 let fileRemoved = false;
 let modeSwitcher = () => {
     if (document.getElementById('isEventSwitch').checked) {
-        $('#dateselection').show(200);
         $('#dateselection input').prop('required', true);
+        $('#dateselection').show(200);
     } else {
-        $('#dateselection').hide(200)
         $('#dateselection input').prop('required', false);
+        $('#dateselection').hide(200)
     }
 }
 $('document').ready(modeSwitcher)

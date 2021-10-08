@@ -33,7 +33,7 @@ if ($show_counters) {
     <meta property="og:title" content="College Notifier">
     <meta property="og:image" content="/public/assets/icon.png">
     <meta property="og:description" content="Cipher Chat, a protoype of college events and notifications management system">
-    <!-- <meta property="og:url" content=""> -->
+    <meta property="og:url" content="https://collegenotifier.000webhostapp.com">
     <meta name="twitter:card" content="Tired of managing multiple WhatsApp groups? You are in the right place">
     <link rel="icon" href="/public/assets/icon.webp">
 

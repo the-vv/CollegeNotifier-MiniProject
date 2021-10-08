@@ -74,7 +74,12 @@ function eventItem($e)
                 </small>
                 <small class="text-muted mt-2 text-dark d-block"><strong>From:
                     </strong><?php echo $e['level']['name']; ?> (<span
-                        class="text-capitalize"><?php echo $e['level']['type']?></span>)</small>
+                        class="text-capitalize"><?php echo $e['level']['type'] ?></span>)</small>
+                <?php if ($e['is_event'] == 1) { ?>
+                <span class="mt-1 d-block text-muted">
+                    <?php echo "<span class='satetime_value'>{$e['starttime']}</span> - <span class='satetime_value'>{$e['endtime']}</span>"?>
+                    <?php } ?>
+                </span>
             </div>
         </div>
     </a>
@@ -292,6 +297,7 @@ function eventItem($e)
             <div class="modal-header">
                 <div>
                     <h5 class="modal-title" id="eventtitle">Modal title</h5>
+                    <div id="event_timing" class="fw-bold text-muted" class="text-muted"></div>
                     <div id="ownerInfo" class="text-muted"></div>
                     <div id="fromLevel" class="text-muted"></div>
                 </div>
@@ -348,9 +354,13 @@ function showEvent(id) {
             fileLink.innerHTML = 'Download Attatchement Here';
             fileLink.download = res.attatchement.split('/')[1].slice(0, res.attatchement.length);
             $('#attatchementlink').append(fileLink);
-        }
+        }        
+        $('#event_timing').empty();
         if (res.is_event == 1) {
             $('#registerEvent').show();
+            $('#event_timing').html(
+                `Event Schedule: <span class='satetime_value fw-normal'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value fw-normal'>${formatDateFromString(res['endtime'])}</span>`
+            )
         } else {
             $('#registerEvent').hide();
         }
@@ -359,7 +369,7 @@ function showEvent(id) {
             `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
         );
         // document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
-        //     $(".event-spinner").hide(300);
+        //     HoldOn.close();
         // }, {
         //     once: true
         // })
@@ -441,4 +451,17 @@ function deleteEvent(eid, title, isEvent) {
         }
     })
 }
+
+function formatDateFromString(dateString) {
+    return new Date(dateString).toLocaleTimeString("en-US", {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    })
+}
+$('.satetime_value').each(function(index, element) {
+    // console.log($(this).html())
+    let date = formatDateFromString($(this).html())
+    $(this).html(date)
+})
 </script>

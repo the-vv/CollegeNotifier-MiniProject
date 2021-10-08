@@ -253,8 +253,12 @@ function showEvent(id) {
             fileLink.download = res.attatchement.split('/')[1].slice(0, res.attatchement.length);
             $('#attatchementlink').append(fileLink);
         }
+        $('#event_timing').empty();
         if (res.is_event == 1) {
             $('#registerEvent').show();
+            $('#event_timing').html(
+                `Event Schedule: <span class='satetime_value fw-normal'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value fw-normal'>${formatDateFromString(res['endtime'])}</span>`
+            )
         } else {
             $('#registerEvent').hide();
         }
@@ -262,9 +266,6 @@ function showEvent(id) {
         $('#fromLevel').html(
             `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
         );
-        $('#event_timing').html(
-            `<span class='satetime_value'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value'>${formatDateFromString(res['endtime'])}</span>`
-        )
         // document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
         //     HoldOn.close();
         // }, {
