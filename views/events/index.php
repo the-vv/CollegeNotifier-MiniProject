@@ -46,7 +46,7 @@ function eventItem($e)
                     
                         if (strlen($e['attatchement']) > 0) { ?>
                     <i class="bi bi-paperclip text-primary" title="Has Attatchement"></i>
-                    <?php } ?>                    
+                    <?php } ?>
                 </p>
                 <small class="text-muted">
                     <?php
@@ -64,11 +64,11 @@ function eventItem($e)
                 <small class="text-muted mt-2 text-dark d-block"><strong>From:
                     </strong><?php echo $e['level']['name']; ?> (<span
                         class="text-capitalize"><?php echo $e['level']['type'] ?></span>)</small>
-                        <?php if ($e['is_event'] == 1) { ?>
+                <?php if ($e['is_event'] == 1) { ?>
                 <span class="mt-1 d-block text-muted">
                     <?php echo "<span class='satetime_value'>{$e['starttime']}</span> - <span class='satetime_value'>{$e['endtime']}</span>"?>
                     <?php } ?>
-                </span>                
+                </span>
             </div>
         </div>
     </a>
@@ -223,13 +223,17 @@ function eventItem($e)
 $(".event-spinner").hide();
 
 function showEvent(id) {
-    $(".event-spinner").show();
+    HoldOn.open({
+        theme: 'sk-fading-circle',
+        message: 'Please wait...'
+    });
     var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
     $.getJSON(`/services/events/getone?eid=${id}`, (res) => {
         if (!res.error) {
             res = res[0];
+            HoldOn.close();
         } else {
-            $(".event-spinner").hide(300);
+            HoldOn.close();
         }
         $('#eventtime').html(new Date(res.sendtime * 1000).toLocaleString())
         $('#eventtitle').html(res.title);
@@ -257,13 +261,15 @@ function showEvent(id) {
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
         $('#fromLevel').html(
             `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
-            );
-        $('#event_timing').html(`<span class='satetime_value'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value'>${formatDateFromString(res['endtime'])}</span>`)
-        document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
-            $(".event-spinner").hide(300);
-        }, {
-            once: true
-        })
+        );
+        $('#event_timing').html(
+            `<span class='satetime_value'>${formatDateFromString(res['starttime'])}</span> - <span class='satetime_value'>${formatDateFromString(res['endtime'])}</span>`
+        )
+        // document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
+        //     HoldOn.close();
+        // }, {
+        //     once: true
+        // })
         document.getElementById('eventDisplay').addEventListener('hidden.bs.modal', () => {
             quill.root.innerHTML = '';
             $('#eventtime').html('');
@@ -272,7 +278,17 @@ function showEvent(id) {
             once: true
         })
         myModal.toggle();
-    })
+    }).fail((e) => {
+        HoldOn.close();
+        // console.log(e);
+        $.toast({
+            heading: 'Error',
+            text: 'Error Fetching Event, Try again later',
+            showHideTransition: 'slide',
+            icon: 'error',
+            position: 'bottom-right',
+        })
+    });
 }
 
 function deleteEvent(eid, title, isEvent) {
@@ -332,8 +348,13 @@ function deleteEvent(eid, title, isEvent) {
         }
     })
 }
+
 function formatDateFromString(dateString) {
-    return new Date(dateString).toLocaleTimeString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
+    return new Date(dateString).toLocaleTimeString("en-US", {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    })
 }
 $('.satetime_value').each(function(index, element) {
     // console.log($(this).html())

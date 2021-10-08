@@ -30,7 +30,7 @@ if (isset($_POST['create'])) {
                         Room $name created successfully
                     </div>
                 </div>
-                <span>Go to <a class='btn btn-light shadow border px-5 py-1'href='../college?cid=$cid'>Continue</a></span>
+                <span><a class='btn btn-light shadow border px-5 py-1'href='../college?cid=$cid'>Continue</a></span>
             </div>
         ";
     }

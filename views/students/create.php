@@ -20,7 +20,7 @@ $can_create_map = $user['type'] == 'admin' || $user['type'] == 'faculty';
 </button> -->
 <div class="row p-1 align-items-end">
     <div class="col-12 d-flex justify-content-between align-items-center">
-        <h5 class="p-0 m-0">Students in your class or in common rooms</h5>
+        <h5 class="p-0 m-0">Students here</h5>
         <?php if ($can_create_map) { ?>
             <p class="p-0 m-0">
                 <span>

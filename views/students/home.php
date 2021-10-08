@@ -184,7 +184,7 @@ $students = array_filter($students, function($s) {
                         </div>
                     </div>
                     <ul class="list-group">
-                        <!-- <?php foreach ($batches as $batch) {
+                        <!-- <?php //foreach ($batches as $batch) {
                                     echo "
                         <li class='list-group-item d-flex justify-content-between align-items-center'>
                             <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
@@ -192,7 +192,7 @@ $students = array_filter($students, function($s) {
                             </a>
                         </li>
                         ";
-                                } ?> -->
+                                // } ?> -->
                     </ul>
                 </div>
                 <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">

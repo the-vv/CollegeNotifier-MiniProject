@@ -26,7 +26,7 @@ if (isset($_POST['create'])) {
                         College $name created successfully
                     </div>
                 </div>
-                <span>Go to <a href='/admin'>Go to college</a></span>
+                <span><a class='btn btn-light shadow border px-5 py-1' href='/admin'>Continue</a></span>
             </div>
         ";
     }
@@ -44,7 +44,7 @@ if (isset($_POST['create'])) {
                         An error occured: {$res['message']}
                     </div>
                 </div>
-                <span>Please Retry <a href='../'>Go back</a></span>
+                <span><a class='btn btn-light shadow border px-5 py-1' href='../'>Continue</a></span>
             </div>
         ";
     }

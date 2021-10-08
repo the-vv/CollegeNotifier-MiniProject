@@ -12,7 +12,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $college_table (
     college_address VARCHAR(200) NOT NULL,
     website VARCHAR(200),
     phone VARCHAR(10) NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES admins(id)
+    FOREIGN KEY (owner_id) REFERENCES $admin_table(id)
 )"; 
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $college_table" . mysqli_error($connection);

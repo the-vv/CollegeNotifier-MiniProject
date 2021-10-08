@@ -318,13 +318,18 @@ function eventItem($e)
 $(".event-spinner").hide();
 
 function showEvent(id) {
-    $(".event-spinner").show();
+    // $(".event-spinner").show();
+    HoldOn.open({
+        theme: 'sk-fading-circle',
+        message: 'Please wait...'
+    });
     var myModal = new bootstrap.Modal(document.getElementById('eventDisplay'));
     $.getJSON(`/services/events/getone?eid=${id}`, (res) => {
         if (!res.error) {
             res = res[0];
+            HoldOn.close();
         } else {
-            $(".event-spinner").hide(300);
+            HoldOn.close();
         }
         $('#eventtime').html(new Date(res.sendtime * 1000).toLocaleString())
         $('#eventtitle').html(res.title);
@@ -352,12 +357,12 @@ function showEvent(id) {
         $('#ownerInfo').html(`<strong>${res.user.name}</strong> | <small>${res.user.email}</small>`);
         $('#fromLevel').html(
             `<strong>From: </strong> ${res.level.name} <span class='text-capitalize'>(${res.level.type})</span>`
-            );
-        document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
-            $(".event-spinner").hide(300);
-        }, {
-            once: true
-        })
+        );
+        // document.getElementById('eventDisplay').addEventListener('shown.bs.modal', () => {
+        //     $(".event-spinner").hide(300);
+        // }, {
+        //     once: true
+        // })
         document.getElementById('eventDisplay').addEventListener('hidden.bs.modal', () => {
             quill.root.innerHTML = '';
             $('#eventtime').html('');
@@ -366,7 +371,17 @@ function showEvent(id) {
             once: true
         })
         myModal.toggle();
-    })
+    }).fail((e) => {
+        HoldOn.close();
+        // console.log(e);
+        $.toast({
+            heading: 'Error',
+            text: 'Error Fetching Event, Try again later',
+            showHideTransition: 'slide',
+            icon: 'error',
+            position: 'bottom-right',
+        })
+    });
 }
 
 function deleteEvent(eid, title, isEvent) {

@@ -43,7 +43,7 @@ if (isset($_POST['create'])) {
                         Batch created successfully
                     </div>
                 </div>
-                <span>Go to <a href='../department?did=$did&cid=$cid'>Go to Departments</a></span>
+                <span><a class='btn btn-light shadow border px-5 py-1' href='../department?did=$did&cid=$cid'>Continue</a></span>
             </div>
         ";
     } elseif (isset($res['error'])) {
@@ -60,7 +60,7 @@ if (isset($_POST['create'])) {
                         An error occured: {$res['message']}
                     </div>
                 </div>
-                <span>Please Retry <a href='../'>Go back</a></span>
+                <span><a class='btn btn-light shadow border px-5 py-1' href='../'>Continue</a></span>
             </div>
         ";
     }

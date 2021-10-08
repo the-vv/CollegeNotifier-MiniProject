@@ -5,6 +5,22 @@ ob_start();
 // Global Constant Variables
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
 
+function custom_error_handler($errno, $errstr, $errfile, $errline)
+{
+    ob_end_clean();
+    if (!FeatureConfigurations::production_mode) {
+        $error_mess = $errstr . "<br>" . $errfile . ", line " . $errline . "<br>";
+    } else {
+        $error_mess = $errstr;
+    }
+    // require_once $_SERVER['DOCUMENT_ROOT'] . '/public/header.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/utils/fullscreen_error.php';
+    die();
+    return true;
+}
+
+set_error_handler("custom_error_handler");
+
 date_default_timezone_set('Asia/Kolkata');
 
 function str_end_with_str($haystack, $needle)
