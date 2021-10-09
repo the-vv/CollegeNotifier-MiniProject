@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
     <title>Internal Server Error</title>
     <style>
-        
         /**/
         :root {
             --main-color: #ff6666;
@@ -222,10 +221,11 @@
                 -webkit-transform: rotate(0deg);
             }
         }
-         a {
-             margin-top: 10px;
-             display: inline-block;
-         }
+
+        a {
+            margin-top: 10px;
+            display: inline-block;
+        }
 
         .gear.one {
             -webkit-animation: anticlockwiseErrorStop 2s linear infinite;
@@ -251,9 +251,11 @@
 </head>
 
 <body class="loading">
-    <h1>Error 500</h1>
+    <h1>Error 404</h1>
     <h2>
-        <?php echo ($error_mess ?? "Internal Server Error"); ?>. Please Retry or  Go Back <b>:(</b><br><a href='javascript:void(0)' onclick="window.location.reload()">Click here to retry</a><br><a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a>
+        The page you are looking for is not found. Please Go Back<br>
+        <a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a><br>
+        <a href='javascript:void(0)' onclick="window.location = '/'">Click here to Go Home</a>
     </h2>
     <div class="gears">
         <div class="gear one">

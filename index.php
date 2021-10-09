@@ -254,11 +254,15 @@ switch ($request) {
 
         // Routing Ends with 404 here
     case '/404':
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
+        ob_end_clean();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/fullscreen_error_404.php';
+        die();
     default:
+        ob_end_clean();
         http_response_code(404);
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/views/404.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/fullscreen_error_404.php';
         break;
+        die();
 }
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/public/footer.php';
