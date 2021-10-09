@@ -1,7 +1,7 @@
 <div class="container-fluid mx-md-4 bg-light rounded shadow" id="home">
     <div class="row p-5 pt-4 shadow rounded">
         <div class="text-center">
-            <img src="/public/assets/icon.png" height="110px" alt="">
+            <img src="/public/assets/icon.png" height="80px" alt="">
             <h1 class="">Welcome to College Notifier</h1>
             <p class="=mt-1" style="font-size:1.3rem">
                 Tired of managing multiple WhatsApp groups or Google Forms? You are in the right place.

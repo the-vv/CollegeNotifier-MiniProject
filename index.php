@@ -58,21 +58,6 @@ if (isset($query_params)) {
         $url_with_query_params = $url_with_query_params . "&$param=$val";
     }
 }
-// if ($query_param_values['cid'] != 0) {
-//     $url_with_query_params = $url_with_query_params . "&cid=" . $query_param_values['cid'];
-// }
-// if ($query_param_values['did'] != 0) {
-//     $url_with_query_params = $url_with_query_params . "&did=" . $query_param_values['did'];
-// }
-// if ($query_param_values['bid'] != 0) {
-//     $url_with_query_params = $url_with_query_params . "&bid=" . $query_param_values['bid'];
-// }
-// if ($query_param_values['clid'] != 0) {
-//     $url_with_query_params = $url_with_query_params . "&clid=" . $query_param_values['clid'];
-// }
-// if ($query_param_values['rid'] != 0) {
-//     $url_with_query_params = $url_with_query_params . "&rid=" . $query_param_values['rid'];
-// }
 if (strlen($url_with_query_params) > 1) {
     $url_with_query_params = substr($url_with_query_params, 1);
 }
@@ -111,6 +96,7 @@ if (strpos($request, 'services') == 1) {
     die();
 }
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/auhorize.php';
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/public/header.php';
 
@@ -134,48 +120,63 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admin/submit.php';
         break;
     case '/college':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/index.php';
         break;
     case '/college/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/create.html';
         break;
     case '/college/submit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/college/submit.php';
         break;
     case '/department':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/index.php';
         break;
     case '/department/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/create.php';
         break;
     case '/department/submit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/submit.php';
         break;
     case '/departments/edit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/departments/edit.php';
         break;
     case '/batch':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/index.php';
         break;
     case '/batch/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/create.php';
         break;
     case '/batch/edit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/edit.php';
         break;
     case '/batch/submit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/batch/submit.php';
         break;
     case '/class':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/index.php';
         break;
     case '/class/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/create.php';
         break;
     case '/class/edit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/edit.php';
         break;
     case '/class/submit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/classes/submit.php';
         break;
     case '/logout':
@@ -191,21 +192,27 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/map.php';
         break;
     case '/students/map-room':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/map_room.php';
         break;
     case '/administration/students':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/students.php';
         break;
     case '/administration/departments':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/departments.php';
         break;
     case '/administration/batches':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/batches.php';
         break;
     case '/administration/classes':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/classes.php';
         break;
     case '/administration/rooms':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/rooms.php';
         break;
     case '/events/create':
@@ -215,32 +222,40 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/submit.php';
         break;
     case '/rooms':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/index.php';
         break;
     case '/rooms/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/create.php';
         break;
     case '/rooms/edit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/edit.php';
         break;
     case '/rooms/submit':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/rooms/submit.php';
         break;
     case '/forms/submit':
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/submit.php';
         break;
     case '/forms/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/create.php';
         break;
     case '/forms/render':
+        authorize_student();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/renderer.php';
         break;
     case '/forms/submissions':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/submissions.php';
         break;
 
         //Student User Routing Section
     case '/student':
+        // authorize_student();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/home.php';
         break;
     case '/student/login':

@@ -34,7 +34,7 @@ if ($show_counters) {
     <meta property="og:image" content="/public/assets/icon.png">
     <meta property="og:description" content="College Notifier, a protoype of college events and notifications management system">
     <meta property="og:url" content="https://collegenotifier.000webhostapp.com">
-    <meta name="twitter:card" content="Tired of managing multiple WhatsApp groups? You are in the right place">
+    <meta name="twitter:card" content="Tired of managing multiple WhatsApp groups and Google Forms? You are in the right place">
     <link rel="icon" href="/public/assets/icon.webp">
 
     <meta charset="UTF-8">
@@ -85,11 +85,15 @@ if ($show_counters) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="/public/assets/icon.webp" alt="" height="35px" style="vertical-align: middle;" class="me-2">
+                <img src="/public/assets/icon.webp" alt="" height="35px" width="35px" style="vertical-align: middle;" class="me-2">
                 College Notifier
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
+                <?php if ($show_counters && $unsubmitted_count) { ?>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unsubmitted_count ?><span class="visually-hidden">unread messages</span>
+                    </span>
+                <?php } ?>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -99,6 +103,14 @@ if ($show_counters) {
                         } ?>" aria-current="page" href="/">Home</a>
                     </li>
                     <?php
+                    if ($user) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php if ($request == '/student' || $request == '/admin'|| $request == '/department'|| $request == '/batch'|| $request == '/class'|| $request == '/college'|| $request == '/rooms') {
+                            echo 'active';
+                        } ?>" aria-current="page" href="<?php if(isset($user['name']) && $user['type'] == UserTypes::student) { echo "/student"; }
+                         else if(isset($user['name']) && $user['type'] == UserTypes::admin) { echo "/admin"; } ?>">Dashboard</a>
+                    </li>
+                    <?php }
                     if ($user) { ?>
                         <li class="nav-item">
                             <a class="nav-link <?php if ($request == '/my-profile') {
@@ -132,4 +144,4 @@ if ($show_counters) {
         </div>
     </nav>
 
-    <div class="d-flex align-items-center flex-column px-4 pt-2 pb-4" style="min-height: calc(100vh - 56px);">
+    <div class="d-flex align-items-center flex-column px-md-4 pt-2 pb-4" style="min-height: calc(100vh - 56px);">

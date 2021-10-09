@@ -38,41 +38,41 @@ $students = $RoomMapper->get_all_students_in_room($query_params['cid'], $query_p
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch"
-                        type="button" role="tab" aria-controls="batch" aria-selected="true">Faculties</button>
+                    <button class="nav-link active" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
+                        type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students"
-                        type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
+                    <button class="nav-link" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch"
+                        type="button" role="tab" aria-controls="batch" aria-selected="true">Faculties</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="batch" role="tabpanel" aria-labelledby="batch-tab">
+                <div class="tab-pane fade" id="batch" role="tabpanel" aria-labelledby="batch-tab">
                     <div class="row p-1 align-items-end">
                         <div class="col-12 d-flex justify-content-between align-items-center">
                             <h5 class="p-0 m-0">Faculties Here</h5>
                             <span>
-                                <a href="batch/create?<?php echo $url_with_query_params ?>"
+                                <!-- <a href="batch/create?<?php echo $url_with_query_params ?>"
                                     class="btn btn-outline-primary rounded rounded-pill btn-sm"
                                     class="btn btn-info strong">
                                     Create <i class="bi bi-plus-lg"></i>
-                                </a>
+                                </a> -->
                             </span>
                         </div>
                     </div>
                     <ul class="list-group">
-                        <!-- <?php foreach ($batches as $batch) {
-                            echo "
-                        <li class='list-group-item d-flex justify-content-between align-items-center'>
-                            <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
-                                <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
-                            </a>
-                        </li>
-                        ";
-                        } ?> -->
+                        <!-- <?php //foreach ($batches as $batch) {
+                            //echo "
+                       // <li class='list-group-item d-flex justify-content-between align-items-center'>
+                       //     <a href='batch?bid={$batch['id']}&{$url_with_query_params}' style='text-decoration:none' class='strong stretched-link'>
+                       //         <div class='h6 d-block text-truncate'><i class='fas fa-graduation-cap me-1'></i>{$batch['start_year']} - {$batch['end_year']} Batch</div>
+                       //     </a>
+                       // </li>
+                       // ";
+                       // } ?> -->
                     </ul>
                 </div>
-                <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
             </div>

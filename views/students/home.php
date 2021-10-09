@@ -11,6 +11,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/get_user.php';
 if (!isset($_COOKIE[CookieNames::student])) {
    die( header('Location:student/login'));
 } else {
+    authorize_student();
     $student = get_current_logged_user();
     if (!(isset($student['type']) && $student['type'] == 'student')) {
         $error_mess = 'Error verifying student, Please logout and login again';
