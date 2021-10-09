@@ -258,7 +258,7 @@
 <body class="loading">
     <h1>Error 404</h1>
     <h2>
-        The page you are looking for is not found. Please Go Back<br>
+        The page you are looking for is not found. Please Retry or Go Back<br>
         <a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a><br>
         <a href='javascript:void(0)' onclick="window.location = '/'">Click here to Go Home</a>
     </h2>

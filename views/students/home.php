@@ -176,7 +176,7 @@ $students = array_filter($students, function($s) {
                 <div class="tab-pane fade" id="batch" role="tabpanel" aria-labelledby="batch-tab">
                     <div class="row p-1 align-items-end">
                         <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h5 class="p-0 m-0">Faculties Here</h5>
+                            <h5 class="p-0 m-0">Faculties Feature is Coming Soon!</h5>
                             <!-- <span>
                                 <a href="batch/create?<?php echo $url_with_query_params ?>" class="btn btn-outline-primary rounded rounded-pill btn-sm" class="btn btn-info strong">
                                     Create <i class="bi bi-plus-lg"></i>

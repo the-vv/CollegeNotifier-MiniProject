@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
 
 function custom_error_handler($errno, $errstr, $errfile, $errline)
 {
-    ob_end_clean();
+    if (ob_get_contents()) ob_clean();
     if (!FeatureConfigurations::production_mode) {
         $error_mess = $errstr . "<br>" . $errfile . ", line " . $errline . "<br>";
     } else {
@@ -269,11 +269,11 @@ switch ($request) {
 
         // Routing Ends with 404 here
     case '/404':
-        ob_end_clean();
+        if (ob_get_contents()) ob_clean();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/fullscreen_error_404.php';
         die();
     default:
-        ob_end_clean();
+        if (ob_get_contents()) ob_clean();
         http_response_code(404);
         require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/fullscreen_error_404.php';
         break;
