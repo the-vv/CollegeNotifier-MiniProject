@@ -260,7 +260,7 @@
     <h2>
         The page you are looking for is not found. Please Retry or Go Back<br>
         <a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a><br>
-        <a href='javascript:void(0)' onclick="window.location = '/'">Click here to Go Home</a>
+        <a href='javascript:void(0)' onclick="window.location.href = '/'">Click here to Go Home</a>
     </h2>
     <div class="gears">
         <div class="gear one">
