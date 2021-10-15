@@ -14,7 +14,7 @@ $create_query = "CREATE TABLE IF NOT EXISTS $submission_table (
     from_user_id INT(6) UNSIGNED NOT NULL,
     from_user_type VARCHAR(200) NOT NULL,
     submission_time INT(15) NOT NULL
-    )"; 
+    )";
 if (!mysqli_query($connection, $create_query)) {
     echo "Error creating Table $submission_table" . mysqli_error($connection);
     die();
@@ -50,16 +50,19 @@ function create_submission($title = '', $data = '', $form_id = '', $from = '', $
         if (!$safeQuery->execute()) {
             echo "Error Creating submission Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
+        } else {
+            echo "Error updating submission Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occured");
         }
         $safeQuery->close();
     } else {
         echo "Error Creating submission Error: " . mysqli_error($connection);
         return array("error" => true, "message" => "Unknown Error occured");
     }
-    return array("success" => true, "message" => "submission created successfully");
+    return array("success" => true, "message" => "Submission Created successfully");
 }
 
-function update_submission_by_id($subId = '',$title = '', $data = '', $form_id = '', $from = '', $from_type = '', $time)
+function update_submission_by_id($subId = '', $title = '', $data = '', $form_id = '', $from = '', $from_type = '', $time)
 {
     global $submission_table, $connection;
     $query = "UPDATE $submission_table
@@ -67,7 +70,7 @@ function update_submission_by_id($subId = '',$title = '', $data = '', $form_id =
             WHERE id= ?
         ";
     if ($safeQuery = mysqli_prepare($connection, $query)) {
-        if (!$safeQuery->bind_param('sssssss', $title, $data, $form_id, $from, $from_type, $subId, $time)) {
+        if (!$safeQuery->bind_param('sssssss', $title, $data, $form_id, $from, $from_type, $time, $subId)) {
             echo "Error updating submission values Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
         }
@@ -80,7 +83,7 @@ function update_submission_by_id($subId = '',$title = '', $data = '', $form_id =
         echo "Error updating submission Error: " . mysqli_error($connection);
         return array("error" => true, "message" => "Unknown Error occured");
     }
-    return array("success" => true, "message" => "submission created successfully");
+    return array("success" => true, "message" => "Submission Updated successfully");
 }
 
 function delete_submission_by_id($subId = '')
@@ -95,13 +98,16 @@ function delete_submission_by_id($subId = '')
         if (!$safeQuery->execute()) {
             echo "Error deleting submission Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
+        } else {
+            echo "Error updating submission Error: " . mysqli_error($connection);
+            return array("error" => true, "message" => "Unknown Error occured");
         }
         $safeQuery->close();
     } else {
         echo "Error deleting submission Error: " . mysqli_error($connection);
         return array("error" => true, "message" => "Unknown Error occured");
     }
-    return array("success" => true, "message" => "submission created successfully");
+    return array("success" => true, "message" => "Submission Deleted successfully");
 }
 
 function get_submission($id)
