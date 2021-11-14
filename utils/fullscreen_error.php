@@ -258,7 +258,10 @@
 <body class="loading">
     <h1>Error 500</h1>
     <h2>
-        <?php echo ($error_mess ?? "Internal Server Error"); ?>. Please Retry or  Go Back <b>:(</b><br><a href='javascript:void(0)' onclick="window.location.reload()">Click here to retry</a><br><a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a>
+        <?php echo ($error_mess ?? "Internal Server Error"); ?>
+        . Please Retry or  Go Back <b>:(</b><br><a href='javascript:void(0)' onclick="window.location.reload()">
+        Click here to retry</a><br>
+        <a href='javascript:void(0)' onclick="window.history.back()">Click here to Go Back</a>
     </h2>
     <div class="gears">
         <div class="gear one">

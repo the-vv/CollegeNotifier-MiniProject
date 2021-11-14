@@ -6,6 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/student.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/db/room_student_map.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/http.php';
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/send_email_sendgrid.php';
+
 $user = get_current_logged_user();
 
 $cid = $query_params['cid'] ?? 0;
@@ -14,46 +16,20 @@ $bid = $query_params['bid'] ?? 0;
 $clid = $query_params['clid'] ?? 0;
 $rid = $query_params['rid'] ?? 0;
 
-function production_mode_mailer($body)
+function send_event_email($body)
 {
   if (isset($body['to']) && !is_array($body['to'])) {
     $to      = $body['to'] ?? 'vvtec.dev@gmail.com';
     $subject = $body['subject'] ?? 'Mail subject Empty';
     $message = $body['body'] ?? 'Mail body Empty';
-
-    $headers = "From: vvtec.dev@gmail.com" . "\r\n";
-    $headers .= 'Reply-To: vvtec.dev@gmail.com' . "\r\n";
-    $headers .= "CC: " . ($body['admin'] ?? 'vvtec.dev@gmail.com') . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-    $result = mail($to, $subject, $message, $headers);
-    if ($result) {
-      echo json_encode(array('success' => true, 'message' => 'Email has been sent successfully'));
-    } else {
-      echo json_encode(array('success' => false, 'message' => 'Error sending emails'));
-    }
-  } elseif (isset($body['to']) && is_array($body['to'])) {
+  } 
+  elseif (isset($body['to']) && is_array($body['to'])) {
     $recipients = array();
     foreach ($body['to'] as $send_to) {
       array_push($recipients, $send_to);
     }
-    $to = implode(',', $recipients);
     $subject = $body['subject'] ?? 'Mail subject Empty';
     $message = $body['body'] ?? 'Mail body Empty';
-
-    $headers = "From: vvtec.dev@gmail.com" . "\r\n";
-    $headers .= 'Reply-To: vvtec.dev@gmail.com' . "\r\n";
-    $headers .= "CC: " . ($body['admin'] ?? 'vvtec.dev@gmail.com') . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-    $result = mail($to, $subject, $message, $headers);
-    if ($result) {
-      return array('success' => true, 'message' => 'Email has been sent successfully');
-    } else {
-      return array('success' => false, 'message' => 'Error sending emails');
-    }
   }
 }
 
@@ -79,17 +55,9 @@ function send_email($event_title, $user, $event_type)
     "mail" => true,
     "subject" => "New " . ($event_type ? 'Event ' : 'Notification ') . "has been published, College Notifier",
     "to" => $to_mails,
-    "body" => "<h1>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h1><h2><a href='http://localhost:3000/student'>Click here to view</a></h2>"
+    "body" => "<h3>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h3><h5><a href='http://localhost:3000/student'>Click here to view</a></h5>"
   );
-  if(FeatureConfigurations::production_mode) {
-    $res = production_mode_mailer($body);
-  } else {
-    $result = httpPost("http://localhost/mailer/", $body);
-    $res = json_decode($result);
-    if (is_object($res)) {
-      $res = get_object_vars($res);
-    }
-  }
+  $res = send_emails($body['subject'], $body['body'], $body['to']);
   if (!isset($res['success'])) {
     $error_mess = "Error Sending Email";
     require $_SERVER['DOCUMENT_ROOT'] . '/utils/show_error.php';
