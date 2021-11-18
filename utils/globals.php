@@ -69,5 +69,5 @@ abstract class FeatureConfigurations {
 }
 
 abstract class ApiKeysConfig {
-    const send_grid_api_key = 'REMOVED';
+    const send_grid_api_key = '';
 }
