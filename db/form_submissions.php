@@ -50,10 +50,7 @@ function create_submission($title = '', $data = '', $form_id = '', $from = '', $
         if (!$safeQuery->execute()) {
             echo "Error Creating submission Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
-        } else {
-            echo "Error updating submission Error: " . mysqli_error($connection);
-            return array("error" => true, "message" => "Unknown Error occured");
-        }
+        } 
         $safeQuery->close();
     } else {
         echo "Error Creating submission Error: " . mysqli_error($connection);
@@ -98,10 +95,7 @@ function delete_submission_by_id($subId = '')
         if (!$safeQuery->execute()) {
             echo "Error deleting submission Error: " . $safeQuery->error;
             return array("error" => true, "message" => $safeQuery->error);
-        } else {
-            echo "Error updating submission Error: " . mysqli_error($connection);
-            return array("error" => true, "message" => "Unknown Error occured");
-        }
+        } 
         $safeQuery->close();
     } else {
         echo "Error deleting submission Error: " . mysqli_error($connection);
