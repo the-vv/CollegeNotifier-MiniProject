@@ -10,6 +10,27 @@ if (isset($query_params['fid'])) {
 }
 $submissions = get_submissions_by_formid($query_params['fid']);
 // print_r($submissions);
+
+
+$cid = $query_params['cid'] ?? 0;
+$did = $query_params['did'] ?? 0;
+$bid = $query_params['bid'] ?? 0;
+$clid = $query_params['clid'] ?? 0;
+$rid = $query_params['rid'] ?? 0;
+
+if ($rid) {
+    $mapper = new RoomStudentMap();
+    $students = $mapper->get_all_students_in_room($cid, $rid);
+  } elseif ($clid) {
+    $students = get_students_from_class($clid);
+  } elseif ($bid) {
+    $students = get_students_from_batch($bid);
+  } elseif ($did) {
+    $students = get_students_from_dpt($did);
+  } elseif ($cid) {
+    $students = get_students_from_college($cid);
+  }
+
 ?>
 
 <script src="/jsLibs/form-builder/form-render.min.js"></script>

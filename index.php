@@ -7,9 +7,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
 
 function custom_error_handler($errno, $errstr, $errfile, $errline)
 {
+    if(strpos($errfile, 'spreadsheet-reader-master') !== false) {
+        return;
+    }
     if (ob_get_contents()) ob_clean();
     if (!FeatureConfigurations::production_mode) {
-        $error_mess = $errstr . "<br>" . $errfile . ", line " . $errline . "<br>";
+        $error_mess = $errstr . "<br>" . $errfile . ", line " . $errline . "<br>" . $errno . "<br>";
     } else {
         $error_mess = $errstr;
     }
@@ -64,6 +67,11 @@ if (strlen($url_with_query_params) > 1) {
 
 $request = explode('?', $request)[0];
 // Use variable $query_params for query params
+
+//check if last charecter of request is '/', then remove '/'
+if(strlen($request) > 1 && $request[strlen($request) - 1] == '/') {
+    $request = substr($request, 0, strlen($request) - 1);
+}
 
 // Api Routing Begins here 
 if (strpos($request, 'services') == 1) {

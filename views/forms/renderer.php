@@ -68,7 +68,7 @@ function checkValidity() {
 }
 
 let options = {
-    formData: '<?php echo ($submission['user_data'] ?? ($formdata['content'] ?? '[]'))?>'
+    formData: `<?php echo ($submission['user_data'] ?? ($formdata['content'] ?? '[]'))?>`
 }
 const formRender = $('#render_wrap').formRender(options);
 

@@ -4,26 +4,28 @@
             <h2 class="text-center"> Create College Authority/ Admin</h2>
             <form class="mt-4" action="admin/submit" method="POST" id="form">
                 <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="">Full Name</label>
+                    <label for="">Full Name *</label>
                     <input type="text" class="form-control" name="name" required placeholder="Full Name">
                 </div>
                 <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="">Email address</label>
-                    <input type="email" class="form-control" name="email" required aria-describedby="emailHelp"
+                    <label for="">Email address *</label>
+                    <input
+                    pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*"
+                    class="form-control" name="email" required aria-describedby="emailHelp"
                         placeholder="Email">
                 </div>
                 <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="">Mobile (Optional)</label>
-                    <input type="number" class="form-control" name="phone" required aria-describedby="emailHelp"
+                    <label for="">Mobile</label>
+                    <input type="number" class="form-control" name="phone" aria-describedby="emailHelp"
                         placeholder="10 digit Mobile number">
                 </div>
                 <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="">Password</label>
+                    <label for="">Password *</label>
                     <input type="password" class="form-control" name="password" id="password" required
                         placeholder="Password">
                 </div>
                 <div class="form-group mx-auto col-md-6 mt-3">
-                    <label for="">Confirm Password</label>
+                    <label for="">Confirm Password *</label>
                     <input type="password" class="form-control" name="cpassword" id="cpassword" required
                         placeholder="Confirm Password">
                     <small id="perror" class="form-text text-danger" style="display: none;">Passwords are not
