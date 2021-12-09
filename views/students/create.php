@@ -107,7 +107,7 @@ $can_create_map = $user['type'] == 'admin' || $user['type'] == 'faculty';
                             <input class="form-control" type="file" id="formFile" class="btn btn-primary" name="students" required>
                         </div>
                     </form>
-                    <div class="text-end"><a href="/uploads/students-template.xlsx" download> Download template Excel
+                    <div class="text-end"><a href="/public/students-template.xlsx" download> Download template Excel
                             here</a></div>
 
                     <div class="mt-3 text-secondary">*Each Students will be added to College Students list & Default password will be 123</div>

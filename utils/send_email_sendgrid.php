@@ -41,7 +41,7 @@ function send_emails($subject, $body, $to) {
         if($response->statusCode() == 202) {
             return array('success' => true, 'message' => 'Email(s) has been sent successfully');
         } else {
-            return array('success' => false, 'message' => 'Email has not been sent successfully');
+            return array('success' => false, 'message' => 'Error Sending Email');
         }
     } catch (Exception $e) {
         // echo 'Caught exception: '. $e->getMessage() ."\n";        

@@ -1,10 +1,5 @@
-# Pending Changes
-- Verify login using cookie on main index, otherwise redirect
-- Preview Source of event/notification
-
-
 ## Student Home
-- Render class mates, room mates and faculties for each room and classes
+- Render class mates and faculties for each room and classes
 - List Faculty
 - Divide each room into sections
 - Divide students into class and each rooms
@@ -12,4 +7,3 @@
 ## Required Additions
 - Add Faculty Login
 - Add Parents Login
-- Profile Forms

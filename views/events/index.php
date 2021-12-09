@@ -27,6 +27,7 @@ if ($room_to_add == 'College') {
 // echo "<pre>";
 // print_r($events);
 // echo "</pre>";
+array_multisort(array_column($events, 'sendtime'), SORT_DESC, $events);
 
 function eventItem($e)
 { ?>

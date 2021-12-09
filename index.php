@@ -224,6 +224,7 @@ switch ($request) {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/rooms.php';
         break;
     case '/events/create':
+        authorize_admin();
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/create.php';
         break;
     case '/events/submit':

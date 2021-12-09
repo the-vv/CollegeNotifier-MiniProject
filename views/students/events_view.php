@@ -33,9 +33,12 @@ if ($clid) {
 
 $allEvents = array_merge($collegeEvents, $dptEvents, $batchEvents, $classEvents, $roomEvents);
 
+
+array_multisort(array_column($allEvents, 'sendtime'), SORT_DESC, $allEvents);
 // echo "<pre>";
 // print_r($allEvents);
 // echo "</pre>";
+
 function eventItem($e)
 { 
     global $student;

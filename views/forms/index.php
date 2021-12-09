@@ -52,7 +52,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/db/form_submissions.php';
                 </div>
             </a>
             <span>
-            <a href='/forms/submissions?fid={$form['id']}' type='button'
+            <a href='/forms/submissions?fid={$form['id']}&{$url_with_query_params}' type='button'
                     class='btn btn-sm btn-primary m-0 border border-dark ms-1 position-relative'>
             ";
             if($submissions_count) { ?><span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $submissions_count ?? 0 ?><span class="visually-hidden">unread messages</span></span><?php }
