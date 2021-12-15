@@ -65,7 +65,7 @@ abstract class LevelTypes
 abstract class FeatureConfigurations {
     const allow_multiple_colleges = false;
     const send_event_create_emails = true;
-    const production_mode = false;    
+    const production_mode = true;    
 }
 
 abstract class ApiKeysConfig {

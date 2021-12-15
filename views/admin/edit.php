@@ -16,7 +16,7 @@ if (!isset($admin)) {
                 <div class="form-group mx-auto col-md-6 mt-3">
                     <label for="">Email address</label>
                     <input type="email" class="form-control" name="email" required aria-describedby="emailHelp"
-                        placeholder="Email" value="<?php echo $admin['email'] ?>">
+                        placeholder="Email" value="<?php echo $admin['email'] ?>" readonly>
                 </div>
                 <div class="form-group mx-auto col-md-6 mt-3">
                     <label for="">Mobile</label>

@@ -1,7 +1,6 @@
 <?php
 
 ob_start();
-
 // Global Constant Variables
 require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/globals.php';
 

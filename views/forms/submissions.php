@@ -78,7 +78,7 @@ if ($rid) {
                             <div id="render_wrap_<?php echo $submission['id'] ?>"></div>
                             <script>
                             $('#render_wrap_<?php echo $submission['id'] ?>').formRender({
-                                formData: '<?php echo $submission['user_data'] ?>'
+                                formData: `<?php echo $submission['user_data'] ?>`
                             })
                             </script>
                         </div>

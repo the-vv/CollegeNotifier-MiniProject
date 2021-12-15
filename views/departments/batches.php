@@ -11,7 +11,6 @@ $college = get_college($query_params['cid'])[0];
 $department = get_dpt($query_params['did'])[0];
 $batches = get_batches($college['id'], $department['id']);
 $students = get_students_from_dpt($query_params['did']);
-// print_r($batches);
 ?>
 
 
@@ -26,15 +25,15 @@ $students = get_students_from_dpt($query_params['did']);
     </ol>
     <?php if ($user['type'] == 'admin') {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/views/admininstration/index.php';
-    }?>
+    } ?>
     <div class="row mb-5">
         <div class="col-12">
             <div class="h4 text-center mb-3 mt-3">
                 <?php echo $department['dpt_name'] ?> Dashboard
             </div>
-        </div>        
+        </div>
         <div class="col-md-8">
-            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php'?>
+            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/events/index.php' ?>
         </div>
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -47,8 +46,8 @@ $students = get_students_from_dpt($query_params['did']);
                         type="button" role="tab" aria-controls="students" aria-selected="false">Students</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms"
-                        type="button" role="tab" aria-controls="forms" aria-selected="false">Forms</button>
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#forms" type="button"
+                        role="tab" aria-controls="forms" aria-selected="false">Forms</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -74,11 +73,11 @@ $students = get_students_from_dpt($query_params['did']);
                                 </a>
                             </li>
                             ";
-                        }?>
+                        } ?>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php';?>
+                    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/students/list.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
                     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/views/forms/index.php'; ?>

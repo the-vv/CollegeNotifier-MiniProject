@@ -55,7 +55,7 @@ function send_email($event_title, $user, $event_type)
     "mail" => true,
     "subject" => "New " . ($event_type ? 'Event ' : 'Notification ') . "has been published, College Notifier",
     "to" => $to_mails,
-    "body" => "<h3>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h3><h5><a href='http://localhost:3000/student'>Click here to view</a></h5>"
+    "body" => "<h3>New " . ($event_type ? 'Event ' : 'Notification ') . "Titled \"" . $event_title . "\" has been published by " . $user['type'] . " " . $user['name'] . "</h3><h5><a href='http://" . $_SERVER['HTTP_HOST'] . "/student'>Click here to view</a></h5>"
   );
   $res = send_emails($body['subject'], $body['body'], $body['to']);
   if (!isset($res['success'])) {

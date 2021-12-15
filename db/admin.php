@@ -50,21 +50,21 @@ function update_admin($name = '', $email = '', $phone = '', $admin_password)
     global $TableName, $connection;
     if ($admin_password) {
         $query = "UPDATE $TableName SET
-            name = ?, email = ?, phone = ?, admin_password = ?
+            name = ?, phone = ?, admin_password = ?
             ";
     } else {
         $query = "UPDATE $TableName SET
-            name = ?, email = ?, phone = ?
+            name = ?, phone = ?
             ";
     }
     if ($safeQuery = mysqli_prepare($connection, $query)) {
         if ($admin_password) {
-            if (!$safeQuery->bind_param('ssss', $name, $email, $phone, $admin_password)) {
+            if (!$safeQuery->bind_param('sss', $name, $phone, $admin_password)) {
                 echo "Error Updating Admin values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
         } else {
-            if (!$safeQuery->bind_param('sss', $name, $email, $phone)) {
+            if (!$safeQuery->bind_param('ss', $name, $phone)) {
                 echo "Error Updating Admin values Error: " . $safeQuery->error;
                 return array("error" => true, "message" => $safeQuery->error);
             }
